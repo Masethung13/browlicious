@@ -1,16 +1,20 @@
 /* ============================================================
-   ABOUT SECTION DESIGN SYSTEM & VARIABLES
-   Supports Seamless Dark and Light Mode Transitions
+   BROWLICIOUS ABOUT SECTION DESIGN SYSTEM
+   - Full Light Theme & Dark Theme Integration
+   - Universal 'melodrama' Serif Typography
+   - Layered Luxury Overlapping Image Cards with Pinch-in Zoom
+   - Fully Responsive for Desktop, Tablet & Mobile Devices
 ============================================================ */
 
+/* 1. Base Variables & Shared Typography */
 .about-section-wrapper {
   position: relative;
   width: 100%;
-  padding: 130px 8% 120px 8%;
+  padding: 120px 6% 130px 6%;
+  box-sizing: border-box;
+  font-family: 'melodrama', Georgia, serif;
   overflow: hidden;
   transition: background-color 0.5s ease, color 0.5s ease;
-  font-family: 'melodrama', Georgia, serif;
-  box-sizing: border-box;
 }
 
 .about-section-wrapper * {
@@ -22,19 +26,18 @@
 .about-section-wrapper.light-theme,
 body.light-theme .about-section-wrapper {
   --about-bg: #FCFBFA;
-  --about-text-main: #1C1B1A;
-  --about-text-dark: #4A443E;
-  --about-text-muted: #78716A;
+  --about-text-main: #18181B;
+  --about-text-muted: #66635E;
   --about-accent-pink: #9B1147;
-  --about-accent-gold: var(--about-accent-pink); /* Unified with accent pink */
-  --about-border: #E8E2D6;
-  --about-border-light: rgba(232, 226, 214, 0.7);
-  --about-card-border: #FAF9F6;
-  --about-btn-border: #1C1B1A;
-  --about-btn-text: #1C1B1A;
-  --about-btn-hover-bg: #1C1B1A;
+  --about-accent-gold: var(--about-accent-pink);
+  --about-border: #E8E4DD;
+  --about-border-light: rgba(232, 228, 221, 0.7);
+  --about-card-border: #FFFFFF;
+  --about-btn-border: #18181B;
+  --about-btn-text: #18181B;
+  --about-btn-hover-bg: #9B1147;
   --about-btn-hover-text: #FFFFFF;
-  --about-botanical-opacity: 0.7;
+  --about-botanical-opacity: 0.25;
 
   background-color: var(--about-bg);
   color: var(--about-text-main);
@@ -45,10 +48,9 @@ body.light-theme .about-section-wrapper {
 body.dark-theme .about-section-wrapper {
   --about-bg: #120718;
   --about-text-main: #FAF9FC;
-  --about-text-dark: #D1C5D8;
   --about-text-muted: #BCAEC3;
   --about-accent-pink: #EC3373;
-  --about-accent-gold: var(--about-accent-pink); /* Unified with accent pink */
+  --about-accent-gold: var(--about-accent-pink);
   --about-border: rgba(236, 51, 115, 0.2);
   --about-border-light: rgba(236, 51, 115, 0.15);
   --about-card-border: #1B0C22;
@@ -73,83 +75,82 @@ body.dark-theme .about-section-wrapper {
 }
 
 /* ============================================================
-   1. SECTION CONTAINER
+   2. BACKGROUND FLOATING BOTANICAL ASSET
 ============================================================ */
-.about-section-container {
-  max-width: 1380px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 5rem;
-  align-items: center;
-  position: relative;
-  z-index: 5;
-}
-
-/* Floating Botanical Background Illustration */
 .about-bg-floating-element {
   position: absolute;
-  top: 10%;
-  left: 2%;
-  width: 380px;
+  top: 5%;
+  right: -5%;
+  width: 420px;
+  height: auto;
   pointer-events: none;
-  z-index: 1;
   opacity: var(--about-botanical-opacity);
-  transform: translateY(20px);
-  animation: gentleBotanicalFloat 8s ease-in-out infinite alternate;
+  z-index: 1;
   transition: opacity 0.5s ease;
 }
 
 .floating-botanical-img {
   width: 100%;
   height: auto;
-  object-fit: contain;
-}
-
-@keyframes gentleBotanicalFloat {
-  0% { transform: translateY(0px) rotate(0deg); }
-  100% { transform: translateY(35px) rotate(2deg); }
-}
-
-/* ============================================================
-   2. LEFT COLUMN (Typography, Text, Button, Counters)
-============================================================ */
-.about-content-column {
-  display: flex;
-  flex-direction: column;
-  max-width: 680px;
-}
-
-/* Heading with Split Line Elegance */
-.about-main-heading {
-  font-family: 'melodrama', Georgia, 'Times New Roman', Times, serif;
-  font-size: clamp(2.2rem, 3.8vw, 3.4rem);
-  font-weight: 300;
-  line-height: 1.18;
-  color: var(--about-text-main);
-  letter-spacing: -0.02em;
-  margin-bottom: 2rem;
-  transition: color 0.5s ease;
-}
-
-.heading-line {
   display: block;
 }
 
-/* Description Text */
-.about-description {
-  font-size: 1.05rem;
-  line-height: 1.8;
-  color: var(--about-text-dark);
-  font-weight: 300;
-  margin-bottom: 2.8rem;
-  max-width: 600px;
-  transition: color 0.5s ease;
+/* ============================================================
+   3. SECTION CONTAINER & 2-COLUMN GRID
+============================================================ */
+.about-section-container {
+  max-width: 1380px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.5rem;
+  align-items: center;
 }
 
-/* Rolling Outline CTA Button */
+@media (min-width: 1024px) {
+  .about-section-container {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 5rem;
+  }
+}
+
+/* --- Left Column: Content Area --- */
+.about-content-column {
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-main-heading {
+  font-family: 'melodrama', Georgia, serif;
+  font-size: clamp(2.1rem, 4vw, 3.4rem);
+  font-weight: 300;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: var(--about-text-main);
+  margin: 0 0 1.85rem 0;
+  text-transform: capitalize;
+}
+
+.about-heading-accent {
+  color: var(--about-accent-pink);
+  font-style: italic;
+}
+
+.about-description {
+  font-family: 'melodrama', Georgia, serif;
+  font-size: clamp(0.95rem, 1.25vw, 1.08rem);
+  line-height: 1.8;
+  color: var(--about-text-muted);
+  font-weight: 300;
+  margin: 0 0 2.5rem 0;
+}
+
+/* Pill CTA Button with Rolling Text Hover */
 .about-btn-wrap {
-  margin-bottom: 3.8rem;
+  margin-bottom: 3.5rem;
 }
 
 .about-story-btn {
@@ -157,22 +158,23 @@ body.dark-theme .about-section-wrapper {
   position: relative;
   overflow: hidden;
   text-decoration: none;
-  font-size: 0.75rem;
+  font-size: 0.76rem;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  padding: 0.95rem 2.2rem;
+  padding: 0.85rem 2rem;
   border-radius: 999px;
   border: 1px solid var(--about-btn-border);
   color: var(--about-btn-text);
-  background-color: transparent;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  background: transparent;
+  white-space: nowrap;
+  transition: border-color 0.35s ease, transform 0.35s ease;
 }
 
 .btn-text-normal,
 .btn-text-hover {
   display: block;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-text-hover {
@@ -181,7 +183,7 @@ body.dark-theme .about-section-wrapper {
   left: 0;
   width: 100%;
   text-align: center;
-  padding: 0.95rem 2.2rem;
+  padding: 0.85rem 2rem;
   color: var(--about-btn-hover-text);
   background-color: var(--about-btn-hover-bg);
   border-radius: 999px;
@@ -190,27 +192,18 @@ body.dark-theme .about-section-wrapper {
 .about-story-btn:hover {
   border-color: var(--about-btn-hover-bg);
   transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
-.about-story-btn:hover .btn-text-normal {
-  transform: translateY(-100%);
-}
+.about-story-btn:hover .btn-text-normal { transform: translateY(-100%); }
+.about-story-btn:hover .btn-text-hover { transform: translateY(-100%); }
 
-.about-story-btn:hover .btn-text-hover {
-  transform: translateY(-100%);
-}
-
-/* ============================================================
-   3. STAT COUNTERS ROW
-============================================================ */
+/* --- Stats Counters Row --- */
 .about-stats-row {
   display: flex;
   align-items: center;
-  gap: 2.5rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--about-border-light);
-  transition: border-color 0.5s ease;
+  gap: 2.2rem;
+  flex-wrap: wrap;
 }
 
 .about-stat-item {
@@ -221,70 +214,68 @@ body.dark-theme .about-section-wrapper {
 .stat-number-wrap {
   display: flex;
   align-items: baseline;
-  color: var(--about-text-main);
-  font-family: 'melodrama', Georgia, 'Times New Roman', Times, serif;
   line-height: 1;
-  transition: color 0.5s ease;
 }
 
 .stat-count-value {
-  font-size: clamp(2.4rem, 4vw, 3.2rem);
-  font-weight: 300;
-  letter-spacing: -0.03em;
+  font-family: 'melodrama', Georgia, serif;
+  font-size: clamp(2.4rem, 3.6vw, 3.2rem);
+  font-weight: 400;
+  color: var(--about-text-main);
+  line-height: 1;
 }
 
 .stat-count-suffix {
-  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  font-family: 'melodrama', Georgia, serif;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
   font-weight: 300;
+  color: var(--about-accent-pink);
   margin-left: 2px;
-  color: var(--about-accent-gold);
-  transition: color 0.5s ease;
 }
 
 .stat-item-divider {
-  width: 28px;
+  width: 32px;
   height: 1.5px;
-  background-color: var(--about-accent-gold);
-  margin: 0.65rem 0;
+  background-color: var(--about-accent-pink);
+  margin: 0.6rem 0 0.5rem 0;
   opacity: 0.8;
-  transition: background-color 0.5s ease;
 }
 
 .stat-item-title {
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.16em;
   color: var(--about-text-muted);
   font-weight: 500;
-  transition: color 0.5s ease;
 }
 
 .stat-col-divider {
   width: 1px;
-  height: 60px;
-  background-color: var(--about-border-light);
-  transition: background-color 0.5s ease;
+  height: 48px;
+  background-color: var(--about-border);
+  align-self: center;
 }
 
 /* ============================================================
-   4. RIGHT COLUMN (Layered Overlapping Images with Pinch Zoom)
+   4. RIGHT COLUMN: LAYERED LUXURY OVERLAPPING IMAGES
 ============================================================ */
 .about-images-column {
   display: flex;
   justify-content: center;
-  position: relative;
+  align-items: center;
+  width: 100%;
 }
 
 .layered-images-stage {
   position: relative;
   width: 100%;
-  max-width: 520px;
+  max-width: 500px;
 }
 
 /* Primary Portrait Image */
 .primary-image-card {
   position: relative;
-  width: 82%;
+  width: 84%;
   margin-left: auto;
   border-radius: 16px;
   overflow: hidden;
@@ -304,7 +295,6 @@ body.dark-theme .about-section-wrapper {
   will-change: transform;
 }
 
-/* Advanced Pinch-In Zoom on Hover */
 .primary-image-card:hover .about-img-primary {
   transform: scale(1.1);
 }
@@ -325,8 +315,8 @@ body.dark-theme .about-section-wrapper {
 /* Secondary Overlapping Landscape Image */
 .secondary-image-card {
   position: absolute;
-     bottom: -98px;
-    left: -67px;
+  bottom: -45px;
+  left: -35px;
   width: 72%;
   border-radius: 14px;
   overflow: hidden;
@@ -347,7 +337,6 @@ body.dark-theme .about-section-wrapper {
   will-change: transform;
 }
 
-/* Advanced Pinch-In Zoom on Hover */
 .secondary-image-card:hover .about-img-secondary {
   transform: scale(1.12);
 }
@@ -369,9 +358,13 @@ body.dark-theme .about-section-wrapper {
 }
 
 /* ============================================================
-   5. RESPONSIVE BREAKPOINTS
+   5. RESPONSIVE BREAKPOINTS (Desktop, Tablet & Mobile)
 ============================================================ */
 @media (max-width: 1024px) {
+  .about-section-wrapper {
+    padding: 100px 5% 110px 5%;
+  }
+
   .about-section-container {
     grid-template-columns: 1fr;
     gap: 4.5rem;
@@ -382,39 +375,45 @@ body.dark-theme .about-section-wrapper {
   }
 
   .layered-images-stage {
-    max-width: 480px;
-    margin: 0 auto;
+    max-width: 440px;
+    margin: 0 auto 1.5rem auto;
   }
 
   .secondary-image-card {
-    left: 0px;
-    bottom: -30px;
+    left: -20px;
+    bottom: -35px;
+    width: 70%;
   }
 }
 
 @media (max-width: 768px) {
   .about-section-wrapper {
-    padding: 90px 6% 80px 6%;
+    padding: 80px 5% 90px 5%;
   }
 
   .about-main-heading {
-    font-size: 2.1rem;
-    margin-bottom: 1.5rem;
+    font-size: 2.2rem;
+    margin-bottom: 1.25rem;
   }
 
   .about-description {
-    font-size: 0.98rem;
-    line-height: 1.75;
-    margin-bottom: 2.2rem;
+    font-size: 0.96rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
   }
 
   .about-btn-wrap {
-    margin-bottom: 2.8rem;
+    margin-bottom: 2.5rem;
   }
 
   .about-stats-row {
-    gap: 1.2rem;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .stat-col-divider {
+    display: none;
   }
 
   .stat-count-value {
@@ -425,27 +424,53 @@ body.dark-theme .about-section-wrapper {
     font-size: 1.5rem;
   }
 
-  .stat-col-divider {
-    display: none;
-  }
-
-  .secondary-image-card {
-    position: static;
-    width: 100%;
-    margin-top: 1.5rem;
-    border: none;
+  .layered-images-stage {
+    max-width: 360px;
+    margin: 0 auto 1.5rem auto;
   }
 
   .primary-image-card {
-    width: 100%;
-    margin-left: 0;
+    width: 86%;
+    margin-left: auto;
+    border-radius: 12px;
+  }
+
+  .secondary-image-card {
+    bottom: -25px;
+    left: -10px;
+    width: 72%;
+    border-radius: 10px;
+    border-width: 3px;
   }
 }
 
 @media (max-width: 480px) {
+  .about-section-wrapper {
+    padding: 65px 4% 80px 4%;
+  }
+
+  .about-main-heading {
+    font-size: 1.85rem;
+  }
+
   .about-stats-row {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .about-stat-item {
     align-items: flex-start;
-    gap: 1.8rem;
+  }
+
+  .layered-images-stage {
+    max-width: 300px;
+    margin: 0 auto 1.5rem auto;
+  }
+
+  .secondary-image-card {
+    bottom: -20px;
+    left: -8px;
+    width: 74%;
+    border-width: 2.5px;
   }
 }

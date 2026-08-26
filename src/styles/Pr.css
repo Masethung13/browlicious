@@ -1,0 +1,387 @@
+/* ============================================================
+   BROWLICIOUS PROMO & CALL-TO-ACTION PARALLAX SECTION
+   - Complete Light Theme & Dark Theme Integration
+   - Universal 'melodrama' Serif Typography
+   - Rotating Orbital Halo & Interactive Circular Badge
+   - Unique Hover Effects & Full Responsive Architecture
+============================================================ */
+
+/* 1. Base Variables & Typography */
+.pr-section-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 80vh;
+    box-sizing: border-box;
+    font-family: 'melodrama', Georgia, serif;
+    display: flex;
+    align-items: center;
+    padding: 130px 6%;
+    overflow: hidden;
+
+    /* Hardware-accelerated parallax background */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    transition: background-color 0.5s ease;
+}
+
+.pr-section-wrapper * {
+    font-family: 'melodrama', Georgia, serif;
+    box-sizing: border-box;
+}
+
+/* Light Theme Variables */
+.pr-section-wrapper.light-theme,
+body.light-theme .pr-section-wrapper {
+    --pr-overlay-bg: linear-gradient(105deg,
+            rgba(255, 255, 255, 0.72) 0%,
+            rgba(255, 255, 255, 0.42) 52%,
+            rgba(255, 255, 255, 0.12) 100%);
+    --pr-overlay-blur: blur(2px);
+    /* Slight subtle blur in light theme */
+    --pr-text-main: #18181B;
+    --pr-text-muted: #423E38;
+    --pr-accent-pink: #9B1147;
+    --pr-accent-pink-glow: rgba(155, 17, 71, 0.35);
+
+    --pr-badge-bg: rgba(255, 255, 255, 0.85);
+    --pr-badge-border: rgba(24, 24, 27, 0.3);
+    --pr-badge-text: #18181B;
+    --pr-badge-sub: #666056;
+    --pr-badge-hover-bg: #9B1147;
+    --pr-badge-hover-text: #FFFFFF;
+    --pr-ring-color: rgba(155, 17, 71, 0.45);
+    --pr-shadow: 0 20px 50px rgba(155, 17, 71, 0.2);
+}
+
+/* Dark Theme Variables */
+.pr-section-wrapper.dark-theme,
+body.dark-theme .pr-section-wrapper {
+    --pr-overlay-bg: linear-gradient(105deg,
+            rgba(18, 7, 24, 0.82) 0%,
+            rgba(18, 7, 24, 0.55) 52%,
+            rgba(18, 7, 24, 0.22) 100%);
+    --pr-overlay-blur: blur(2px);
+    /* Slight subtle blur in dark theme */
+    --pr-text-main: #FAF9FC;
+    --pr-text-muted: #D8CDE0;
+    --pr-accent-pink: #EC3373;
+    --pr-accent-pink-glow: rgba(236, 51, 115, 0.45);
+
+    --pr-badge-bg: rgba(27, 12, 34, 0.8);
+    --pr-badge-border: rgba(236, 51, 115, 0.4);
+    --pr-badge-text: #FAF9FC;
+    --pr-badge-sub: #BCAEC3;
+    --pr-badge-hover-bg: #EC3373;
+    --pr-badge-hover-text: #FFFFFF;
+    --pr-ring-color: rgba(236, 51, 115, 0.55);
+    --pr-shadow: 0 20px 60px rgba(236, 51, 115, 0.35);
+}
+
+/* Background Overlay for Maximum Text Legibility */
+.pr-section-overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--pr-overlay-bg);
+    backdrop-filter: var(--pr-overlay-blur);
+    -webkit-backdrop-filter: var(--pr-overlay-blur);
+    z-index: 1;
+    transition: background 0.5s ease, backdrop-filter 0.5s ease;
+}
+
+/* Container */
+.pr-section-container {
+    max-width: 1380px;
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+    align-items: center;
+    position: relative;
+    z-index: 5;
+}
+
+@media (min-width: 1024px) {
+    .pr-section-container {
+        grid-template-columns: 1.18fr 0.82fr;
+        gap: 5rem;
+    }
+}
+
+/* ============================================================
+   2. CONTENT LAYOUT (Left Side)
+============================================================ */
+.pr-content-left {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.pr-eyebrow-tag {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    font-weight: 700;
+    color: var(--pr-accent-pink);
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.pr-main-title {
+    font-family: 'melodrama', Georgia, serif;
+    font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+    line-height: 1.15;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    color: var(--pr-text-main);
+    margin: 0 0 1.85rem 0;
+    text-transform: uppercase;
+}
+
+.pr-title-accent {
+    color: var(--pr-accent-pink);
+    font-weight: 600;
+    font-style: italic;
+    display: inline-block;
+    transition: text-shadow 0.4s ease;
+}
+
+.pr-section-wrapper:hover .pr-title-accent {
+    text-shadow: 0 0 20px var(--pr-accent-pink-glow);
+}
+
+.pr-description {
+    font-family: 'melodrama', Georgia, serif;
+    font-size: clamp(0.96rem, 1.3vw, 1.1rem);
+    line-height: 1.8;
+    color: var(--pr-text-muted);
+    max-width: 660px;
+    font-weight: 300;
+    margin: 0;
+}
+
+/* ============================================================
+   3. INTERACTIVE ORBITAL APPOINTMENT BADGE (Right Side)
+============================================================ */
+.pr-content-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.pr-appointment-badge-wrapper {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Rotating Dashed Orbital Halo */
+@keyframes spinOrbit {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.pr-orbital-ring-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--pr-ring-color);
+    animation: spinOrbit 24s linear infinite;
+    pointer-events: none;
+    transition: transform 0.5s ease, color 0.4s ease;
+}
+
+.pr-appointment-badge-wrapper:hover .pr-orbital-ring-svg {
+    animation: spinOrbit 7s linear infinite;
+    color: var(--pr-accent-pink);
+    transform: scale(1.05);
+}
+
+/* Core Circular Interactive Badge Link */
+.pr-appointment-badge {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 1px solid var(--pr-badge-border);
+    background: var(--pr-badge-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--pr-badge-text);
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 2;
+    cursor: pointer;
+}
+
+.pr-appointment-badge:hover {
+    background-color: var(--pr-badge-hover-bg);
+    border-color: var(--pr-badge-hover-bg);
+    color: var(--pr-badge-hover-text);
+    transform: scale(1.09);
+    box-shadow: var(--pr-shadow);
+}
+
+.badge-sub-label {
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--pr-badge-sub);
+    margin-bottom: 4px;
+    font-weight: 600;
+    transition: color 0.35s ease;
+}
+
+.pr-appointment-badge:hover .badge-sub-label {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.badge-text {
+    font-family: 'melodrama', Georgia, serif;
+    font-size: 1.18rem;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+    line-height: 1.1;
+    transition: transform 0.35s ease;
+}
+
+.pr-appointment-badge:hover .badge-text {
+    transform: translateY(-2px);
+}
+
+/* Arrow & Expanding Underline Effect */
+.badge-arrow-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+    position: relative;
+    width: 24px;
+    height: 14px;
+}
+
+.badge-arrow-icon {
+    font-size: 14px;
+    line-height: 1;
+    color: var(--pr-accent-pink);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.35s ease;
+}
+
+.pr-appointment-badge:hover .badge-arrow-icon {
+    color: #FFFFFF;
+    transform: translateX(4px);
+}
+
+/* Background Ripple Pulse on Badge */
+.badge-hover-ripple {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.25) 0%, transparent 70%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.pr-appointment-badge:hover .badge-hover-ripple {
+    opacity: 1;
+}
+
+/* ============================================================
+   4. RESPONSIVE BREAKPOINTS (Desktop, Tablet & Mobile)
+============================================================ */
+@media (max-width: 1024px) {
+    .pr-section-wrapper {
+        padding: 100px 5%;
+        min-height: auto;
+        background-attachment: scroll;
+        /* Smooth mobile performance */
+    }
+
+    .pr-section-container {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+        text-align: center;
+    }
+
+    .pr-content-left {
+        align-items: center;
+        text-align: center;
+    }
+
+    .pr-description {
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 768px) {
+    .pr-section-wrapper {
+        padding: 80px 5%;
+    }
+
+    .pr-main-title {
+        font-size: 2.2rem;
+        margin-bottom: 1.35rem;
+    }
+
+    .pr-description {
+        font-size: 0.96rem;
+        line-height: 1.7;
+    }
+
+    .pr-appointment-badge-wrapper {
+        width: 190px;
+        height: 190px;
+    }
+
+    .pr-appointment-badge {
+        width: 140px;
+        height: 140px;
+    }
+
+    .badge-text {
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .pr-section-wrapper {
+        padding: 65px 4%;
+    }
+
+    .pr-main-title {
+        font-size: 1.85rem;
+    }
+
+    .pr-appointment-badge-wrapper {
+        width: 170px;
+        height: 170px;
+    }
+
+    .pr-appointment-badge {
+        width: 125px;
+        height: 125px;
+    }
+
+    .badge-text {
+        font-size: 0.95rem;
+    }
+}

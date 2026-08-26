@@ -7,10 +7,15 @@ import microbladingImg from "../assets/microblading_treatment.jpg";
 import scalpImg from "../assets/scalp_micropigmentation.jpg";
 import lipImg from "../assets/lip_blushing.jpg";
 import hydraImg from "../assets/hydra_facial.jpg";
+import bbGlowImg from "../assets/bb_glow_treatment.jpg";
+import wingedEyelinerImg from "../assets/winged_eyeliner_treatment.jpg";
+import OmbreImg from "../assets/ombre.png";
+import CombobrowImg from "../assets/ComboBrows.jpg";
+import eyelinerImg from "../assets/Combo.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// 10 Signature Treatments Data with authentic image assets and specific SVG badge categories
+// 12 Signature Treatments Data with authentic image assets and specific SVG badge categories
 const treatmentsData = [
   {
     id: "microblading",
@@ -30,7 +35,7 @@ const treatmentsData = [
     duration: "2.5 - 3 Hours",
     longevity: "1 - 2 Years",
     iconType: "combo",
-    img: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&q=80&w=600"
+    img: CombobrowImg
   },
   {
     id: "ombre-brows",
@@ -40,7 +45,7 @@ const treatmentsData = [
     duration: "2 - 3 Hours",
     longevity: "1 - 2 Years",
     iconType: "powder",
-    img: "https://images.unsplash.com/photo-1583001931096-959e9a1a6223?auto=format&fit=crop&q=80&w=600"
+    img: OmbreImg
   },
   {
     id: "brow-lamination",
@@ -80,7 +85,7 @@ const treatmentsData = [
     duration: "1.5 - 2 Hours",
     longevity: "2 - 3 Years",
     iconType: "eye",
-    img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80"
+    img: eyelinerImg
   },
   {
     id: "skin-rejuvenation",
@@ -111,6 +116,26 @@ const treatmentsData = [
     longevity: "Varies",
     iconType: "skin",
     img: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&q=80&w=600"
+  },
+  {
+    id: "bb-glow-treatment",
+    title: "BB Glow Radiance",
+    category: "SKIN",
+    desc: "Semi-permanent foundation glow for a flawless complexion.",
+    duration: "60 - 75 Mins",
+    longevity: "4 - 6 Months",
+    iconType: "droplet",
+    img: bbGlowImg
+  },
+  {
+    id: "permanent-eyeliner-wing",
+    title: "Winged Eyeliner",
+    category: "EYES",
+    desc: "Smudge-proof customized eyeliner wing and lash contour.",
+    duration: "1.5 - 2 Hours",
+    longevity: "2 - 4 Years",
+    iconType: "eye",
+    img: wingedEyelinerImg
   }
 ];
 
