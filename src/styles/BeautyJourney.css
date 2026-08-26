@@ -1,18 +1,43 @@
 /* ============================================================
-   DESIGN VARIABLES & COLOR PALETTE
+   DESIGN VARIABLES & COLOR PALETTE (Light & Dark Themes)
 ============================================================ */
+.journey-master-wrapper.light-theme,
+body.light-theme .journey-master-wrapper {
+  --journey-bg: #FCFBFA;
+  --journey-pink-accent: #9B1147;
+  /* Signature Berry Magenta */
+  --journey-pink-light: #FFF0F5;
+  /* 100% Solid soft pastel rose */
+  --journey-pink-glow: rgba(155, 17, 71, 0.35);
+  --journey-charcoal: #18181B;
+  --journey-muted-gray: #5C564E;
+  --journey-line-border: #E8E0D7;
+  --journey-node-bg: #FFFFFF;
+  --journey-completed-bg: #FFF0F5;
+  /* Solid fill completely blocks connector line */
+  --journey-completed-text: #9B1147;
+}
+
+.journey-master-wrapper.dark-theme,
+body.dark-theme .journey-master-wrapper {
+  --journey-bg: #120718;
+  --journey-pink-accent: #EC3373;
+  /* Signature Neon Fuchsia */
+  --journey-pink-light: #2D1432;
+  /* 100% Solid dark plum tint */
+  --journey-pink-glow: rgba(236, 51, 115, 0.45);
+  --journey-charcoal: #FAF9FC;
+  --journey-muted-gray: #D1C5D8;
+  --journey-line-border: rgba(255, 255, 255, 0.14);
+  --journey-node-bg: #1A0D22;
+  --journey-completed-bg: #2D1432;
+  /* Solid fill completely blocks connector line */
+  --journey-completed-text: #EC3373;
+}
+
 :root {
-  --journey-bg: #FAF9F6;
-  --journey-pink-accent: #E82E6A;       /* Exact pink from design */
-  --journey-pink-light: rgba(232, 46, 106, 0.12);
-  --journey-charcoal: #1C1B1A;
-  --journey-muted-gray: #7A746E;
-  --journey-line-border: #E8E2D8;
-  
-  --font-serif: Georgia, 'Times New Roman', Times, serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  
+  --font-serif: 'melodrama', Georgia, serif;
+  --font-sans: 'melodrama', Georgia, serif;
   --ease-journey: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
@@ -27,6 +52,8 @@
   overflow-x: hidden;
   margin: 0;
   padding: 0;
+  font-family: 'melodrama', Georgia, serif;
+  transition: background-color 0.5s ease;
 }
 
 .journey-pinned-section {
@@ -36,10 +63,12 @@
   height: 100vh;
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 30% 40% 30%; /* Fullscreen 3-column span */
+  grid-template-columns: 30% 40% 30%;
+  /* Fullscreen 3-column span */
   align-items: center;
   overflow: hidden;
   background-color: var(--journey-bg);
+  transition: background-color 0.5s ease;
 }
 
 /* ============================================================
@@ -65,7 +94,7 @@
   opacity: 0;
   transform: scale(1.06) translate3d(0, 0, 0);
   transition: opacity 0.8s var(--ease-journey),
-              transform 0.9s var(--ease-journey);
+    transform 0.9s var(--ease-journey);
   pointer-events: none;
   display: flex;
   align-items: center;
@@ -90,23 +119,21 @@
 .left-asset-gradient-mask {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to right,
-    transparent 40%,
-    var(--journey-bg) 100%
-  );
+  background: linear-gradient(to right,
+      transparent 35%,
+      var(--journey-bg) 100%);
   pointer-events: none;
+  transition: background 0.5s ease;
 }
 
 .right-asset-gradient-mask {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to left,
-    transparent 40%,
-    var(--journey-bg) 100%
-  );
+  background: linear-gradient(to left,
+      transparent 35%,
+      var(--journey-bg) 100%);
   pointer-events: none;
+  transition: background 0.5s ease;
 }
 
 /* ============================================================
@@ -141,7 +168,7 @@
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s var(--ease-journey),
-              transform 0.6s var(--ease-journey);
+    transform 0.6s var(--ease-journey);
   pointer-events: none;
   display: flex;
   flex-direction: column;
@@ -158,10 +185,10 @@
 /* Title Typography */
 .journey-main-title {
   font-family: var(--font-serif);
-  font-size: clamp(2.4rem, 3.8vw, 3.8rem);
-  font-weight: 400;
+  font-size: clamp(2.2rem, 3.6vw, 3.6rem);
+  font-weight: 300;
   line-height: 1.15;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   margin-bottom: 1.2rem;
 }
 
@@ -173,60 +200,63 @@
 .title-pink-accent {
   color: var(--journey-pink-accent);
   display: block;
+  font-style: italic;
+  font-weight: 600;
 }
 
 .journey-desc-text {
   font-family: var(--font-sans);
-  font-size: 1.05rem;
-  line-height: 1.7;
+  font-size: 1.02rem;
+  line-height: 1.75;
   color: var(--journey-muted-gray);
   max-width: 520px;
   font-weight: 300;
 }
 
 /* ============================================================
-   4. STEPPER TIMELINE & PROGRESS BAR
+   4. STEPPER TIMELINE & PROGRESS BAR (Clean Centered Line Architecture)
 ============================================================ */
 .journey-stepper-container {
   position: relative;
   width: 100%;
-  max-width: 580px;
+  max-width: 600px;
   padding: 1.5rem 0;
   margin-top: 1rem;
 }
 
-/* Stepper Base Gray Line */
+/* Stepper Base Gray Connector Line (Centered exactly on 44px circles) */
 .stepper-track-base {
   position: absolute;
-  top: 36px;
-  left: 20px;
-  right: 20px;
+  top: calc(1.5rem + 22px);
+  left: 22px;
+  right: 22px;
   height: 2px;
   background-color: var(--journey-line-border);
+  transform: translateY(-50%);
   z-index: 1;
 }
 
 /* Pink Filling Active Line */
 .stepper-track-fill {
   position: absolute;
-  top: 36px;
-  left: 20px;
-  right: 20px;
+  top: calc(1.5rem + 22px);
+  left: 22px;
+  right: 22px;
   height: 2px;
   background-color: var(--journey-pink-accent);
-  z-index: 2;
-  transform: scaleX(0);
+  transform: translateY(-50%) scaleX(0);
   transform-origin: left center;
+  z-index: 2;
   transition: transform 0.2s linear;
 }
 
-/* Stepper Nodes Row */
+/* Stepper Nodes Row (Highest z-index so solid badges conceal track lines behind them) */
 .stepper-nodes-row {
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  z-index: 3;
+  z-index: 5;
 }
 
 .stepper-node-item {
@@ -240,35 +270,39 @@
 }
 
 .stepper-node-item:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
-/* Node Circular Badge */
+/* Node Circular Badge (100% Solid Opaque Background) */
 .node-circle-badge {
+  position: relative;
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background-color: #FFFFFF;
+  background-color: var(--journey-node-bg);
+  /* Solid white in light / solid plum in dark */
   border: 1.5px solid var(--journey-line-border);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.4s var(--ease-journey);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  z-index: 6;
 }
 
 .node-number {
   font-family: var(--font-sans);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--journey-muted-gray);
   transition: color 0.3s ease;
+  line-height: 1;
 }
 
 /* Label Below Circle */
 .node-label-text {
   font-family: var(--font-sans);
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 500;
   color: var(--journey-muted-gray);
   margin-top: 0.85rem;
@@ -276,12 +310,23 @@
   transition: color 0.3s ease;
 }
 
-/* --- ACTIVE STEP STATE (Pink Highlight) --- */
+/* --- COMPLETED PAST NODES (Solid Pastel Rose/Plum Background - Blocks line behind) --- */
+.stepper-node-item.node-completed:not(.node-active) .node-circle-badge {
+  border-color: var(--journey-pink-accent);
+  background-color: var(--journey-completed-bg);
+  /* 100% Solid so the line never cuts through the numbers */
+}
+
+.stepper-node-item.node-completed:not(.node-active) .node-number {
+  color: var(--journey-completed-text);
+}
+
+/* --- ACTIVE CURRENT NODE (Glowing Pink Circle) --- */
 .stepper-node-item.node-active .node-circle-badge {
   background-color: var(--journey-pink-accent);
   border-color: var(--journey-pink-accent);
-  box-shadow: 0 6px 20px rgba(232, 46, 106, 0.35);
-  transform: scale(1.12);
+  box-shadow: 0 6px 24px var(--journey-pink-glow);
+  transform: scale(1.14);
 }
 
 .stepper-node-item.node-active .node-number {
@@ -293,16 +338,6 @@
   font-weight: 600;
 }
 
-/* Completed Past Nodes */
-.stepper-node-item.node-completed:not(.node-active) .node-circle-badge {
-  border-color: var(--journey-pink-accent);
-  background-color: var(--journey-pink-light);
-}
-
-.stepper-node-item.node-completed:not(.node-active) .node-number {
-  color: var(--journey-pink-accent);
-}
-
 /* ============================================================
    5. RESPONSIVE BREAKPOINTS (Mobile & Tablet)
 ============================================================ */
@@ -312,14 +347,14 @@
   }
 
   .journey-main-title {
-    font-size: 2.6rem;
+    font-size: 2.5rem;
   }
 }
 
 @media (max-width: 768px) {
   .journey-pinned-section {
     grid-template-columns: 1fr;
-    grid-template-rows: 25% 50% 25%;
+    grid-template-rows: 24% 52% 24%;
     padding: 1rem 0;
   }
 
@@ -330,7 +365,7 @@
 
   .journey-center-content-col {
     grid-row: 2;
-    padding: 1.5rem 1rem;
+    padding: 1.25rem 1rem;
   }
 
   .journey-right-asset-col {
@@ -339,11 +374,11 @@
   }
 
   .left-asset-gradient-mask {
-    background: linear-gradient(to bottom, transparent 40%, var(--journey-bg) 100%);
+    background: linear-gradient(to bottom, transparent 35%, var(--journey-bg) 100%);
   }
 
   .right-asset-gradient-mask {
-    background: linear-gradient(to top, transparent 40%, var(--journey-bg) 100%);
+    background: linear-gradient(to top, transparent 35%, var(--journey-bg) 100%);
   }
 
   .journey-main-title {
@@ -352,6 +387,15 @@
 
   .journey-desc-text {
     font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  /* Centered line adjustment for 36px circles */
+  .stepper-track-base,
+  .stepper-track-fill {
+    top: calc(1.5rem + 18px);
+    left: 18px;
+    right: 18px;
   }
 
   .node-circle-badge {
@@ -360,10 +404,11 @@
   }
 
   .node-number {
-    font-size: 0.75rem;
+    font-size: 0.76rem;
   }
 
   .node-label-text {
-    font-size: 0.68rem;
+    font-size: 0.7rem;
+    margin-top: 0.6rem;
   }
 }

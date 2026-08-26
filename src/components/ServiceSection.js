@@ -13,6 +13,7 @@ import OmbreImg from "../assets/ombre.png";
 import CombobrowImg from "../assets/ComboBrows.jpg";
 import eyelinerImg from "../assets/Combo.jpg";
 
+
 gsap.registerPlugin(ScrollTrigger);
 
 // 12 Signature Treatments Data with authentic image assets and specific SVG badge categories
