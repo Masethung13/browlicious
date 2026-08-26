@@ -1,0 +1,615 @@
+/* ============================================================
+   BROWLICIOUS SIGNATURE SERVICES SECTION DESIGN SYSTEM
+   - Universal 'melodrama' font family across all elements
+   - Dynamic Count Number Animation on Scroll
+   - Staggered Smooth FadeUp Entrance Animations
+   - Advanced Pinch-In Zoom Hover Effect on all images
+   - Complete Light & Dark Theme Support
+============================================================ */
+
+/* 1. Theme Variables Definition */
+.services-section-wrapper {
+  transition: background-color 0.5s ease, color 0.5s ease;
+  width: 100%;
+  padding: 5.5rem 4% 6.5rem 4%;
+  font-family: 'melodrama', Georgia, serif;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ensure universal font inheritance inside services */
+.services-section-wrapper * {
+  font-family: 'melodrama', Georgia, serif;
+  box-sizing: border-box;
+}
+
+/* Light Theme (Direct match to reference image) */
+.services-section-wrapper.light-theme,
+body.light-theme .services-section-wrapper {
+  --svc-bg: #FCFBFA;
+  --svc-text-main: #18181B;
+  --svc-text-muted: #71717A;
+  --svc-text-sub: #52525B;
+  --svc-accent-pink: #9B1147;
+  --svc-accent-pink-hover: #830E3C;
+  --svc-card-bg: #FFFFFF;
+  --svc-card-border: #EFECEF;
+  --svc-card-hover-border: #F7D6E6;
+  --svc-card-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  --svc-card-hover-shadow: 0 16px 36px rgba(155, 17, 71, 0.1);
+  --svc-stats-bg: #FFFFFF;
+  --svc-stats-border: #F0EDF2;
+  --svc-stats-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  --svc-pill-bg: #FFFFFF;
+  --svc-pill-border: #E4E4E7;
+  --svc-pill-text: #3F3F46;
+  --svc-btn-border: #FBCFE8;
+  --svc-btn-bg: transparent;
+  --svc-btn-text: #9B1147;
+  --svc-btn-hover-bg: #9B1147;
+  --svc-btn-hover-text: #FFFFFF;
+  --svc-img-border: #EFECEF;
+  --svc-glow-opacity: 0.15;
+
+  background-color: var(--svc-bg);
+  color: var(--svc-text-main);
+}
+
+/* Dark Theme (Midnight Plum Luxury Aesthetic) */
+.services-section-wrapper.dark-theme,
+body.dark-theme .services-section-wrapper {
+  --svc-bg: #120718;
+  --svc-text-main: #FAF9FC;
+  --svc-text-muted: #BCAEC3;
+  --svc-text-sub: #D1C5D8;
+  --svc-accent-pink: #EC3373;
+  --svc-accent-pink-hover: #D12560;
+  --svc-card-bg: rgba(27, 12, 34, 0.78);
+  --svc-card-border: rgba(236, 51, 115, 0.18);
+  --svc-card-hover-border: rgba(236, 51, 115, 0.55);
+  --svc-card-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  --svc-card-hover-shadow: 0 18px 42px rgba(236, 51, 115, 0.22);
+  --svc-stats-bg: rgba(27, 12, 34, 0.85);
+  --svc-stats-border: rgba(236, 51, 115, 0.22);
+  --svc-stats-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --svc-pill-bg: rgba(27, 12, 34, 0.65);
+  --svc-pill-border: rgba(236, 51, 115, 0.22);
+  --svc-pill-text: #BCAEC3;
+  --svc-btn-border: rgba(236, 51, 115, 0.35);
+  --svc-btn-bg: transparent;
+  --svc-btn-text: #EC3373;
+  --svc-btn-hover-bg: #EC3373;
+  --svc-btn-hover-text: #FFFFFF;
+  --svc-img-border: rgba(236, 51, 115, 0.25);
+  --svc-glow-opacity: 0.35;
+
+  background-color: var(--svc-bg);
+  color: var(--svc-text-main);
+}
+
+/* Smooth hardware accelerated cards */
+.treatment-card-item,
+.practitioner-img-frame,
+.services-left-content,
+.services-toolbar-row {
+  will-change: transform, opacity;
+}
+
+/* ============================================================
+   2. TOP HERO BANNER & STATS
+============================================================ */
+.services-hero-banner {
+  max-width: 1380px;
+  margin: 0 auto 3.5rem auto;
+}
+
+.services-banner-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .services-banner-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 3.5rem;
+  }
+}
+
+.services-left-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.services-eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-weight: 700;
+  color: var(--svc-accent-pink);
+  margin-bottom: 0.85rem;
+  display: block;
+}
+
+.services-main-title {
+  font-family: 'melodrama', Georgia, serif;
+  font-size: clamp(2.3rem, 4vw, 3.6rem);
+  line-height: 1.15;
+  font-weight: 700;
+  color: var(--svc-text-main);
+  margin: 0 0 1.25rem 0;
+  letter-spacing: -0.01em;
+}
+
+.services-title-accent {
+  color: var(--svc-accent-pink);
+  font-style: normal;
+}
+
+.services-subtitle {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--svc-text-sub);
+  max-width: 520px;
+  margin: 0 0 2.25rem 0;
+  font-weight: 300;
+}
+
+/* Rounded Stats Ribbon Card */
+.services-stats-card {
+  background: var(--svc-stats-bg);
+  border: 1px solid var(--svc-stats-border);
+  box-shadow: var(--svc-stats-shadow);
+  border-radius: 16px;
+  padding: 1.1rem 1.4rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  backdrop-filter: blur(12px);
+  transition: all 0.4s ease;
+}
+
+@media (min-width: 640px) {
+  .services-stats-card {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .services-stats-card {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    padding: 1.1rem 1.25rem;
+  }
+}
+
+.stat-card-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.stat-icon-wrapper {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-svg {
+  width: 26px;
+  height: 26px;
+  color: var(--svc-accent-pink);
+}
+
+.stat-info-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-number-val {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--svc-text-main);
+  line-height: 1.1;
+  font-family: 'melodrama', Georgia, serif;
+  display: flex;
+  align-items: baseline;
+  gap: 1px;
+}
+
+.stat-suffix-mark {
+  color: var(--svc-accent-pink);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.stat-label-text {
+  font-size: 10px;
+  color: var(--svc-text-muted);
+  font-weight: 500;
+  white-space: nowrap;
+  margin-top: 2px;
+  text-transform: capitalize;
+  letter-spacing: 0.02em;
+}
+
+/* Practitioner Right Image Banner with Advanced Pinch-In Zoom */
+.services-right-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.practitioner-img-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--svc-img-border);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.services-practitioner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+  will-change: transform;
+}
+
+.practitioner-img-frame:hover .services-practitioner-img {
+  transform: scale(1.08); /* Advanced Pinch-In Zoom */
+}
+
+.img-glow-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 40%, rgba(155, 17, 71, var(--svc-glow-opacity)) 100%);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.practitioner-img-frame:hover .img-glow-overlay {
+  opacity: 1;
+}
+
+/* ============================================================
+   3. FILTERS & SORT TOOLBAR ROW
+============================================================ */
+.services-toolbar-row {
+  max-width: 1380px;
+  margin: 0 auto 2.5rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 1.25rem;
+}
+
+@media (min-width: 860px) {
+  .services-toolbar-row {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.services-filters-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.filter-pill-btn {
+  background: var(--svc-pill-bg);
+  border: 1px solid var(--svc-pill-border);
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--svc-pill-text);
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.filter-pill-btn:hover {
+  border-color: var(--svc-accent-pink);
+  color: var(--svc-accent-pink);
+  transform: translateY(-2px);
+}
+
+.filter-pill-btn.active {
+  background-color: var(--svc-accent-pink);
+  border-color: var(--svc-accent-pink);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(155, 17, 71, 0.28);
+}
+
+/* Sort Dropdown Container */
+.services-sort-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  background: var(--svc-pill-bg);
+  border: 1px solid var(--svc-pill-border);
+  border-radius: 8px;
+  padding: 0.45rem 0.9rem;
+  gap: 0.5rem;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+@media (min-width: 860px) {
+  .services-sort-wrapper {
+    align-self: auto;
+  }
+}
+
+.services-sort-wrapper:hover {
+  border-color: var(--svc-accent-pink);
+  transform: translateY(-1px);
+}
+
+.sort-icon-svg {
+  width: 14px;
+  height: 14px;
+  color: var(--svc-accent-pink);
+  flex-shrink: 0;
+}
+
+.sort-chevron-svg {
+  width: 12px;
+  height: 12px;
+  color: var(--svc-text-muted);
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.services-sort-dropdown {
+  background: transparent;
+  border: none;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--svc-text-main);
+  outline: none;
+  cursor: pointer;
+  padding-right: 2px;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.services-sort-dropdown option {
+  background-color: var(--svc-bg);
+  color: var(--svc-text-main);
+}
+
+/* ============================================================
+   4. SIGNATURE TREATMENT CARDS GRID (5 COLUMNS PER ROW)
+============================================================ */
+.services-cards-grid {
+  max-width: 1380px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 480px) {
+  .services-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .services-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .services-cards-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .services-cards-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.15rem;
+  }
+}
+
+/* Individual Card Structure */
+.treatment-card-item {
+  background: var(--svc-card-bg);
+  border: 1px solid var(--svc-card-border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--svc-card-shadow);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.4s ease, 
+              box-shadow 0.4s ease;
+}
+
+.treatment-card-item:hover {
+  transform: translateY(-6px);
+  border-color: var(--svc-card-hover-border);
+  box-shadow: var(--svc-card-hover-shadow);
+}
+
+/* ============================================================
+   ADVANCED PINCH-IN ZOOM HOVER EFFECT ON ALL IMAGES
+============================================================ */
+.treatment-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background-color: #0b050f;
+  cursor: pointer;
+}
+
+.treatment-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), 
+              filter 0.6s ease;
+  will-change: transform;
+}
+
+/* Smooth Pinch-in Zoom effect on hover */
+.treatment-card-item:hover .treatment-img {
+  transform: scale(1.14); /* Advanced Zoom Hover */
+}
+
+/* Subtle Lens Light Flare on Hover */
+.treatment-lens-flare {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, transparent 60%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.treatment-card-item:hover .treatment-lens-flare {
+  opacity: 1;
+}
+
+/* Top-Right Overlapping Icon Badge */
+.treatment-badge-circle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--svc-accent-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  z-index: 2;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.treatment-card-item:hover .treatment-badge-circle {
+  transform: scale(1.12) rotate(6deg);
+}
+
+.badge-svg-icon {
+  width: 14px;
+  height: 14px;
+  color: #FFFFFF;
+}
+
+/* Card Content Area */
+.treatment-info-wrapper {
+  padding: 14px 14px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.treatment-card-name {
+  font-family: 'melodrama', Georgia, serif;
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: var(--svc-text-main);
+  margin: 0 0 6px 0;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.treatment-card-desc {
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--svc-text-muted);
+  margin: 0 0 12px 0;
+  font-weight: 300;
+  min-height: 34px;
+}
+
+/* Meta Info Row (Duration & Longevity) */
+.treatment-meta-info {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--svc-card-border);
+}
+
+.meta-info-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  color: var(--svc-text-sub);
+  font-weight: 500;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.meta-svg-icon {
+  width: 12px;
+  height: 12px;
+  color: var(--svc-accent-pink);
+  flex-shrink: 0;
+}
+
+/* View Details Action Button with Arrow */
+.treatment-details-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 7px 10px;
+  background: var(--svc-btn-bg);
+  border: 1px solid var(--svc-btn-border);
+  border-radius: 6px;
+  color: var(--svc-btn-text);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+  margin-top: auto;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.treatment-details-btn .btn-arrow {
+  font-size: 11px;
+  line-height: 1;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.treatment-details-btn:hover {
+  background: var(--svc-btn-hover-bg);
+  border-color: var(--svc-btn-hover-bg);
+  color: var(--svc-btn-hover-text);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(155, 17, 71, 0.25);
+}
+
+.treatment-details-btn:hover .btn-arrow {
+  transform: translateX(4px);
+}

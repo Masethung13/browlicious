@@ -1,0 +1,357 @@
+/* ============================================================
+   WHY CHOOSE US SECTION DESIGN SYSTEM
+   - Exact match to reference mockup layout & styling
+   - 6-Card Responsive Slider Carousel (3 Desktop, 2 Tablet, 1 Mobile)
+   - Delicate line-art botanical illustrations & plus crosshairs
+   - Full Light Theme & Dark Theme Integration
+============================================================ */
+
+/* 1. Base Variables & Typography */
+.why-choose-us-section {
+  width: 100%;
+  padding: 120px 6%;
+  font-family: 'melodrama', Georgia, serif;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.why-choose-us-section * {
+  font-family: 'melodrama', Georgia, serif;
+  box-sizing: border-box;
+}
+
+/* Light Theme (Crisp Pure White) */
+.why-choose-us-section.light-theme,
+body.light-theme .why-choose-us-section {
+  --why-bg: #FFFFFF;                  /* Pure White Background */
+  --why-text-main: #1C1B1A;           /* Deep Charcoal */
+  --why-text-muted: #66635E;          /* Refined Muted Gray */
+  --why-border: #E8E5DF;              /* Clean subtle divider lines */
+  --why-border-arrow: #1C1B1A;        /* Arrow button outline */
+  --why-arrow-color: #1C1B1A;         /* Arrow icon color */
+  --why-arrow-hover-bg: #9B1147;      /* Arrow hover background */
+  --why-arrow-hover-text: #FFFFFF;    /* Arrow hover icon */
+  --why-plus-color: #9B1147;          /* Signature Berry Magenta plus symbol */
+  --why-icon-color: #9B1147;          /* Signature Berry Magenta icon */
+  --why-icon-bg: rgba(155, 17, 71, 0.05); /* Soft tinted circle badge */
+  --why-icon-border: rgba(155, 17, 71, 0.15);
+  --why-icon-shadow: rgba(155, 17, 71, 0.18);
+  --why-accent-pink: #9B1147;         /* Signature Berry Magenta highlight */
+  --why-dot-bg: rgba(155, 17, 71, 0.2);
+  --why-dot-active: #9B1147;
+
+  background-color: var(--why-bg);
+  color: var(--why-text-main);
+}
+
+/* Dark Theme (Midnight Plum Luxury) */
+.why-choose-us-section.dark-theme,
+body.dark-theme .why-choose-us-section {
+  --why-bg: #120718;                  /* Midnight Deep Plum */
+  --why-text-main: #FAF9FC;           /* Lavender Alabaster */
+  --why-text-muted: #BCAEC3;          /* Soft Lilac Rose */
+  --why-border: rgba(236, 51, 115, 0.2);
+  --why-border-arrow: rgba(236, 51, 115, 0.4);
+  --why-arrow-color: #FAF9FC;
+  --why-arrow-hover-bg: #EC3373;
+  --why-arrow-hover-text: #FFFFFF;
+  --why-plus-color: #EC3373;
+  --why-icon-color: #EC3373;
+  --why-icon-bg: rgba(236, 51, 115, 0.1);
+  --why-icon-border: rgba(236, 51, 115, 0.28);
+  --why-icon-shadow: rgba(236, 51, 115, 0.35);
+  --why-accent-pink: #EC3373;         /* Hot Neon Pink highlight */
+  --why-dot-bg: rgba(236, 51, 115, 0.25);
+  --why-dot-active: #EC3373;
+
+  background-color: var(--why-bg);
+  color: var(--why-text-main);
+}
+
+/* Container */
+.why-choose-container {
+  max-width: 1380px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 5;
+}
+
+/* ============================================================
+   2. HEADER BLOCK (Grid alignment matching reference)
+============================================================ */
+.why-header-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .why-header-row {
+    grid-template-columns: 4.5fr 7.5fr;
+    gap: 4rem;
+  }
+}
+
+.why-main-title {
+  font-family: 'melodrama', Georgia, serif;
+  font-size: clamp(2rem, 3.8vw, 2.5rem);
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  color: var(--why-text-main);
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.title-accent-span {
+  color: var(--why-accent-pink);
+  font-weight: 400;
+}
+
+.why-narrative-text {
+  font-family: 'melodrama', Georgia, serif;
+  font-size: clamp(0.95rem, 1.25vw, 1.1rem);
+  line-height: 1.7;
+  color: var(--why-text-muted);
+  font-weight: 300;
+  margin: 0;
+  max-width: 650px;
+}
+
+/* Master horizontal divider line */
+.why-divider-line {
+  width: 100%;
+  height: 1px;
+  background-color: var(--why-border);
+  margin-bottom: 5.5rem;
+  transition: background-color 0.5s ease;
+}
+
+/* ============================================================
+   3. SLIDER STAGE WITH OUTLINED ARROWS & PLUS CROSSHAIRS
+============================================================ */
+.why-grid-stage {
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .why-grid-stage {
+    gap: 2.5rem;
+  }
+}
+
+/* Outlined Circular Navigation Arrow Buttons */
+.carousel-arrow-btn {
+  background: transparent;
+  border: 1px solid var(--why-border-arrow);
+  cursor: pointer;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--why-arrow-color);
+  flex-shrink: 0;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.carousel-arrow-btn:hover {
+  background-color: var(--why-arrow-hover-bg);
+  border-color: var(--why-arrow-hover-bg);
+  color: var(--why-arrow-hover-text);
+  transform: scale(1.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.nav-arrow-svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.prev-arrow:hover .nav-arrow-svg { transform: translateX(-2px); }
+.next-arrow:hover .nav-arrow-svg { transform: translateX(2px); }
+
+/* Slider Viewport Window */
+.why-slider-viewport {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+/* Slider Continuous Track */
+.why-slider-track {
+  display: flex;
+  width: 100%;
+  will-change: transform;
+}
+
+/* Individual Slide Card Container */
+.feature-slide-card {
+  flex-shrink: 0;
+  display: flex;
+  position: relative;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* Slide Content Inner Block */
+.feature-slide-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1rem 1.75rem;
+  width: 100%;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.feature-slide-card:hover .feature-slide-inner {
+  transform: translateY(-4px);
+}
+
+/* Line-art Illustration Icon Badge */
+.feature-illustration-box {
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-bottom: 1.85rem;
+  color: var(--why-icon-color);
+  background: var(--why-icon-bg);
+  border: 1px solid var(--why-icon-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem;
+  box-shadow: 0 4px 18px var(--why-icon-shadow);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.4s ease, 
+              border-color 0.4s ease, 
+              background-color 0.4s ease;
+}
+
+.feature-slide-card:hover .feature-illustration-box {
+  transform: scale(1.12) translateY(-2px);
+  border-color: var(--why-accent-pink);
+  box-shadow: 0 8px 25px var(--why-icon-shadow);
+}
+
+.feature-line-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Stacked Serif Title */
+.feature-slide-title {
+  font-family: 'melodrama', Georgia, serif;
+  font-size: clamp(1.2rem, 1.6vw, 1.45rem);
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--why-text-main);
+  margin: 0 0 1.25rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: color 0.35s ease;
+}
+
+.feature-slide-card:hover .feature-slide-title {
+  color: var(--why-accent-pink);
+}
+
+.title-text-line {
+  display: block;
+}
+
+/* Narrative Description */
+.feature-slide-desc {
+  font-family: 'melodrama', Georgia, serif;
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--why-text-muted);
+  font-weight: 300;
+  margin: 0;
+  max-width: 320px;
+}
+
+/* Subtle Plus '+' Symbol Column Seam Divider */
+.slide-seam-divider {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.plus-symbol {
+  font-size: 1.4rem;
+  color: var(--why-plus-color);
+  opacity: 0.75;
+  user-select: none;
+  font-weight: 300;
+  line-height: 1;
+}
+
+/* ============================================================
+   4. PAGINATION DOTS
+============================================================ */
+.why-pagination-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 3.5rem;
+}
+
+.pagination-dot {
+  background: var(--why-dot-bg);
+  border: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.35s ease;
+}
+
+.pagination-dot.active {
+  background-color: var(--why-dot-active);
+  width: 24px;
+  border-radius: 999px;
+}
+
+/* ============================================================
+   5. RESPONSIVE MEDIA QUERIES
+============================================================ */
+@media (max-width: 768px) {
+  .why-choose-us-section {
+    padding: 80px 5%;
+  }
+
+  .why-divider-line {
+    margin-bottom: 3.5rem;
+  }
+
+  .carousel-arrow-btn {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  .slide-seam-divider {
+    display: none;
+  }
+}

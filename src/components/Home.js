@@ -1,20 +1,23 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import bgImage from "../assets/microblading.png"; // ES6 local asset import
 import "../styles/Home.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const BG_IMAGE_URL =
-  "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1920&q=80";
-
-const Home = () => {
+const Home = ({ isDarkMode: parentDarkMode, setIsDarkMode: parentSetIsDarkMode }) => {
   const containerRef = useRef(null);
   const pinWrapperRef = useRef(null);
   const morphImageRef = useRef(null);
   const targetSlotRef = useRef(null);
   const heroContentRef = useRef(null);
   const targetContentRef = useRef(null);
+
+  // Theme State: Controlled by parent or fallback to local state
+  const [localDarkMode, setLocalDarkMode] = useState(false);
+  const isDarkMode = parentDarkMode !== undefined ? parentDarkMode : localDarkMode;
+  const setIsDarkMode = parentSetIsDarkMode || setLocalDarkMode;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -26,13 +29,13 @@ const Home = () => {
 
       if (!pinWrapper || !morphImage || !targetSlot || !heroContent || !targetContent) return;
 
-      // Function to calculate exact relative position with image shifted top: -50px
+      // Calculate relative position with image shifted top: -50px
       const getTargetCoords = () => {
         const wrapperRect = pinWrapper.getBoundingClientRect();
         const slotRect = targetSlot.getBoundingClientRect();
         return {
           x: slotRect.left - wrapperRect.left,
-          y: slotRect.top - wrapperRect.top - 50, // <-- ONLY image position shifted top: -50px
+          y: slotRect.top - wrapperRect.top - 50,
           width: targetSlot.offsetWidth,
           height: targetSlot.offsetHeight,
         };
@@ -90,16 +93,16 @@ const Home = () => {
         0.2
       );
 
-      // Step C: Morph the background image directly into slot position with -50px top offset
+      // Step C: Morph background image directly into target slot position with -50px offset
       tl.to(
         morphImage,
         {
           x: () => getTargetCoords().x,
-          y: () => getTargetCoords().y, // Targets slot with top: -50px offset
+          y: () => getTargetCoords().y,
           width: () => getTargetCoords().width,
           height: () => getTargetCoords().height,
           borderRadius: "999px",
-          boxShadow: "0 12px 35px rgba(0,0,0,0.18)",
+          boxShadow: "0 12px 35px rgba(225,29,116,0.18)",
           duration: 1,
           ease: "power2.inOut",
         },
@@ -132,7 +135,35 @@ const Home = () => {
   }, []);
 
   return (
-    <main className="home-wrapper" ref={containerRef}>
+    <main className={`home-wrapper ${isDarkMode ? "dark-theme" : "light-theme"}`} ref={containerRef} id="home">
+      
+      {/* Floating Theme Toggle Button (Now in Bottom Right Corner) */}
+      <button 
+        onClick={() => setIsDarkMode(!isDarkMode)} 
+        className="theme-toggle-btn"
+        aria-label="Toggle Theme"
+      >
+        {isDarkMode ? (
+          /* Sun Icon */
+          <svg className="theme-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="4.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="4.22" x2="19.78" y2="5.64"></line>
+          </svg>
+        ) : (
+          /* Moon Icon */
+          <svg className="theme-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        )}
+      </button>
+
       {/* ====================================================
           PINNED HERO -> TARGET TRANSITION CONTAINER
       ==================================================== */}
@@ -141,7 +172,7 @@ const Home = () => {
         <div className="morph-image-box" ref={morphImageRef}>
           <div
             className="morph-image-bg"
-            style={{ backgroundImage: `url(${BG_IMAGE_URL})` }}
+            style={{ backgroundImage: `url(${bgImage})` }}
           >
             <div className="image-dark-overlay" />
           </div>
@@ -149,24 +180,24 @@ const Home = () => {
 
         {/* 1. Hero Content Layer */}
         <div className="hero-content-layer" ref={heroContentRef}>
-          <span className="hero-badge">Serava Wellness &amp; Spa</span>
+          <span className="hero-badge">Browlicious — PMU Clinic &amp; Academy</span>
           <h1 className="hero-title">
-            A modern WordPress theme <br />
-            crafted for spas and <br />
-            wellness centers.
+            Excelling in Permanent <br />
+            Makeup ONLY is <br />
+            our MISSION.
           </h1>
           <p className="hero-desc">
-            With curated spa sections and pages, you’ll have everything needed to
-            build a calming, wellness-focused experience.
+            Unlike most other providers who offer multiple beauty services, 
+            we offer exclusive micro-procedures with superior quality and natural elegance.
           </p>
           <div className="hero-stats">
             <div className="stat-item">
-              <span className="stat-number">6</span>
-              <span className="stat-label">Home pages</span>
+              <span className="stat-number">2</span>
+              <span className="stat-label">Chennai Hubs (Anna Nagar &amp; Kelambakkam)</span>
             </div>
             <div className="stat-item">
-              <span className="stat-number">20+</span>
-              <span className="stat-label">Inner pages</span>
+              <span className="stat-number">100%</span>
+              <span className="stat-label">PMU Specialization</span>
             </div>
           </div>
         </div>
@@ -178,50 +209,18 @@ const Home = () => {
               <div className="heading-row">
                 Beauty <em>and</em>
               </div>
-              <div className="heading-row">Wellness</div>
+              <div className="heading-row">Precision</div>
               <div className="heading-row slot-row">
-                {/* Normal natural slot container */}
                 <div className="image-target-slot" ref={targetSlotRef}></div>
-                <span className="text-word">Theme</span>
+                <span className="text-word">Clinic</span>
               </div>
             </h2>
-            <p className="sub-text">for the natural healthy-looking face skin</p>
+            <p className="sub-text">
+              Permanent cosmetics offer you the long-lasting pleasure of effortless, natural elegance.
+            </p>
           </div>
         </div>
       </div>
-
-      {/* ====================================================
-          REST OF THE WEBSITE (Continuous Scrolling)
-      ==================================================== */}
-      <section className="features-section">
-        <div className="features-container">
-          <div className="feature-card">
-            <div className="feature-icon">🌿</div>
-            <h3>Get Free Addons</h3>
-            <p>You will receive all plugins and addons included in this theme for free.</p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon">✨</div>
-            <h3>Clean &amp; Unique Design</h3>
-            <p>The essential factors of the UI/UX design ensure an exquisite experience.</p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon">🌐</div>
-            <h3>Multi Language Support</h3>
-            <p>Switching languages and translating your pages works seamlessly.</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="more-content-section">
-        <div className="more-content-box">
-          <h2>Grow your business with eCommerce</h2>
-          <p>
-            WooCommerce – the most customizable platform for online wellness,
-            spa bookings, and product shops.
-          </p>
-        </div>
-      </section>
     </main>
   );
 };

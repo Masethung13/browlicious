@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Header.css";
+import browliciousLogo from "../assets/browlicious-dark-logo.png";
 
 const NAV_LINKS = [
   { name: "Home", href: "#home", subtitle: "01 / Sanctuary" },
@@ -10,9 +11,7 @@ const NAV_LINKS = [
   { name: "Contact", href: "#contact", subtitle: "06 / Inquiries" },
 ];
 
-const LOGO_TEXT = "SERAVA";
-
-export default function Header() {
+export default function Header({ isDarkMode = false }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -42,12 +41,25 @@ export default function Header() {
     return () => window.removeEventListener("keydown", onKey);
   }, [isMenuOpen]);
 
+  // 3. Smooth Scroll to Home on Logo Click
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    setIsMenuOpen(false);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+    if (window.location.hash) {
+      window.history.pushState(null, "", window.location.pathname);
+    }
+  };
+
   return (
     <>
       {/* ============================================================
           MAIN HEADER WITH RESPONSIVE 3-COLUMN GRID
       ============================================================ */}
-      <header className={`site-header ${isScrolled ? "header-scrolled" : ""}`}>
+      <header className={`site-header ${isScrolled ? "header-scrolled" : ""} ${isDarkMode ? "dark-theme" : "light-theme"}`}>
         <div className="header-container">
           
           {/* Left Column: Menu Button & Search */}
@@ -64,44 +76,42 @@ export default function Header() {
               <span className="menu-toggle-text">Menu</span>
             </button>
 
-            <button className="header-search-btn" aria-label="Search site">
+            {/* <button className="header-search-btn" aria-label="Search site">
               <svg className="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
-            </button>
+            </button> */}
           </div>
 
-          {/* Center Column: Logo */}
+          {/* Center Column: Browlicious Logo */}
           <div className="header-center">
-            <a href="/" className="brand-logo">
-              <span className="logo-main">
-                {LOGO_TEXT.split("").map((char, index) => (
-                  <span
-                    key={index}
-                    className="logo-char"
-                    style={{ "--char-index": index }}
-                  >
-                    {char}
-                  </span>
-                ))}
-              </span>
-              <span className="logo-sub">Beauty &amp; Wellness Spa</span>
+            <a 
+              href="#home" 
+              onClick={handleLogoClick} 
+              className="brand-logo" 
+              aria-label="Browlicious Home"
+            >
+              <img 
+                src={browliciousLogo} 
+                alt="Browlicious PMU Clinic & Academy Logo" 
+                className="brand-logo-img" 
+              />
             </a>
           </div>
 
           {/* Right Column: Phone & CTA */}
           <div className="header-right">
             <div className="appointment-phone">
-              <span className="phone-label">Concierge:</span>
+              <span className="phone-label">Call:</span>
               <a href="tel:6022665755" className="phone-link">
                 (602) 266-5755
               </a>
             </div>
 
             <a href="#book" className="book-cta-btn">
-              <span className="btn-text-default">Book Ritual</span>
-              <span className="btn-text-hover">Book Ritual</span>
+              <span className="btn-text-default">Book Appointment</span>
+              <span className="btn-text-hover">Book Appointment</span>
             </a>
           </div>
 
@@ -111,7 +121,7 @@ export default function Header() {
       {/* ============================================================
           SPLIT & SLIDE SIDEBAR DRAWER
       ============================================================ */}
-      <div className={`menu-drawer-wrapper ${isMenuOpen ? "drawer-open" : ""}`}>
+      <div className={`menu-drawer-wrapper ${isMenuOpen ? "drawer-open" : ""} ${isDarkMode ? "dark-theme" : "light-theme"}`}>
         <div className="drawer-backdrop" onClick={() => setIsMenuOpen(false)} />
 
         <div className="drawer-split-stage">
@@ -132,7 +142,7 @@ export default function Header() {
                 <span className="close-btn-text">Close</span>
               </button>
 
-              <span className="drawer-brand-mark">SERAVA SANCTUARY</span>
+              <span className="drawer-brand-mark">BROWLICIOUS</span>
             </div>
 
             <div className="drawer-navigation-pane">
