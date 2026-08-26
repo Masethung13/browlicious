@@ -7,6 +7,7 @@ import WhyChooseUs from './components/Whychooseus';
 import BeautyJourney from './components/BeautyJourney';
 import Footer from './components/Footer';
 import Pr from './components/Pr';
+import Testimonials from './components/Testimonials';
 
 
 
@@ -34,6 +35,7 @@ function App() {
       <ServiceSection isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
       <BeautyJourney isDarkMode={isDarkMode} />
       <WhyChooseUs isDarkMode={isDarkMode} />
+       <Testimonials isDarkMode={isDarkMode} />
       <Pr isDarkMode={isDarkMode} />
       <Footer isDarkMode={isDarkMode} />
     </div>
