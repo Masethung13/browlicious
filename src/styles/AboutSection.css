@@ -12,13 +12,13 @@
   width: 100%;
   padding: 120px 6% 130px 6%;
   box-sizing: border-box;
-  font-family: 'melodrama', Georgia, serif;
+  font-family: 'Josefin Sans', sans-serif;
   overflow: hidden;
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 .about-section-wrapper * {
-  font-family: 'melodrama', Georgia, serif;
+  font-family: 'Josefin Sans', sans-serif;
   box-sizing: border-box;
 }
 
@@ -124,9 +124,9 @@ body.dark-theme .about-section-wrapper {
 }
 
 .about-main-heading {
-  font-family: 'melodrama', Georgia, serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: clamp(2.1rem, 4vw, 3.4rem);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.18;
   letter-spacing: -0.01em;
   color: var(--about-text-main);
@@ -140,7 +140,7 @@ body.dark-theme .about-section-wrapper {
 }
 
 .about-description {
-  font-family: 'melodrama', Georgia, serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: clamp(0.95rem, 1.25vw, 1.08rem);
   line-height: 1.8;
   color: var(--about-text-muted);
@@ -218,17 +218,17 @@ body.dark-theme .about-section-wrapper {
 }
 
 .stat-count-value {
-  font-family: 'melodrama', Georgia, serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: clamp(2.4rem, 3.6vw, 3.2rem);
-  font-weight: 400;
+  font-weight: 500;
   color: var(--about-text-main);
   line-height: 1;
 }
 
 .stat-count-suffix {
-  font-family: 'melodrama', Georgia, serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: clamp(1.5rem, 2.4vw, 2rem);
-  font-weight: 300;
+  font-weight: 400;
   color: var(--about-accent-pink);
   margin-left: 2px;
 }

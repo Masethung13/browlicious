@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Header.css";
 import browliciousLogo from "../assets/browlicious-dark-logo.png";
+import headerEditorialImg from "../assets/treatment_banner.jpg";
 
 const NAV_LINKS = [
-  { name: "Home", href: "#home", subtitle: "01 / Sanctuary" },
-  { name: "Services", href: "#services", subtitle: "02 / Spa Rituals" },
-  { name: "Academy", href: "#academy", subtitle: "03 / Training" },
-  { name: "Blog", href: "#blog", subtitle: "04 / Journal" },
-  { name: "Locations", href: "#locations", subtitle: "05 / Retreats" },
-  { name: "Contact", href: "#contact", subtitle: "06 / Inquiries" },
+  { name: "Home", href: "#home", subtitle: "01 / Welcome" },
+  { name: "About Us", href: "#about", subtitle: "02 / Our Story" },
+  { name: "Treatments", href: "#services", subtitle: "03 / Signature PMU" },
+  { name: "Beauty Journey", href: "#beauty-journey", subtitle: "04 / The Experience" },
+  { name: "Why Choose Us", href: "#why-choose-us", subtitle: "05 / Master Standards" },
+  { name: "Client Stories", href: "#testimonials", subtitle: "06 / Reviews" },
+  { name: "Contact", href: "#booking", subtitle: "07 / Book Session" },
 ];
 
 export default function Header({ isDarkMode = false }) {
@@ -62,7 +64,7 @@ export default function Header({ isDarkMode = false }) {
       <header className={`site-header ${isScrolled ? "header-scrolled" : ""} ${isDarkMode ? "dark-theme" : "light-theme"}`}>
         <div className="header-container">
           
-          {/* Left Column: Menu Button & Search */}
+          {/* Left Column: Menu Button */}
           <div className="header-left">
             <button
               className="menu-toggle-btn"
@@ -75,13 +77,6 @@ export default function Header({ isDarkMode = false }) {
               </div>
               <span className="menu-toggle-text">Menu</span>
             </button>
-
-            {/* <button className="header-search-btn" aria-label="Search site">
-              <svg className="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-            </button> */}
           </div>
 
           {/* Center Column: Browlicious Logo */}
@@ -104,12 +99,12 @@ export default function Header({ isDarkMode = false }) {
           <div className="header-right">
             <div className="appointment-phone">
               <span className="phone-label">Call:</span>
-              <a href="tel:6022665755" className="phone-link">
-                (602) 266-5755
+              <a href="tel:+918111643210" className="phone-link">
+                +91 81116 43210
               </a>
             </div>
 
-            <a href="#book" className="book-cta-btn">
+            <a href="#booking" className="book-cta-btn">
               <span className="btn-text-default">Book Appointment</span>
               <span className="btn-text-hover">Book Appointment</span>
             </a>
@@ -151,7 +146,7 @@ export default function Header({ isDarkMode = false }) {
                   <div
                     className="nav-menu-item"
                     key={item.name}
-                    style={{ "--item-delay": `${0.25 + index * 0.06}s` }}
+                    style={{ "--item-delay": `${0.25 + index * 0.05}s` }}
                   >
                     <span className="nav-item-num">{item.subtitle}</span>
                     <a
@@ -169,28 +164,27 @@ export default function Header({ isDarkMode = false }) {
 
               <div className="drawer-contact-footer">
                 <div className="footer-meta-block" style={{ "--footer-delay": "0.65s" }}>
-                  <h4 className="meta-title">Sanctuary Address</h4>
+                  <h4 className="meta-title">Clinic Studio Location</h4>
                   <p className="meta-content">
-                    Serava Wellness Center<br />
-                    Madison Avenue, Suite 124, NY<br />
-                    <span className="meta-highlight">+1 (800) 245-9820</span>
+                    Browlicious PMU Clinic &amp; Academy<br />
+                    Luxury Aesthetic Studio, Chennai<br />
+                    <span className="meta-highlight">+91 81116 43210</span>
                   </p>
                 </div>
 
                 <div className="footer-meta-block" style={{ "--footer-delay": "0.75s" }}>
-                  <h4 className="meta-title">Concierge &amp; Inquiries</h4>
+                  <h4 className="meta-title">Consultations &amp; Enquiries</h4>
                   <p className="meta-content">
-                    Email: concierge@seravaspa.com<br />
-                    Private Booking Available
+                    Email: info@browlicious.com<br />
+                    Bespoke PMU Consultations Available
                   </p>
                 </div>
 
                 <div className="footer-meta-block" style={{ "--footer-delay": "0.85s" }}>
-                  <h4 className="meta-title">Hours of Calm</h4>
+                  <h4 className="meta-title">Clinic Working Hours</h4>
                   <p className="meta-content">
-                    Mon - Fri: 9:00 AM - 8:00 PM<br />
-                    Sat: 10:00 AM - 8:00 PM<br />
-                    <span className="meta-highlight">Sun: Private Retreats</span>
+                    Mon - Sat: 10:00 AM - 7:00 PM<br />
+                    <span className="meta-highlight">Sunday: By Prior Appointment</span>
                   </p>
                 </div>
               </div>
@@ -203,20 +197,18 @@ export default function Header({ isDarkMode = false }) {
           <div className="drawer-split-wing right-wing">
             <div className="drawer-editorial-pane">
               <div className="editorial-inner">
-                <span className="editorial-eyebrow">A Sanctuary for the Senses</span>
+                <span className="editorial-eyebrow">THE ART OF PERMANENT BEAUTY</span>
                 <h3 className="editorial-description">
-                  Discover a curated selection of meditative spa rituals designed
-                  to restore equilibrium and elevate vitality.
+                  Master-Level Permanent Makeup &amp; Advanced Aesthetics Tailored for Natural Elegance.
                 </h3>
                 <p className="editorial-sub-description">
-                  Every formulation and touchpoint is harmonized to bring you
-                  radiance, balance, and mindful stillness.
+                  Every brow stroke, lip tone, and contour is mathematically mapped to enhance your unique facial symmetry with certified hypoallergenic mineral pigments.
                 </p>
 
                 <div className="editorial-image-container">
                   <img
-                    src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=1200"
-                    alt="Spa calming environment"
+                    src={headerEditorialImg}
+                    alt="Browlicious PMU Aesthetic Clinic"
                     className="editorial-img"
                   />
                   <div className="image-lens-glow" />

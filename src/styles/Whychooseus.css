@@ -10,7 +10,7 @@
 .why-choose-us-section {
   width: 100%;
   padding: 120px 6%;
-  font-family: 'melodrama', Georgia, serif;
+  font-family: 'Josefin Sans', sans-serif;
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
@@ -18,7 +18,7 @@
 }
 
 .why-choose-us-section * {
-  font-family: 'melodrama', Georgia, serif;
+  font-family: 'Josefin Sans', sans-serif;
   box-sizing: border-box;
 }
 
@@ -97,9 +97,9 @@ body.dark-theme .why-choose-us-section {
 }
 
 .why-main-title {
-  font-family: 'melodrama', Georgia, serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: clamp(2rem, 3.8vw, 2.5rem);
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.12em;
   color: var(--why-text-main);
   text-transform: uppercase;
@@ -109,11 +109,11 @@ body.dark-theme .why-choose-us-section {
 
 .title-accent-span {
   color: var(--why-accent-pink);
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .why-narrative-text {
-  font-family: 'melodrama', Georgia, serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: clamp(0.95rem, 1.25vw, 1.1rem);
   line-height: 1.7;
   color: var(--why-text-muted);
@@ -253,9 +253,9 @@ body.dark-theme .why-choose-us-section {
 
 /* Stacked Serif Title */
 .feature-slide-title {
-  font-family: 'melodrama', Georgia, serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: clamp(1.2rem, 1.6vw, 1.45rem);
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.3;
   color: var(--why-text-main);
   margin: 0 0 1.25rem 0;
@@ -275,7 +275,7 @@ body.dark-theme .why-choose-us-section {
 
 /* Narrative Description */
 .feature-slide-desc {
-  font-family: 'melodrama', Georgia, serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: 0.92rem;
   line-height: 1.75;
   color: var(--why-text-muted);

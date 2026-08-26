@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../styles/ServiceSection.css";
 import bannerImg from "../assets/treatment_banner.jpg";
-import microbladingImg from "../assets/microblading_treatment.jpg";
+import microbladingImg from "../assets/MicrobladingBanner.jpg";
 import scalpImg from "../assets/scalp_micropigmentation.jpg";
 import lipImg from "../assets/lip_blushing.jpg";
 import hydraImg from "../assets/hydra_facial.jpg";
@@ -12,7 +12,7 @@ import wingedEyelinerImg from "../assets/winged_eyeliner_treatment.jpg";
 import OmbreImg from "../assets/ombre.png";
 import CombobrowImg from "../assets/ComboBrows.jpg";
 import eyelinerImg from "../assets/Combo.jpg";
-
+import eyetattoImg from "../assets/EyelinerTattoo.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -56,7 +56,7 @@ const treatmentsData = [
     duration: "1 - 1.5 Hours",
     longevity: "4 - 6 Weeks",
     iconType: "spoolie",
-    img: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=600"
+    img: eyetattoImg
   },
   {
     id: "scalp-micropigmentation",

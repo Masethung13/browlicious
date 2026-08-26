@@ -8,7 +8,7 @@ import treatment1 from "../assets/treatment1.png";
 import treatment2 from "../assets/treatment2.png";
 import specialist1 from "../assets/specialist1.png";
 import specialist2 from "../assets/specialist2.png";
-import data_time1 from "../assets/lip_blushing.jpg";
+import data_time1 from "../assets/date_time1.png";
 import data_time2 from "../assets/date_time2.png";
 import your_details1 from "../assets/treatment_banner.jpg";
 import your_details2 from "../assets/about-pmu-artist.jpg";

@@ -36,8 +36,8 @@ body.dark-theme .journey-master-wrapper {
 }
 
 :root {
-  --font-serif: 'melodrama', Georgia, serif;
-  --font-sans: 'melodrama', Georgia, serif;
+  --font-serif: 'Josefin Sans', sans-serif;
+  --font-sans: 'Josefin Sans', sans-serif;
   --ease-journey: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
@@ -52,7 +52,7 @@ body.dark-theme .journey-master-wrapper {
   overflow-x: hidden;
   margin: 0;
   padding: 0;
-  font-family: 'melodrama', Georgia, serif;
+  font-family: 'Josefin Sans', sans-serif;
   transition: background-color 0.5s ease;
 }
 

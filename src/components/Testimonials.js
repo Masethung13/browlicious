@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay} from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 
 // Swiper core styles
 import "swiper/css";
@@ -11,10 +11,10 @@ const TESTIMONIALS = [
   {
     id: 1,
     name: "Neha Sharma",
-    treatment: "Microblading",
+    treatment: "Microblading Hyper-Realism",
     avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80",
     rating: 5,
-    review: "Amazing experience! My brows look so natural and perfect.",
+    review: "The level of symmetry and precision is extraordinary. My brows look completely natural and wake-up ready every morning.",
   },
   {
     id: 2,
@@ -22,47 +22,51 @@ const TESTIMONIALS = [
     treatment: "Scalp Micropigmentation",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80",
     rating: 5,
-    review: "Very professional team and excellent results.",
+    review: "The hairline blending is undetectable. Masterful practitioner and an ultra-hygienic, relaxing clinical atmosphere.",
   },
   {
     id: 3,
     name: "Priya S.",
-    treatment: "Lip Blushing",
+    treatment: "Lip Blushing Aquarelle",
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
     rating: 5,
-    review: "My lips look so soft and beautiful. Highly recommended!",
+    review: "The custom organic pigment shade matches my undertones perfectly. Soft, luscious, and zero daily lipstick needed!",
   },
   {
     id: 4,
     name: "Ananya Patel",
-    treatment: "HydraFacial Glow",
+    treatment: "BB Glow & HydraFacial",
     avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80",
     rating: 5,
-    review: "The treatment left my skin completely renewed and glowing for weeks.",
+    review: "Left my skin with a luminous glass-skin radiance that lasted for weeks. Truly a 5-star bespoke aesthetic experience.",
   },
   {
     id: 5,
     name: "Vikram Malhotra",
-    treatment: "Beard Contour & Scalp",
+    treatment: "Combo Ombre Brows",
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80",
     rating: 5,
-    review: "Unbelievable attention to detail and a truly relaxing environment.",
+    review: "Unbelievable attention to detail and facial bone structure mapping. Highest recommendation for anyone seeking PMU.",
   },
 ];
 
-export default function Testimonials() {
+export default function Testimonials({ isDarkMode = false }) {
   const swiperRef = useRef(null);
 
   return (
-    <section className="testimonials-section">
+    <section className={`testimonials-section ${isDarkMode ? "dark-theme" : "light-theme"}`} id="testimonials">
       <div className="testimonials-glass-card">
         
-        {/* Header: Title + Link */}
+        {/* Header: Eyebrow + Title + Link */}
         <div className="testimonials-top-bar">
-          <h2 className="testimonials-title">What Our Clients Say</h2>
-          <a href="#all-testimonials" className="view-all-link">
-            <span>View All Testimonials</span>
-            <span className="link-arrow">&gt;</span>
+          <div className="testimonials-title-group">
+            <span className="testimonials-eyebrow">CLIENT STORIES &amp; EXPERIENCES</span>
+            <h2 className="testimonials-title">What Our Clients Say</h2>
+          </div>
+
+          <a href="#services" className="view-all-link">
+            <span>Explore All Treatments</span>
+            <span className="link-arrow">→</span>
           </a>
         </div>
 
@@ -89,7 +93,7 @@ export default function Testimonials() {
             spaceBetween={24}
             slidesPerView={1}
             loop={true}
-            speed={700}
+            speed={750}
             autoplay={{
               delay: 4500,
               disableOnInteraction: false,
@@ -97,8 +101,8 @@ export default function Testimonials() {
             }}
             breakpoints={{
               640: {
-                slidesPerView: 1.5,
-                spaceBetween: 20,
+                slidesPerView: 1.3,
+                spaceBetween: 18,
               },
               768: {
                 slidesPerView: 2,

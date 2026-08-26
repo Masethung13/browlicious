@@ -12,7 +12,7 @@
     width: 100%;
     min-height: 80vh;
     box-sizing: border-box;
-    font-family: 'melodrama', Georgia, serif;
+    font-family: 'Josefin Sans', sans-serif;
     display: flex;
     align-items: center;
     padding: 130px 6%;
@@ -27,7 +27,7 @@
 }
 
 .pr-section-wrapper * {
-    font-family: 'melodrama', Georgia, serif;
+    font-family: 'Josefin Sans', sans-serif;
     box-sizing: border-box;
 }
 
@@ -130,10 +130,10 @@ body.dark-theme .pr-section-wrapper {
 }
 
 .pr-main-title {
-    font-family: 'melodrama', Georgia, serif;
+    font-family: 'Josefin Sans', sans-serif;
     font-size: clamp(2.2rem, 4.2vw, 3.6rem);
     line-height: 1.15;
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: 0.02em;
     color: var(--pr-text-main);
     margin: 0 0 1.85rem 0;
@@ -153,7 +153,7 @@ body.dark-theme .pr-section-wrapper {
 }
 
 .pr-description {
-    font-family: 'melodrama', Georgia, serif;
+    font-family: 'Josefin Sans', sans-serif;
     font-size: clamp(0.96rem, 1.3vw, 1.1rem);
     line-height: 1.8;
     color: var(--pr-text-muted);
@@ -255,10 +255,10 @@ body.dark-theme .pr-section-wrapper {
 }
 
 .badge-text {
-    font-family: 'melodrama', Georgia, serif;
+    font-family: 'Josefin Sans', sans-serif;
     font-size: 1.18rem;
     letter-spacing: 0.06em;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.1;
     transition: transform 0.35s ease;
 }

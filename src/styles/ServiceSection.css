@@ -13,13 +13,13 @@
   width: 100%;
   padding: 120px 6%;
   box-sizing: border-box;
-  font-family: 'melodrama', Georgia, serif;
+  font-family: 'Josefin Sans', sans-serif;
   overflow: hidden;
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 .services-section-wrapper * {
-  font-family: 'melodrama', Georgia, serif;
+  font-family: 'Josefin Sans', sans-serif;
   box-sizing: border-box;
 }
 
@@ -143,10 +143,10 @@ body.dark-theme .services-section-wrapper {
 }
 
 .services-main-title {
-  font-family: 'melodrama', Georgia, serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: clamp(2.1rem, 3.8vw, 3.5rem);
   line-height: 1.15;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--svc-text-main);
   margin: 0 0 1.25rem 0;
   letter-spacing: -0.01em;
@@ -224,7 +224,7 @@ body.dark-theme .services-section-wrapper {
   font-weight: 700;
   color: var(--svc-text-main);
   line-height: 1.1;
-  font-family: 'melodrama', Georgia, serif;
+  font-family: 'Josefin Sans', sans-serif;
   display: flex;
   align-items: baseline;
   gap: 1px;
@@ -531,7 +531,7 @@ body.dark-theme .services-section-wrapper {
 }
 
 .treatment-card-name {
-  font-family: 'melodrama', Georgia, serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: 1.05rem;
   font-weight: 600;
   color: var(--svc-text-main);

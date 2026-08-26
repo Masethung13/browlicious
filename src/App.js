@@ -35,8 +35,8 @@ function App() {
       <ServiceSection isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
       <BeautyJourney isDarkMode={isDarkMode} />
       <WhyChooseUs isDarkMode={isDarkMode} />
-       <Testimonials isDarkMode={isDarkMode} />
       <Pr isDarkMode={isDarkMode} />
+      <Testimonials isDarkMode={isDarkMode} />
       <Footer isDarkMode={isDarkMode} />
     </div>
   );

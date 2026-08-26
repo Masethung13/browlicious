@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../styles/AboutSection.css";
 import aboutPmuArtist from "../assets/about-pmu-artist.jpg";
-import aboutBrowCraft from "../assets/about-brow-craft.jpg";
+import aboutBrowCraft from "../assets/bk1.avif";
 
 gsap.registerPlugin(ScrollTrigger);
 

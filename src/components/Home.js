@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import bgImage from "../assets/microblading.png"; // ES6 local asset import
+import bgImage1 from "../assets/microblading.png";
+import bgImage2 from "../assets/treatment_banner.jpg";
 import "../styles/Home.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -18,6 +19,16 @@ const Home = ({ isDarkMode: parentDarkMode, setIsDarkMode: parentSetIsDarkMode }
   const [localDarkMode, setLocalDarkMode] = useState(false);
   const isDarkMode = parentDarkMode !== undefined ? parentDarkMode : localDarkMode;
   const setIsDarkMode = parentSetIsDarkMode || setLocalDarkMode;
+
+  // Background Slider Auto-Slide State (Loop Mode between 2 images)
+  const [currentBg, setCurrentBg] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentBg((prev) => (prev === 0 ? 1 : 0));
+    }, 4500);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -137,7 +148,7 @@ const Home = ({ isDarkMode: parentDarkMode, setIsDarkMode: parentSetIsDarkMode }
   return (
     <main className={`home-wrapper ${isDarkMode ? "dark-theme" : "light-theme"}`} ref={containerRef} id="home">
       
-      {/* Floating Theme Toggle Button (Now in Bottom Right Corner) */}
+      {/* Floating Theme Toggle Button */}
       <button 
         onClick={() => setIsDarkMode(!isDarkMode)} 
         className="theme-toggle-btn"
@@ -168,12 +179,17 @@ const Home = ({ isDarkMode: parentDarkMode, setIsDarkMode: parentSetIsDarkMode }
           PINNED HERO -> TARGET TRANSITION CONTAINER
       ==================================================== */}
       <div className="pinned-showcase-wrapper" ref={pinWrapperRef}>
-        {/* Morphing Image Box */}
+        {/* Morphing Image Box with 2-Image Auto Slider */}
         <div className="morph-image-box" ref={morphImageRef}>
-          <div
-            className="morph-image-bg"
-            style={{ backgroundImage: `url(${bgImage})` }}
-          >
+          <div className="morph-image-bg">
+            <div
+              className={`hero-bg-slide ${currentBg === 0 ? "active" : ""}`}
+              style={{ backgroundImage: `url(${bgImage1})` }}
+            />
+            <div
+              className={`hero-bg-slide ${currentBg === 1 ? "active" : ""}`}
+              style={{ backgroundImage: `url(${bgImage2})` }}
+            />
             <div className="image-dark-overlay" />
           </div>
         </div>

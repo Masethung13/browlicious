@@ -5,9 +5,8 @@
 
 /* 1. Base Variables & Common Fonts */
 :root {
-  --font-serif: 'melodrama', Georgia, 'Times New Roman', Times, serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  --font-serif: 'Josefin Sans', sans-serif;
+  --font-sans: 'Josefin Sans', sans-serif;
 
   --ease-join-snap: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-split-retract: cubic-bezier(0.7, 0, 0.25, 1);
