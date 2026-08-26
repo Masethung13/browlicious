@@ -1,0 +1,361 @@
+/* ============================================================
+   DESIGN SYSTEM & VARIABLES
+============================================================ */
+:root {
+  --color-dark-bg: #0d071e;
+  --color-card-dark: rgba(22, 13, 46, 0.7);
+  --color-card-border: rgba(232, 46, 106, 0.22);
+  --color-pink-accent: #e82e6a;
+  --color-pink-glow: rgba(232, 46, 106, 0.45);
+  --color-text-white: #ffffff;
+  --color-text-lavender: #b9b3cc;
+  
+  --font-serif: Georgia, 'Times New Roman', Times, serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+
+  --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ============================================================
+   1. SECTION & GLASS CONTAINER
+============================================================ */
+.testimonials-section {
+  width: 100%;
+  padding: 100px 5% 120px 5%;
+  background: radial-gradient(
+    circle at 50% 30%,
+    #1b0d3d 0%,
+    #0d061c 60%,
+    #07030e 100%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Master Glass Shell */
+.testimonials-glass-card {
+  width: 100%;
+  max-width: 1320px;
+  background: linear-gradient(
+    145deg,
+    rgba(25, 15, 52, 0.85) 0%,
+    rgba(14, 8, 30, 0.95) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 28px;
+  border: 1px solid rgba(232, 46, 106, 0.25);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5),
+              0 0 40px rgba(232, 46, 106, 0.08);
+  padding: 3.5rem 3.5rem;
+  position: relative;
+}
+
+/* ============================================================
+   2. TOP BAR (Title & Link)
+============================================================ */
+.testimonials-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 2.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 1.2rem;
+}
+
+.testimonials-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.2vw, 2.8rem);
+  font-weight: 400;
+  color: var(--color-text-white);
+  letter-spacing: -0.01em;
+}
+
+.view-all-link {
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-pink-accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.view-all-link:hover {
+  color: #ff5289;
+  transform: translateX(4px);
+}
+
+.link-arrow {
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.view-all-link:hover .link-arrow {
+  transform: translateX(3px);
+}
+
+/* ============================================================
+   3. SWIPER CAROUSEL & NAVIGATION ARROWS
+============================================================ */
+.swiper-slider-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.testimonials-swiper {
+  width: 100%;
+  padding: 15px 5px 25px 5px !important;
+}
+
+/* Circular Glowing Navigation Arrows */
+.carousel-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(22, 13, 46, 0.85);
+  border: 1.5px solid var(--color-pink-accent);
+  color: var(--color-text-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4),
+              0 0 15px var(--color-pink-glow);
+  transition: all 0.35s var(--ease-smooth);
+}
+
+.carousel-nav-btn svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.btn-prev {
+  left: -24px;
+}
+
+.btn-next {
+  right: -24px;
+}
+
+.carousel-nav-btn:hover {
+  background: var(--color-pink-accent);
+  color: #ffffff;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 25px rgba(232, 46, 106, 0.6);
+}
+
+.btn-prev:hover svg {
+  transform: translateX(-2px);
+}
+
+.btn-next:hover svg {
+  transform: translateX(2px);
+}
+
+/* ============================================================
+   4. CLIENT REVIEW CARD & HOVER EFFECTS
+============================================================ */
+.client-review-card {
+  position: relative;
+  background: linear-gradient(
+    145deg,
+    rgba(32, 18, 66, 0.6) 0%,
+    rgba(18, 10, 38, 0.8) 100%
+  );
+  border-radius: 20px;
+  border: 1px solid var(--color-card-border);
+  padding: 2.2rem 1.8rem;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  transition: transform 0.45s var(--ease-smooth),
+              border-color 0.45s ease,
+              box-shadow 0.45s ease;
+  cursor: grab;
+}
+
+/* Card Hover Elevation & Pink Border Glow */
+.client-review-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  border-color: rgba(232, 46, 106, 0.55);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45),
+              0 0 25px rgba(232, 46, 106, 0.25);
+}
+
+.card-ambient-glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(232, 46, 106, 0.15),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.client-review-card:hover .card-ambient-glow {
+  opacity: 1;
+}
+
+/* --- Avatar & Client Info Header --- */
+.client-header {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin-bottom: 1.2rem;
+}
+
+.avatar-ring-container {
+  position: relative;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--color-pink-accent), rgba(255, 255, 255, 0.1));
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(232, 46, 106, 0.3);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.client-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.client-review-card:hover .avatar-ring-container {
+  transform: scale(1.08) rotate(3deg);
+  box-shadow: 0 6px 20px rgba(232, 46, 106, 0.5);
+}
+
+.client-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.client-name {
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-text-white);
+  margin-bottom: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.client-review-card:hover .client-name {
+  color: #ff94b8;
+}
+
+.client-treatment {
+  font-size: 0.8rem;
+  color: var(--color-text-lavender);
+  letter-spacing: 0.02em;
+}
+
+/* --- Pink Star Ratings --- */
+.star-rating-row {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 1rem;
+}
+
+.pink-star {
+  color: var(--color-pink-accent);
+  font-size: 1.3rem;
+  line-height: 1;
+  text-shadow: 0 0 10px var(--color-pink-glow);
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.client-review-card:hover .pink-star {
+  transform: scale(1.15);
+  transition-delay: calc(var(--star-i) * 0.04s);
+}
+
+/* --- Review Paragraph Text --- */
+.client-review-text {
+  font-family: var(--font-sans);
+  font-size: 0.96rem;
+  line-height: 1.6;
+  color: #dcd6eb;
+  font-weight: 300;
+}
+
+/* ============================================================
+   5. RESPONSIVE BREAKPOINTS
+============================================================ */
+@media (max-width: 1024px) {
+  .testimonials-glass-card {
+    padding: 2.8rem 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonials-section {
+    padding: 70px 4% 80px 4%;
+  }
+
+  .testimonials-glass-card {
+    padding: 2rem 1.4rem;
+    border-radius: 20px;
+  }
+
+  .testimonials-top-bar {
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+  }
+
+  .carousel-nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .btn-prev {
+    left: -12px;
+  }
+
+  .btn-next {
+    right: -12px;
+  }
+
+  .client-review-card {
+    padding: 1.8rem 1.4rem;
+  }
+
+  .avatar-ring-container {
+    width: 52px;
+    height: 52px;
+  }
+
+  .client-name {
+    font-size: 1.05rem;
+  }
+}
