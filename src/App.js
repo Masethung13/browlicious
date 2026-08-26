@@ -4,6 +4,8 @@ import Home from './components/Home';
 import ServiceSection from './components/ServiceSection';
 import AboutSection from './components/AboutSection';
 import WhyChooseUs from './components/Whychooseus';
+import BeautyJourney from './components/BeautyJourney';
+
 function App() {
   // Theme state: default to false (light theme) or true (dark theme)
   // Matching the light luxury theme in user's image, while fully supporting toggling
@@ -26,6 +28,7 @@ function App() {
       <Home isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
       <AboutSection isDarkMode={isDarkMode} />
       <ServiceSection isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+      <BeautyJourney isDarkMode={isDarkMode} />
       <WhyChooseUs isDarkMode={isDarkMode} />
     </div>
   );

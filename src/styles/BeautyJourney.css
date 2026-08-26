@@ -1,0 +1,369 @@
+/* ============================================================
+   DESIGN VARIABLES & COLOR PALETTE
+============================================================ */
+:root {
+  --journey-bg: #FAF9F6;
+  --journey-pink-accent: #E82E6A;       /* Exact pink from design */
+  --journey-pink-light: rgba(232, 46, 106, 0.12);
+  --journey-charcoal: #1C1B1A;
+  --journey-muted-gray: #7A746E;
+  --journey-line-border: #E8E2D8;
+  
+  --font-serif: Georgia, 'Times New Roman', Times, serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  
+  --ease-journey: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ============================================================
+   1. FULLSCREEN MASTER WRAPPER & PINNED SECTION
+============================================================ */
+.journey-master-wrapper {
+  position: relative;
+  width: 100vw;
+  max-width: 100%;
+  background-color: var(--journey-bg);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.journey-pinned-section {
+  position: relative;
+  width: 100vw;
+  max-width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 30% 40% 30%; /* Fullscreen 3-column span */
+  align-items: center;
+  overflow: hidden;
+  background-color: var(--journey-bg);
+}
+
+/* ============================================================
+   2. FULLSCREEN LEFT & RIGHT ASSET COLUMNS
+============================================================ */
+.journey-left-asset-col,
+.journey-right-asset-col {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Asset Card with Smooth Crossfade & Scaling */
+.asset-image-card {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: scale(1.06) translate3d(0, 0, 0);
+  transition: opacity 0.8s var(--ease-journey),
+              transform 0.9s var(--ease-journey);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.asset-image-card.asset-active {
+  opacity: 1;
+  transform: scale(1) translate3d(0, 0, 0);
+  pointer-events: auto;
+}
+
+.journey-asset-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Soft gradient masks towards the center text */
+.left-asset-gradient-mask {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    transparent 40%,
+    var(--journey-bg) 100%
+  );
+  pointer-events: none;
+}
+
+.right-asset-gradient-mask {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to left,
+    transparent 40%,
+    var(--journey-bg) 100%
+  );
+  pointer-events: none;
+}
+
+/* ============================================================
+   3. CENTER CONTENT COLUMN
+============================================================ */
+.journey-center-content-col {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 10;
+}
+
+/* --- Dynamic Text Block --- */
+.journey-text-block {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  min-height: 220px;
+  margin-bottom: 2.5rem;
+}
+
+.journey-text-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s var(--ease-journey),
+              transform 0.6s var(--ease-journey);
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.journey-text-slide.text-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Title Typography */
+.journey-main-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 3.8vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.2rem;
+}
+
+.title-dark-part {
+  color: var(--journey-charcoal);
+  display: block;
+}
+
+.title-pink-accent {
+  color: var(--journey-pink-accent);
+  display: block;
+}
+
+.journey-desc-text {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--journey-muted-gray);
+  max-width: 520px;
+  font-weight: 300;
+}
+
+/* ============================================================
+   4. STEPPER TIMELINE & PROGRESS BAR
+============================================================ */
+.journey-stepper-container {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+  padding: 1.5rem 0;
+  margin-top: 1rem;
+}
+
+/* Stepper Base Gray Line */
+.stepper-track-base {
+  position: absolute;
+  top: 36px;
+  left: 20px;
+  right: 20px;
+  height: 2px;
+  background-color: var(--journey-line-border);
+  z-index: 1;
+}
+
+/* Pink Filling Active Line */
+.stepper-track-fill {
+  position: absolute;
+  top: 36px;
+  left: 20px;
+  right: 20px;
+  height: 2px;
+  background-color: var(--journey-pink-accent);
+  z-index: 2;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.2s linear;
+}
+
+/* Stepper Nodes Row */
+.stepper-nodes-row {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 3;
+}
+
+.stepper-node-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  background: transparent;
+  user-select: none;
+  transition: transform 0.3s ease;
+}
+
+.stepper-node-item:hover {
+  transform: translateY(-2px);
+}
+
+/* Node Circular Badge */
+.node-circle-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  border: 1.5px solid var(--journey-line-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s var(--ease-journey);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.node-number {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--journey-muted-gray);
+  transition: color 0.3s ease;
+}
+
+/* Label Below Circle */
+.node-label-text {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--journey-muted-gray);
+  margin-top: 0.85rem;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+/* --- ACTIVE STEP STATE (Pink Highlight) --- */
+.stepper-node-item.node-active .node-circle-badge {
+  background-color: var(--journey-pink-accent);
+  border-color: var(--journey-pink-accent);
+  box-shadow: 0 6px 20px rgba(232, 46, 106, 0.35);
+  transform: scale(1.12);
+}
+
+.stepper-node-item.node-active .node-number {
+  color: #FFFFFF;
+}
+
+.stepper-node-item.node-active .node-label-text {
+  color: var(--journey-pink-accent);
+  font-weight: 600;
+}
+
+/* Completed Past Nodes */
+.stepper-node-item.node-completed:not(.node-active) .node-circle-badge {
+  border-color: var(--journey-pink-accent);
+  background-color: var(--journey-pink-light);
+}
+
+.stepper-node-item.node-completed:not(.node-active) .node-number {
+  color: var(--journey-pink-accent);
+}
+
+/* ============================================================
+   5. RESPONSIVE BREAKPOINTS (Mobile & Tablet)
+============================================================ */
+@media (max-width: 1024px) {
+  .journey-pinned-section {
+    grid-template-columns: 25% 50% 25%;
+  }
+
+  .journey-main-title {
+    font-size: 2.6rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .journey-pinned-section {
+    grid-template-columns: 1fr;
+    grid-template-rows: 25% 50% 25%;
+    padding: 1rem 0;
+  }
+
+  .journey-left-asset-col {
+    grid-row: 1;
+    height: 100%;
+  }
+
+  .journey-center-content-col {
+    grid-row: 2;
+    padding: 1.5rem 1rem;
+  }
+
+  .journey-right-asset-col {
+    grid-row: 3;
+    height: 100%;
+  }
+
+  .left-asset-gradient-mask {
+    background: linear-gradient(to bottom, transparent 40%, var(--journey-bg) 100%);
+  }
+
+  .right-asset-gradient-mask {
+    background: linear-gradient(to top, transparent 40%, var(--journey-bg) 100%);
+  }
+
+  .journey-main-title {
+    font-size: 1.85rem;
+  }
+
+  .journey-desc-text {
+    font-size: 0.9rem;
+  }
+
+  .node-circle-badge {
+    width: 36px;
+    height: 36px;
+  }
+
+  .node-number {
+    font-size: 0.75rem;
+  }
+
+  .node-label-text {
+    font-size: 0.68rem;
+  }
+}
