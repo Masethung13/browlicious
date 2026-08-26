@@ -8,7 +8,7 @@ body {
   background-color: #f7f6f2;
   color: #1a1a1a;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   overflow-x: hidden;
 }
 
@@ -17,53 +17,91 @@ body {
   width: 100%;
 }
 
-/* --- Floating Morph Image --- */
-.morph-image-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 50;
-  transform-origin: top left;
-  will-change: transform, width, height;
-}
-
-.morph-image-inner {
-  width: 100%;
-  height: 100%;
-  border-radius: 999px;
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
-}
-
-/* --- Hero Section --- */
-.hero-section {
+/* --- Pinned Transition Wrapper --- */
+.pinned-showcase-wrapper {
   position: relative;
-  min-height: 100vh;
-  padding: 120px 8% 80px 8%;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 
-.hero-content {
-  max-width: 600px;
+/* --- Single Continuous Morph Image --- */
+.morph-image-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  transform-origin: top left;
+  will-change: transform, width, height, border-radius;
+}
+
+.morph-image-bg {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.image-dark-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom right,
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.25)
+  );
+}
+
+/* --- Hero Content Layer --- */
+.hero-content-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 120px 8% 60px 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 10;
+  color: #ffffff;
+}
+
+.hero-badge {
+  display: inline-block;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 6px 16px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border-radius: 999px;
+  margin-bottom: 24px;
+  width: fit-content;
 }
 
 .hero-title {
-  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  font-size: clamp(2.4rem, 5.5vw, 4.5rem);
   line-height: 1.15;
-  font-weight: 400;
-  color: #1b1b1b;
+  font-weight: 300;
+  letter-spacing: -0.02em;
   margin-bottom: 24px;
+  max-width: 650px;
 }
 
 .hero-desc {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   line-height: 1.6;
-  color: #555;
+  color: rgba(255, 255, 255, 0.85);
   margin-bottom: 40px;
+  max-width: 500px;
 }
 
 .hero-stats {
@@ -77,27 +115,30 @@ body {
 }
 
 .stat-number {
-  font-size: 2.5rem;
-  font-weight: 500;
-  color: #1b1b1b;
+  font-size: 2.8rem;
+  font-weight: 400;
 }
 
 .stat-label {
   font-size: 0.9rem;
-  color: #777;
+  color: rgba(255, 255, 255, 0.75);
   text-transform: capitalize;
 }
 
-/* --- Target Headline Section --- */
-.target-section {
-  position: relative;
-  min-height: 100vh;
-  padding: 120px 8%;
+/* --- Target Headline Layer --- */
+.target-content-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  z-index: 10;
+  padding: 0 5%;
 }
 
 .headline-wrapper {
@@ -106,62 +147,65 @@ body {
 }
 
 .big-heading {
-  font-size: clamp(2.8rem, 6.5vw, 6.8rem);
+  font-size: clamp(2.8rem, 6.5vw, 7rem);
   font-weight: 300;
   text-transform: uppercase;
   letter-spacing: -0.02em;
-  line-height: 1.12;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  line-height: 1.15;
+  color: #1a1a1a;
 }
 
-.text-line {
+.heading-row {
   display: block;
 }
 
-.text-line em {
+.heading-row em {
   font-style: italic;
-  font-family: serif;
+  font-family: Georgia, serif;
   text-transform: lowercase;
   font-weight: 400;
 }
 
-.inline-with-slot {
+.slot-row {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 24px;
+  vertical-align: middle;
 }
 
-/* Placeholder slot where the image lands */
+/* Natural Slot Container (Holds space in the text line) */
 .image-target-slot {
   display: inline-block;
-  width: clamp(220px, 25vw, 420px);
+  width: clamp(220px, 25vw, 440px);
   height: clamp(65px, 7vw, 110px);
   border-radius: 999px;
-  background: rgba(0, 0, 0, 0.04);
+  background: rgba(0, 0, 0, 0.05); /* Visual placeholder */
+  vertical-align: middle;
+  flex-shrink: 0;
 }
 
 .sub-text {
-  margin-top: 30px;
-  font-size: 1.15rem;
+  margin-top: 36px;
+  font-size: 1.25rem;
   color: #666;
 }
 
 /* --- Features Section --- */
 .features-section {
+  position: relative;
   min-height: 80vh;
-  padding: 100px 8%;
+  padding: 120px 8%;
   background-color: #2b3024;
   color: #f7f6f2;
   display: flex;
   align-items: center;
+  z-index: 10;
 }
 
 .features-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 40px;
   width: 100%;
   max-width: 1200px;
@@ -169,7 +213,15 @@ body {
 }
 
 .feature-card {
-  padding: 24px;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 16px;
 }
 
 .feature-card h3 {
@@ -184,10 +236,37 @@ body {
   font-size: 0.95rem;
 }
 
-/* --- Responsive Adjustments --- */
+/* --- More Content Section --- */
+.more-content-section {
+  min-height: 60vh;
+  padding: 100px 8%;
+  background-color: #f0eee6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.more-content-box {
+  max-width: 800px;
+}
+
+.more-content-box h2 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+.more-content-box p {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* --- Mobile Breakpoint --- */
 @media (max-width: 768px) {
-  .inline-with-slot {
+  .slot-row {
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
   }
 }
