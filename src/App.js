@@ -4,6 +4,8 @@ import Home from './components/Home';
 import ServiceSection from './components/ServiceSection';
 import AboutSection from './components/AboutSection';
 import WhyChooseUs from './components/Whychooseus';
+import BeautyJourney from './components/BeautyJourney';
+
 import Pr from './components/Pr';
 function App() {
   // Theme state: default to false (light theme) or true (dark theme)
@@ -27,6 +29,7 @@ function App() {
       <Home isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
       <AboutSection isDarkMode={isDarkMode} />
       <ServiceSection isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+      <BeautyJourney isDarkMode={isDarkMode} />
       <WhyChooseUs isDarkMode={isDarkMode} />
       <Pr isDarkMode={isDarkMode} />
     </div>
