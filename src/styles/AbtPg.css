@@ -1,0 +1,754 @@
+/* ============================================================
+   BROWLICIOUS / SERAVA LUXURY ABOUT US PAGE DESIGN SYSTEM
+   - Exact replica of the reference design
+   - Ambient Luxury Hero Banner with Sub-Header Description
+   - Flush Full-Bleed Marble Vanity Split Grid
+   - What We Offer 2-Column Table with Textured Taupe Side Panel
+   - Sand & Gold Circular Testimonial Suite
+============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
+
+:root {
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-sans: 'Josefin Sans', sans-serif;
+  --transition-smooth: all 0.85s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Light Theme: Exact matches with Home.js & Home.css */
+.abt-page-wrapper.light-theme,
+body.light-theme .abt-page-wrapper {
+  --theme-bg: #FAF5F8;                  /* Pale Ivory Rose */
+  --theme-text: #2A1635;                /* Deep Eggplant contrast text */
+  --theme-text-muted: #6B5673;          /* Secondary Plum Gray */
+  --theme-border: #EEDCE5;              /* Soft Lavender Rose lines */
+  --theme-card-bg: #FFF7FA;             /* Pure white-rose gloss cards */
+  --theme-accent-pink: #9B1147;         /* Signature Berry Magenta Highlight */
+  --theme-accent-gold: var(--theme-accent-pink);
+  --color-bg-testi: #F5ECF2;            /* Soft Rose-tinted Sand Testimonial BG */
+}
+
+/* Dark Theme: Exact matches with Home.js & Home.css */
+.abt-page-wrapper.dark-theme,
+body.dark-theme .abt-page-wrapper {
+  --theme-bg: #120718;                  /* Midnight Deep Plum */
+  --theme-text: #FAF9FC;                /* Lavender Alabaster */
+  --theme-text-muted: #BCAEC3;          /* Soft Muted Rose */
+  --theme-border: rgba(236, 51, 115, 0.18); /* Hot Fuchsia borders */
+  --theme-card-bg: #1B0C22;             /* Translucent Luminous Violet */
+  --theme-accent-pink: #EC3373;         /* Hot Neon Pink Highlight */
+  --theme-accent-gold: var(--theme-accent-pink);
+  --color-bg-testi: #180C22;            /* Midnight card background for testimonial */
+}
+
+.abt-page-wrapper {
+  background-color: var(--theme-bg);
+  color: var(--theme-text);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  line-height: 1.6;
+  transition: background-color 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+              color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.abt-page-wrapper * {
+  box-sizing: border-box;
+}
+
+/* Container Utilities */
+.abt-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Scroll Trigger Smooth Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(35px);
+  transition: var(--transition-smooth);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Floating Theme Toggle Button */
+.theme-toggle-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--theme-accent-pink);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #FFFFFF;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  box-shadow: 0 8px 30px rgba(236, 51, 115, 0.4);
+  transition: all 0.4s ease;
+}
+
+.theme-toggle-btn:hover {
+  transform: scale(1.1) rotate(15deg);
+  background-color: #D12560;
+}
+
+.theme-svg-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* ============================================================
+   1. HERO HEADER WITH AMBIENT BANNER & SUB-HEADER DESCRIPTION
+============================================================ */
+.abt-hero-section {
+  position: relative;
+  width: 100%;
+  padding-top: 80px; /* Space below fixed navbar */
+}
+
+.abt-hero-banner {
+  position: relative;
+  width: 100%;
+  height: clamp(320px, 38vh, 420px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-image: url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=1920');
+  background-size: cover;
+  background-position: center 35%;
+  overflow: hidden;
+}
+
+.abt-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(14, 8, 16, 0.72) 0%, rgba(14, 8, 16, 0.58) 100%);
+  z-index: 1;
+}
+
+.abt-hero-inner {
+  position: relative;
+  z-index: 2;
+  padding: 0 20px;
+}
+
+.abt-hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.8rem, 5.5vw, 4.4rem);
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  margin: 0;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Sub-Header Description Bar (Below Dark Banner) */
+.abt-hero-subbar {
+  background-color: var(--theme-bg);
+  padding: 35px 24px 60px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: background-color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Animated Floating Subbar Indicator with Unique Sparkle Icon */
+.abt-subbar-tick-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 22px;
+  animation: abtFloatUpDown 2.6s ease-in-out infinite;
+}
+
+@keyframes abtFloatUpDown {
+  0% {
+    transform: translateY(0);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translateY(10px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0.85;
+  }
+}
+
+.abt-subbar-star-icon {
+  color: var(--theme-accent-pink);
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: abtStarPulse 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(236, 51, 115, 0.45));
+}
+
+@keyframes abtStarPulse {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.22) rotate(45deg);
+  }
+}
+
+.abt-subbar-line {
+  position: relative;
+  width: 1.5px;
+  height: 38px;
+  background: linear-gradient(
+    180deg,
+    var(--theme-accent-pink) 0%,
+    rgba(236, 51, 115, 0.25) 100%
+  );
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.line-shimmer {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    #FFFFFF 50%,
+    transparent 100%
+  );
+  animation: abtLineShimmer 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes abtLineShimmer {
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+.abt-subbar-dot {
+  width: 3.5px;
+  height: 3.5px;
+  border-radius: 50%;
+  background-color: var(--theme-accent-pink);
+  margin-top: 4px;
+  box-shadow: 0 0 6px var(--theme-accent-pink);
+}
+
+.abt-breadcrumbs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--theme-accent-pink);
+  margin-bottom: 16px;
+  font-family: var(--font-sans);
+}
+
+.abt-breadcrumbs a {
+  color: var(--theme-accent-pink);
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.abt-breadcrumbs a:hover {
+  opacity: 0.75;
+}
+
+.abt-separator {
+  color: var(--theme-accent-pink);
+  font-size: 0.75rem;
+}
+
+.abt-current {
+  color: var(--theme-accent-pink);
+}
+
+.abt-hero-subtitle {
+  max-width: 620px;
+  margin: 0 auto;
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 1.35vw, 1.15rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--theme-text-muted);
+}
+
+/* ============================================================
+   2. INTRO SECTION (FULL BLEED MARBLE VANITY & EDITORIAL RIGHT)
+============================================================ */
+.abt-intro-section {
+  padding: 10px 0 90px 0;
+}
+
+.abt-intro-split-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  width: 100%;
+  min-height: 520px;
+}
+
+.abt-intro-image-pane {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.abt-intro-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  min-height: 480px;
+  transition: transform 0.85s cubic-bezier(0.25, 1, 0.5, 1), filter 0.85s ease;
+}
+
+.abt-intro-image-pane:hover .abt-intro-image {
+  transform: scale(1.045);
+  filter: brightness(1.03);
+}
+
+.abt-intro-text-pane {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 8% 60px 8%;
+  background-color: var(--theme-bg);
+  transition: background-color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.abt-intro-text-inner {
+  max-width: 540px;
+  width: 100%;
+}
+
+.abt-section-title-large {
+  font-family: var(--font-serif);
+  font-size: clamp(1.65rem, 2.5vw, 2.35rem);
+  font-weight: 400;
+  line-height: 1.28;
+  letter-spacing: 0.06em;
+  color: var(--theme-text);
+  text-transform: uppercase;
+  margin: 0 0 26px 0;
+  transition: color 0.4s ease;
+}
+
+.abt-intro-paragraphs p {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  line-height: 1.8;
+  font-weight: 300;
+  color: var(--theme-text-muted);
+  margin: 0 0 20px 0;
+  transition: color 0.4s ease;
+}
+
+.abt-intro-paragraphs p:last-child {
+  margin-bottom: 0;
+}
+
+/* ============================================================
+   3. WHAT WE OFFER SECTION (WITH RIGHT LUXURY TREATMENT SUITE IMAGE)
+============================================================ */
+.abt-offers-section {
+  padding: 30px 0 90px 0;
+}
+
+.abt-offers-layout {
+  display: grid;
+  grid-template-columns: 1.22fr 0.98fr;
+  align-items: stretch;
+  width: 100%;
+  position: relative;
+  min-height: 600px;
+}
+
+.abt-offers-main-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 50px 60px 8%;
+  background-color: var(--theme-bg);
+  transition: background-color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.abt-offers-container {
+  max-width: 780px;
+  width: 100%;
+}
+
+.abt-section-title-medium {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.4vw, 2.75rem);
+  font-weight: 300;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--theme-text);
+  margin: 0 0 45px 0;
+}
+
+.abt-offers-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.abt-offer-row {
+  display: grid;
+  grid-template-columns: 1.15fr 1.65fr;
+  gap: 32px;
+  padding: 24px 20px;
+  margin: 0 -20px;
+  border-top: 1px solid var(--theme-border);
+  border-radius: 8px;
+  align-items: center;
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), 
+              background-color 0.35s ease, 
+              border-color 0.35s ease,
+              box-shadow 0.35s ease;
+  cursor: default;
+}
+
+.abt-offer-row:last-child {
+  border-bottom: 1px solid var(--theme-border);
+}
+
+/* Luxury Interactive Hover State for Treatment Rows */
+.abt-offer-row:hover {
+  background-color: rgba(236, 51, 115, 0.05);
+  border-top-color: var(--theme-accent-pink);
+  transform: translateX(6px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.abt-offer-title-col {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.abt-item-icon {
+  color: var(--theme-accent-pink);
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease;
+}
+
+.abt-offer-row:hover .abt-item-icon {
+  transform: scale(1.35) rotate(15deg);
+  filter: drop-shadow(0 0 10px var(--theme-accent-pink));
+}
+
+.abt-offer-title-col h3 {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  margin: 0;
+  color: var(--theme-text);
+  transition: color 0.35s ease, transform 0.35s ease;
+}
+
+.abt-offer-row:hover .abt-offer-title-col h3 {
+  color: var(--theme-accent-pink);
+  transform: translateX(4px);
+}
+
+.abt-offer-desc-col p {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--theme-text-muted);
+  font-weight: 300;
+  margin: 0;
+  transition: color 0.35s ease;
+}
+
+/* Right Luxury Treatment Suite Image Pane */
+.abt-offers-image-pane {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 540px;
+  overflow: hidden;
+}
+
+.abt-offers-suite-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1), filter 0.9s ease;
+}
+
+.abt-offers-image-pane:hover .abt-offers-suite-img {
+  transform: scale(1.045);
+  filter: brightness(1.03);
+}
+
+/* ============================================================
+   4. TESTIMONIAL & AWARDS SECTION (EXACT REFERENCE REPLICATION)
+============================================================ */
+.abt-testimonial-section {
+  padding: 100px 24px 120px 24px;
+  background-color: var(--theme-bg);
+  border-top: 1px solid var(--theme-border);
+  transition: background-color 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+              border-color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  overflow: hidden;
+}
+
+.abt-testi-container {
+  max-width: 1160px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.abt-testimonial-grid {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+}
+
+.abt-testimonial-image-panel {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.abt-testi-img-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+}
+
+.abt-testi-image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  border-radius: 3px;
+  display: block;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.8s ease;
+}
+
+.abt-testi-img-wrap:hover .abt-testi-image {
+  transform: scale(1.03);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.14);
+}
+
+/* Large Overlapping Subtle Quote Circle Matching Reference */
+.abt-quote-large-circle {
+  position: absolute;
+  top: 10%;
+  right: -85px;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  border: 1px solid var(--theme-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 70%);
+  animation: abtQuotePulse 6s ease-in-out infinite;
+}
+
+.dark-theme .abt-quote-large-circle {
+  background: radial-gradient(circle, rgba(236, 51, 115, 0.08) 0%, rgba(18, 7, 24, 0) 70%);
+}
+
+@keyframes abtQuotePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+.abt-quote-mark {
+  font-family: var(--font-serif);
+  font-size: 2.8rem;
+  color: var(--theme-accent-pink);
+  line-height: 1;
+  font-weight: 400;
+  margin-top: -10px;
+}
+
+.abt-testimonial-content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+}
+
+/* Dual Circular Award Badges Top-Right Aligned */
+.abt-testimonial-badges {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.abt-award-badge {
+  filter: drop-shadow(0 4px 10px rgba(236, 51, 115, 0.15));
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease;
+  cursor: pointer;
+}
+
+.abt-award-badge:hover {
+  transform: scale(1.12) rotate(6deg);
+  filter: drop-shadow(0 8px 20px rgba(236, 51, 115, 0.35));
+}
+
+.abt-testimonial-quote {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 2.1vw, 1.85rem);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--theme-text);
+  margin: 0 0 34px 0;
+  letter-spacing: 0.015em;
+}
+
+.abt-testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  letter-spacing: 0.04em;
+}
+
+.abt-author-name {
+  font-weight: 500;
+  color: var(--theme-text);
+}
+
+.abt-author-dash {
+  color: var(--theme-text-muted);
+  font-size: 1rem;
+}
+
+.abt-author-role {
+  color: var(--theme-text-muted);
+  font-weight: 300;
+}
+
+/* ============================================================
+   5. RESPONSIVE BREAKPOINTS (Large Laptop, Small Laptop, Tablet, Mobile)
+============================================================ */
+
+@media (max-width: 1024px) {
+  .abt-intro-split-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .abt-intro-image-pane {
+    max-height: 420px;
+  }
+
+  .abt-intro-text-pane {
+    padding: 50px 6%;
+  }
+
+  .abt-offers-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .abt-offers-main-col {
+    padding: 50px 6%;
+  }
+
+  .abt-offers-image-pane {
+    max-height: 420px;
+  }
+
+  .abt-testimonial-grid {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+
+  .abt-quote-circle {
+    right: -20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .abt-offers-main-col {
+    padding: 30px 20px;
+  }
+
+  .abt-offer-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 18px 0;
+  }
+
+  .abt-hero-banner {
+    height: 300px;
+  }
+
+  .abt-hero-subbar {
+    padding: 25px 20px 45px 20px;
+  }
+
+  .abt-intro-section,
+  .abt-offers-section,
+  .abt-testimonial-section {
+    padding: 45px 0 55px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .abt-hero-title {
+    font-size: 2.3rem;
+    letter-spacing: 0.16em;
+  }
+
+  .abt-testi-img-wrap {
+    max-width: 280px;
+  }
+
+  .abt-quote-circle {
+    width: 60px;
+    height: 60px;
+    right: -15px;
+  }
+
+  .abt-quote-mark {
+    font-size: 2.8rem;
+    margin-top: 12px;
+  }
+}

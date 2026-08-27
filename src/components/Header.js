@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../styles/Header.css";
 import browliciousLogo from "../assets/browlicious-dark-logo.png";
 import headerEditorialImg from "../assets/treatment_banner.jpg";
 
 const NAV_LINKS = [
-  { name: "Home", href: "#home", subtitle: "01 / Welcome" },
-  { name: "About Us", href: "#about", subtitle: "02 / Our Story" },
-  { name: "Treatments", href: "#services", subtitle: "03 / Signature PMU" },
-  { name: "Beauty Journey", href: "#beauty-journey", subtitle: "04 / The Experience" },
-  { name: "Why Choose Us", href: "#why-choose-us", subtitle: "05 / Master Standards" },
-  { name: "Client Stories", href: "#testimonials", subtitle: "06 / Reviews" },
-  { name: "Contact", href: "#booking", subtitle: "07 / Book Session" },
+  { name: "Home", href: "/", isRoute: true, subtitle: "01 / Welcome" },
+  { name: "About Us", href: "/about", isRoute: true, subtitle: "02 / Our Story" },
+  { name: "Treatments", href: "#services", isRoute: false, subtitle: "03 / Signature PMU" },
+  { name: "Beauty Journey", href: "#beauty-journey", isRoute: false, subtitle: "04 / The Experience" },
+  { name: "Why Choose Us", href: "#why-choose-us", isRoute: false, subtitle: "05 / Master Standards" },
+  { name: "Client Stories", href: "#testimonials", isRoute: false, subtitle: "06 / Reviews" },
+  { name: "Contact", href: "#booking", isRoute: false, subtitle: "07 / Book Session" },
 ];
 
 export default function Header({ isDarkMode = false }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   // 1. Clean Scroll Tracking for Main Header
   useEffect(() => {
@@ -43,17 +46,43 @@ export default function Header({ isDarkMode = false }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [isMenuOpen]);
 
-  // 3. Smooth Scroll to Home on Logo Click
+  // 3. Smart Link Handler for Routes & Anchors
+  const handleNavClick = (e, item) => {
+    e.preventDefault();
+    setIsMenuOpen(false);
+
+    if (item.isRoute) {
+      navigate(item.href);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      if (location.pathname !== "/") {
+        navigate("/" + item.href);
+        setTimeout(() => {
+          const target = document.querySelector(item.href);
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 150);
+      } else {
+        const target = document.querySelector(item.href);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    }
+  };
+
+  // 4. Smooth Scroll to Home on Logo Click
   const handleLogoClick = (e) => {
     e.preventDefault();
     setIsMenuOpen(false);
+    if (location.pathname !== "/") {
+      navigate("/");
+    }
     window.scrollTo({
       top: 0,
       behavior: "smooth"
     });
-    if (window.location.hash) {
-      window.history.pushState(null, "", window.location.pathname);
-    }
   };
 
   return (
@@ -81,8 +110,8 @@ export default function Header({ isDarkMode = false }) {
 
           {/* Center Column: Browlicious Logo */}
           <div className="header-center">
-            <a 
-              href="#home" 
+            <Link 
+              to="/" 
               onClick={handleLogoClick} 
               className="brand-logo" 
               aria-label="Browlicious Home"
@@ -92,7 +121,7 @@ export default function Header({ isDarkMode = false }) {
                 alt="Browlicious PMU Clinic & Academy Logo" 
                 className="brand-logo-img" 
               />
-            </a>
+            </Link>
           </div>
 
           {/* Right Column: Phone & CTA */}
@@ -104,7 +133,11 @@ export default function Header({ isDarkMode = false }) {
               </a>
             </div>
 
-            <a href="#booking" className="book-cta-btn">
+            <a 
+              href="#booking" 
+              onClick={(e) => handleNavClick(e, { href: "#booking", isRoute: false })}
+              className="book-cta-btn"
+            >
               <span className="btn-text-default">Book Appointment</span>
               <span className="btn-text-hover">Book Appointment</span>
             </a>
@@ -152,7 +185,7 @@ export default function Header({ isDarkMode = false }) {
                     <a
                       href={item.href}
                       className="nav-menu-single-link"
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={(e) => handleNavClick(e, item)}
                     >
                       <span className="link-text" data-text={item.name}>
                         {item.name}
