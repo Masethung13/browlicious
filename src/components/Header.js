@@ -8,11 +8,11 @@ const NAV_LINKS = [
   { name: "Home", href: "/", subtitle: "01 / Welcome", isRoute: true },
   { name: "About Us", href: "/about", subtitle: "02 / Our Story", isRoute: true },
   { name: "Services", href: "/#services", subtitle: "03 / Signature PMU" },
-  { name: "Result", href: "/#beauty-journey", subtitle: "04 / The Experience" },
-  { name: "Blogs", href: "/#beauty-journey", subtitle: "04 / The Experience" },
-  { name: "Why Choose Us", href: "/#why-choose-us", subtitle: "05 / Master Standards" },
-  { name: "Faq", href: "/#testimonials", subtitle: "06 / Reviews" },
-  { name: "Contact", href: "/book-appointment", subtitle: "07 / Book Session", isRoute: true },
+  { name: "Result", href: "/results", subtitle: "04 / The Experience", isRoute: true },
+  { name: "Blogs", href: "/blogs", subtitle: "05 / Beauty Insights", isRoute: true },
+  { name: "Why Choose Us", href: "/#why-choose-us", subtitle: "06 / Master Standards" },
+  { name: "Faq", href: "/#testimonials", subtitle: "07 / Reviews" },
+  { name: "Contact", href: "/book-appointment", subtitle: "08 / Book Session", isRoute: true },
 ];
 
 export default function Header({ isDarkMode = false }) {

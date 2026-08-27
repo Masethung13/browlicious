@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import "../styles/BookAppointment.css";
-import heroBgImg from "../assets/abt_hero_banner.jpg";
+import heroBgImg from "../assets/abt_cta_banner.jpg";
 
 // 1. Firebase Configuration
 const firebaseConfig = {
