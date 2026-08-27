@@ -15,6 +15,7 @@ import Pr from "./components/Pr";
 import Testimonials from "./components/Testimonials";
 import BookAppointment from "./components/BookAppointment";
 import AbtPg from "./components/AbtPg";
+import Results from "./components/Results"; 
 import Blogspg from "./components/Blogspg";
 
 // Scroll to top on route change helper
@@ -77,7 +78,7 @@ function App() {
             }
           />
 
-          {/* Dedicated About Us Page Route */}
+          {/* Dedicated About Us Page Routes */}
           <Route
             path="/about"
             element={
@@ -100,6 +101,26 @@ function App() {
             path="/abt"
             element={
               <AbtPg
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
+            }
+          />
+
+          {/* Dedicated Process Results / Before-After Route */}
+          <Route
+            path="/process-results"
+            element={
+              <Results
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
+            }
+          />
+          <Route
+            path="/results"
+            element={
+              <Results
                 isDarkMode={isDarkMode}
                 setIsDarkMode={setIsDarkMode}
               />

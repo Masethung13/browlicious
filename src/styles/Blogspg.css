@@ -261,60 +261,7 @@
 }
 
 /* ============================================================
-   4. SHIMMER LIGHT SWEEP ANIMATION
-============================================================ */
-.card-shimmer-sweep {
-  position: absolute;
-  top: 0;
-  left: -140%;
-  width: 140%;
-  height: 100%;
-  background: linear-gradient(
-    105deg,
-    transparent 15%,
-    rgba(255, 255, 255, 0.15) 30%,
-    rgba(255, 255, 255, 0.75) 50%,
-    rgba(236, 51, 115, 0.35) 55%,
-    rgba(255, 255, 255, 0.15) 70%,
-    transparent 85%
-  );
-  transform: skewX(-25deg);
-  pointer-events: none;
-  animation: blogCardShine 2.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  z-index: 3;
-}
-
-.dark-theme .card-shimmer-sweep {
-  background: linear-gradient(
-    105deg,
-    transparent 15%,
-    rgba(236, 51, 115, 0.15) 30%,
-    rgba(255, 255, 255, 0.5) 48%,
-    rgba(236, 51, 115, 0.65) 54%,
-    rgba(236, 51, 115, 0.15) 70%,
-    transparent 85%
-  );
-}
-
-.blog-articles-grid .blog-article-card:nth-child(2n) .card-shimmer-sweep,
-.blog-topics-grid .blog-topic-card:nth-child(2n) .card-shimmer-sweep {
-  animation-delay: 0.45s;
-}
-
-.blog-articles-grid .blog-article-card:nth-child(3n) .card-shimmer-sweep,
-.blog-topics-grid .blog-topic-card:nth-child(3n) .card-shimmer-sweep {
-  animation-delay: 0.9s;
-}
-
-@keyframes blogCardShine {
-  0% { left: -140%; opacity: 0; }
-  15% { opacity: 1; }
-  65% { left: 140%; opacity: 1; }
-  100% { left: 140%; opacity: 0; }
-}
-
-/* ============================================================
-   5. ZONE 1: FEATURED ARTICLE SHOWCASE
+   4. ZONE 1: FEATURED ARTICLE SHOWCASE
 ============================================================ */
 .blog-featured-section {
   width: 100%;

@@ -429,9 +429,6 @@ export default function Blogspg({ isDarkMode = false, setIsDarkMode }) {
           ============================================================ */}
           <section className="blog-featured-section">
             <div className="blog-featured-card">
-              {/* Shimmer Ambient Glow */}
-              <div className="card-shimmer-sweep" aria-hidden="true"></div>
-
               <div className="blog-featured-grid">
                 <div className="blog-featured-img-pane">
                   <img
@@ -545,9 +542,6 @@ export default function Blogspg({ isDarkMode = false, setIsDarkMode }) {
               <div className="blog-articles-grid">
                 {filteredArticles.map((article) => (
                   <article key={article.id} className="blog-article-card">
-                    {/* Shimmer Light Sweep */}
-                    <div className="card-shimmer-sweep" aria-hidden="true"></div>
-
                     <div className="blog-card-img-wrap">
                       <img
                         src={article.image}
@@ -590,9 +584,6 @@ export default function Blogspg({ isDarkMode = false, setIsDarkMode }) {
           ============================================================ */}
           <section className="blog-expertise-section">
             <div className="blog-expertise-card">
-              {/* Shimmer Light Sweep */}
-              <div className="card-shimmer-sweep" aria-hidden="true"></div>
-
               <div className="blog-expertise-grid">
                 {/* Left: Doctor Portrait */}
                 <div className="blog-expert-doctor-col">
@@ -689,9 +680,6 @@ export default function Blogspg({ isDarkMode = false, setIsDarkMode }) {
                     if (el) el.scrollIntoView({ behavior: "smooth" });
                   }}
                 >
-                  {/* Shimmer Light Sweep */}
-                  <div className="card-shimmer-sweep" aria-hidden="true"></div>
-
                   <div className="blog-topic-icon-wrap">{topic.icon}</div>
                   <h3 className="blog-topic-title">{topic.title}</h3>
                   <p className="blog-topic-desc">{topic.desc}</p>
