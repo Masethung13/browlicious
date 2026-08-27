@@ -24,7 +24,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Data Sets
+// Updated Treatments List with your requested additions
 const TREATMENTS = [
   {
     id: "microblading",
@@ -124,16 +124,45 @@ const TREATMENTS = [
     ),
   },
   {
-    id: "skin-treatments",
-    title: "Skin Treatments",
-    desc: "Advanced medical skin rejuvenation",
-    duration: "Custom",
-    price: "Custom Quote",
+    id: "skin-rejuvenation",
+    title: "Skin Rejuvenation",
+    desc: "Collagen renewal & radiant skin glow",
+    duration: "1 – 1.5 Hours",
+    price: "₹8,999",
     icon: (
       <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.8">
         <circle cx="32" cy="28" r="12" />
         <path d="M18 52C20 42 26 38 32 38C38 38 44 42 46 52" strokeLinecap="round" />
-        <path d="M32 10V14M16 26H12M52 26H48" strokeLinecap="round" />
+        <path d="M32 8V12M12 28H8M56 28H52" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    id: "hydra-facial",
+    title: "Hydra Facial",
+    desc: "Deep pore cleanse, hydration & instant glow",
+    duration: "45 – 60 Mins",
+    price: "₹5,499",
+    icon: (
+      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M32 12C32 12 18 28 18 38C18 45.73 24.27 52 32 52C39.73 52 46 45.73 46 38C46 28 32 12 32 12Z" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M26 36C26 36 29 44 38 44" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    id: "acne-scar-treatment",
+    title: "Acne Scar Treatment",
+    desc: "Targeted resurfacing for smooth, clear skin",
+    duration: "1 – 2 Hours",
+    price: "₹9,499",
+    icon: (
+      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <circle cx="32" cy="32" r="18" />
+        <circle cx="26" cy="28" r="2" fill="currentColor" />
+        <circle cx="38" cy="26" r="2" fill="currentColor" />
+        <circle cx="32" cy="38" r="2" fill="currentColor" />
+        <path d="M22 18L16 12M42 18L48 12" strokeLinecap="round" />
       </svg>
     ),
   },
@@ -233,7 +262,6 @@ export default function BookAppointment() {
   const handlePrevMonth = () => {
     const newDate = new Date(currentViewDate.getFullYear(), currentViewDate.getMonth() - 1, 1);
     const now = new Date();
-    // Do not allow navigating to months before the current month
     if (newDate.getFullYear() < now.getFullYear() || (newDate.getFullYear() === now.getFullYear() && newDate.getMonth() < now.getMonth())) {
       return;
     }
@@ -252,7 +280,6 @@ export default function BookAppointment() {
     const month = currentViewDate.getMonth();
 
     const firstDayIndex = new Date(year, month, 1).getDay();
-    // Adjust for Monday start (0=Mon, 6=Sun)
     const offset = (firstDayIndex + 6) % 7;
     const totalDays = new Date(year, month + 1, 0).getDate();
 
@@ -293,7 +320,6 @@ export default function BookAppointment() {
 
       if (isSelectedToday) {
         const slotDate = parseSlotToDate(selectedDate, slot);
-        // Add a 15-min buffer so users can't book a slot starting in 2 minutes
         const isPast = slotDate <= new Date(now.getTime() + 15 * 60 * 1000);
         return {
           time: slot,
@@ -302,12 +328,11 @@ export default function BookAppointment() {
         };
       }
 
-      // Future dates: all slots available
       return { time: slot, available: true, reason: "Available" };
     });
   }, [selectedDate, today]);
 
-  // If currently selected time becomes invalid (e.g. user selected today and time has passed), clear it
+  // Clear invalid slot if selected time passes
   useEffect(() => {
     if (selectedTime) {
       const currentSlot = timeSlotsStatus.find((s) => s.time === selectedTime);
@@ -317,7 +342,6 @@ export default function BookAppointment() {
     }
   }, [selectedDate, timeSlotsStatus, selectedTime]);
 
-  // Check if prev month button should be disabled
   const isPrevMonthDisabled = useMemo(() => {
     const now = new Date();
     return (
@@ -343,7 +367,6 @@ export default function BookAppointment() {
   const validateForm = () => {
     const errs = {};
 
-    // 1. Date Validation
     if (!selectedDate) {
       errs.date = "Please select an appointment date.";
       toast.error("Please pick a booking date.");
@@ -354,7 +377,6 @@ export default function BookAppointment() {
       return false;
     }
 
-    // 2. Time Validation
     if (!selectedTime) {
       errs.time = "Please select a valid time slot.";
       toast.error("Please choose a valid time slot.");
@@ -363,12 +385,11 @@ export default function BookAppointment() {
       const selectedSlotDate = parseSlotToDate(selectedDate, selectedTime);
       if (selectedSlotDate < new Date()) {
         errs.time = "Selected time has already passed for today.";
-        toast.error("Selected time slot has already passed. Please pick a future time.");
+        toast.error("Selected time slot has passed. Please pick a future time.");
         return false;
       }
     }
 
-    // 3. User Details Validation
     if (!formData.fullName.trim()) {
       errs.fullName = "Full name is required.";
       toast.error("Please enter your full name.");
@@ -503,7 +524,7 @@ export default function BookAppointment() {
             </p>
           </div>
 
-          {/* --- SECTION 01: SELECT TREATMENT --- */}
+          {/* --- SECTION 01: SELECT TREATMENT (10 Treatments) --- */}
           <div className="booking-card section-treatment">
             <div className="section-card-header">
               <span className="step-tag">Step 01</span>
@@ -579,7 +600,7 @@ export default function BookAppointment() {
             </div>
           </div>
 
-          {/* --- SECTION 03: DATE & TIME (VALIDATED) --- */}
+          {/* --- SECTION 03: DATE & TIME --- */}
           <div className="booking-card section-datetime">
             <div className="section-card-header">
               <span className="step-tag">Step 03</span>
@@ -588,7 +609,7 @@ export default function BookAppointment() {
 
             <div className="datetime-split-wrapper">
               
-              {/* Dynamic Validated Calendar */}
+              {/* Calendar */}
               <div className="calendar-widget">
                 <div className="calendar-nav-header">
                   <button
@@ -657,7 +678,7 @@ export default function BookAppointment() {
                 </div>
               </div>
 
-              {/* Time Slots Widget with Past Time Check */}
+              {/* Time Slots Widget */}
               <div className="timeslots-widget">
                 <h4 className="timeslots-header-title">Available Time Slots</h4>
                 <div className="timeslots-grid">
@@ -700,7 +721,7 @@ export default function BookAppointment() {
         </div>
 
         {/* ============================================================
-            RIGHT COLUMN: STICKY BOOKING FORM & SUMMARY
+            RIGHT COLUMN: STICKY NON-SCROLLABLE FORM & SUMMARY
         ============================================================ */}
         <div className="appointment-sticky-column">
           <form
@@ -713,7 +734,7 @@ export default function BookAppointment() {
               <h3 className="details-header-title">Your Details</h3>
             </div>
 
-            {/* Live Booking Summary Pill */}
+            {/* Live Summary Pill Box */}
             <div className="booking-live-summary">
               <div className="summary-pill-item">
                 <span className="summary-lbl">Treatment:</span>
@@ -738,7 +759,7 @@ export default function BookAppointment() {
               <input
                 type="text"
                 name="fullName"
-                placeholder="e.g. Bharath Baskaran"
+                placeholder="e.g. Aditi Singhania"
                 value={formData.fullName}
                 onChange={handleChange}
                 className={`form-control-input ${errors.fullName ? "is-invalid" : ""}`}
@@ -746,7 +767,7 @@ export default function BookAppointment() {
               {errors.fullName && <span className="error-text">{errors.fullName}</span>}
             </div>
 
-            {/* Phone Number */}
+            {/* Phone Number with +91 Prefix */}
             <div className="form-input-group">
               <label className="form-label">Phone Number *</label>
               <div className="phone-prefix-wrap">
@@ -770,7 +791,7 @@ export default function BookAppointment() {
               <input
                 type="email"
                 name="email"
-                placeholder="bharath@example.com"
+                placeholder="aditi@example.com"
                 value={formData.email}
                 onChange={handleChange}
                 className={`form-control-input ${errors.email ? "is-invalid" : ""}`}

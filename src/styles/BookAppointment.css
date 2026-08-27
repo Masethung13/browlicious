@@ -28,7 +28,6 @@
 .appointment-page-wrapper {
   width: 100%;
   min-height: 100vh;
-  /* Top padding ensures the sticky header NEVER covers the content */
   padding: 120px 4% 100px 4%;
   background-color: var(--app-bg);
   font-family: var(--font-sans);
@@ -38,7 +37,7 @@
 
 /* Master 2-Column Split: Left Scrollable | Right Sticky */
 .appointment-layout-grid {
-  max-width: 1420px;
+  max-width: 1440px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 400px;
@@ -125,11 +124,11 @@
 }
 
 /* ============================================================
-   3. SECTION 01: SELECT TREATMENT (Grid of 8)
+   3. SECTION 01: SELECT TREATMENT (Responsive Grid for 10 items)
 ============================================================ */
 .treatments-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
   gap: 16px;
 }
 
@@ -248,7 +247,7 @@
 }
 
 /* ============================================================
-   4. SECTION 02: CHOOSE YOUR SPECIALIST (Row of 3)
+   4. SECTION 02: CHOOSE YOUR SPECIALIST
 ============================================================ */
 .specialists-grid {
   display: grid;
@@ -359,7 +358,7 @@
 }
 
 /* ============================================================
-   5. SECTION 03: DATE & TIME (VALIDATED STYLING)
+   5. SECTION 03: DATE & TIME
 ============================================================ */
 .datetime-split-wrapper {
   display: grid;
@@ -458,7 +457,6 @@
   box-shadow: 0 4px 12px var(--app-pink-glow);
 }
 
-/* Past Dates Disabled */
 .cal-date.past-date,
 .cal-date:disabled {
   color: #D1CBC5 !important;
@@ -477,7 +475,6 @@
   padding-top: 8px;
 }
 
-/* Time Slots Widget */
 .timeslots-widget {
   display: flex;
   flex-direction: column;
@@ -524,7 +521,6 @@
   box-shadow: 0 4px 12px var(--app-pink-glow);
 }
 
-/* Past or Unavailable Time Slots */
 .time-slot-btn.unavailable,
 .time-slot-btn:disabled {
   background: #F4F1F0;
@@ -862,7 +858,7 @@
 }
 
 /* ============================================================
-   8. RESPONSIVE BREAKPOINTS (Mobile & Tablet)
+   8. RESPONSIVE BREAKPOINTS
 ============================================================ */
 @media (max-width: 1200px) {
   .appointment-layout-grid {
@@ -873,10 +869,6 @@
     position: static;
     max-height: none;
     overflow-y: visible;
-  }
-
-  .treatments-grid {
-    grid-template-columns: repeat(3, 1fr);
   }
 }
 
