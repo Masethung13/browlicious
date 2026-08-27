@@ -209,10 +209,10 @@ body {
   color: var(--theme-accent-pink);
 }
 
-.stat-label {
+.stat-label1 {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 0.9rem;
-  color: rgba(250, 249, 252, 0.75);
+  color: rgb(255, 255, 255);
   text-transform: capitalize;
 }
 

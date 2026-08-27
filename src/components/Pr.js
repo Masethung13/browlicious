@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../styles/Pr.css";
@@ -146,14 +147,14 @@ export default function Pr({ isDarkMode = false }) {
             </svg>
 
             {/* Main Interactive Circular Badge Link */}
-            <a href="#book" className="pr-appointment-badge" aria-label="Book PMU Appointment">
+            <Link to="/book-appointment" className="pr-appointment-badge" aria-label="Book PMU Appointment">
               <div className="badge-hover-ripple" />
               <span className="badge-sub-label">Reserve Now</span>
               <span className="badge-text">Appointment</span>
               <div className="badge-arrow-line">
                 <span className="badge-arrow-icon">→</span>
               </div>
-            </a>
+            </Link>
 
           </div>
         </div>

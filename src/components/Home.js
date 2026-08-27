@@ -81,13 +81,13 @@ const Home = ({ isDarkMode: parentDarkMode, setIsDarkMode: parentSetIsDarkMode }
 
       if (!pinWrapper || !morphImage || !targetSlot || !heroContent || !targetContent) return;
 
-      // Calculate relative position with image shifted top: -50px
+      // Calculate relative position for the target slot with -35px top offset
       const getTargetCoords = () => {
         const wrapperRect = pinWrapper.getBoundingClientRect();
         const slotRect = targetSlot.getBoundingClientRect();
         return {
           x: slotRect.left - wrapperRect.left,
-          y: slotRect.top - wrapperRect.top - 50,
+          y: slotRect.top - wrapperRect.top - 10,
           width: targetSlot.offsetWidth,
           height: targetSlot.offsetHeight,
         };
@@ -106,7 +106,7 @@ const Home = ({ isDarkMode: parentDarkMode, setIsDarkMode: parentSetIsDarkMode }
         zIndex: 5,
       });
 
-      gsap.set(targetContent, { opacity: 0, y: 50 });
+      gsap.set(targetContent, { opacity: 0 });
       gsap.set(heroContent, { opacity: 1, y: 0 });
 
       // Entrance animation for hero title lines on load
@@ -147,32 +147,18 @@ const Home = ({ isDarkMode: parentDarkMode, setIsDarkMode: parentSetIsDarkMode }
         0
       );
 
-      // Step B: Fade in Target text line-by-line
+      // Step B: Fade in Target text
       tl.to(
         targetContent,
         {
           opacity: 1,
-          y: 0,
           duration: 0.4,
           ease: "power1.inOut",
         },
         0.2
       );
 
-      tl.fromTo(
-        ".headline-wrapper .heading-row",
-        { y: 40, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.1,
-          duration: 0.4,
-          ease: "power2.out",
-        },
-        0.25
-      );
-
-      // Step C: Morph background image directly into target slot position with -50px offset
+      // Step C: Morph background image directly into target slot position
       tl.to(
         morphImage,
         {
@@ -290,11 +276,11 @@ const Home = ({ isDarkMode: parentDarkMode, setIsDarkMode: parentSetIsDarkMode }
           <div className="hero-stats">
             <div className="stat-item">
               <span className="stat-number">{hubsCount}</span>
-              <span className="stat-label">Chennai Hubs (Anna Nagar &amp; Kelambakkam)</span>
+              <span className="stat-label1">Chennai Hubs (Anna Nagar &amp; Kelambakkam)</span>
             </div>
             <div className="stat-item">
               <span className="stat-number">{specCount}%</span>
-              <span className="stat-label">PMU Specialization</span>
+              <span className="stat-label1">PMU Specialization</span>
             </div>
           </div>
         </div>

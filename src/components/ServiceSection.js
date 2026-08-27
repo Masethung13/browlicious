@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../styles/ServiceSection.css";
@@ -654,10 +655,10 @@ export default function ServiceSection({ isDarkMode = false }) {
               </div>
 
               {/* View Details Action Button with Arrow */}
-              <a href="#book" className="treatment-details-btn">
+              <Link to="/book-appointment" className="treatment-details-btn">
                 <span>VIEW DETAILS</span>
                 <span className="btn-arrow">→</span>
-              </a>
+              </Link>
             </div>
 
           </div>

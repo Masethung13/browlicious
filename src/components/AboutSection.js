@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../styles/AboutSection.css";
@@ -233,10 +234,10 @@ export default function AboutSection({ isDarkMode = false }) {
 
           {/* Rolling CTA Button */}
           <div className="about-btn-wrap">
-            <a href="#story" className="about-story-btn">
+            <Link to="/about-us" className="about-story-btn">
               <span className="btn-text-normal">Discover Our Story</span>
               <span className="btn-text-hover">Discover Our Story</span>
-            </a>
+            </Link>
           </div>
 
           {/* Counters Row */}
