@@ -1,0 +1,390 @@
+/* ============================================================
+   DESIGN SYSTEM & VARIABLES
+============================================================ */
+:root {
+  --res-bg: #FAF9F6;
+  --res-card-bg: #FFFFFF;
+  --res-card-border: rgba(232, 226, 214, 0.85);
+  --res-charcoal: #1C1B1A;
+  --res-dark-gray: #4A443E;
+  --res-muted: #78716A;
+  --res-pink: #E82E6A;
+  --res-pink-light: #FDF2F5;
+  --res-pink-glow: rgba(232, 46, 106, 0.25);
+  --res-gold: #C5A47E;
+
+  --font-serif: Georgia, 'Times New Roman', Times, serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+
+  --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ============================================================
+   1. PAGE CONTAINER
+============================================================ */
+.results-page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  /* Top padding ensures it sits below sticky headers */
+  padding: 120px 4% 100px 4%;
+  background-color: var(--res-bg);
+  font-family: var(--font-sans);
+  color: var(--res-charcoal);
+  box-sizing: border-box;
+}
+
+.results-inner-container {
+  max-width: 1380px;
+  margin: 0 auto;
+}
+
+/* Header Banner */
+.results-header {
+  text-align: center;
+  margin-bottom: 2.8rem;
+}
+
+.results-eyebrow {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  color: var(--res-pink);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.results-main-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 3.6vw, 3.4rem);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--res-charcoal);
+  margin-bottom: 0.9rem;
+}
+
+.results-main-title em {
+  font-style: italic;
+  color: var(--res-pink);
+}
+
+.results-subtitle {
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: var(--res-muted);
+  max-width: 640px;
+  margin: 0 auto;
+  font-weight: 300;
+}
+
+/* ============================================================
+   2. CATEGORY FILTER TABS
+============================================================ */
+.results-filter-tabs-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3.5rem;
+  overflow-x: auto;
+  padding: 4px 0;
+}
+
+.results-filter-tabs {
+  display: inline-flex;
+  gap: 10px;
+  background: #FFFFFF;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--res-card-border);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+}
+
+.filter-pill-btn {
+  background: transparent;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--res-muted);
+  padding: 8px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.filter-pill-btn:hover {
+  color: var(--res-charcoal);
+  background-color: #F8F5F2;
+}
+
+/* Active Pink Tab */
+.filter-pill-btn.active {
+  background-color: var(--res-pink);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px var(--res-pink-glow);
+}
+
+/* ============================================================
+   3. 3-COLUMN CARDS GRID
+============================================================ */
+.results-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.result-treatment-card {
+  background: var(--res-card-bg);
+  border-radius: 20px;
+  border: 1px solid var(--res-card-border);
+  box-shadow: 0 10px 30px rgba(28, 27, 26, 0.04);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s var(--ease-smooth),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease;
+}
+
+.result-treatment-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(232, 46, 106, 0.4);
+  box-shadow: 0 18px 45px rgba(28, 27, 26, 0.08);
+}
+
+/* ============================================================
+   4. INTERACTIVE BEFORE/AFTER SLIDER
+============================================================ */
+.ba-slider-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  user-select: none;
+  cursor: ew-resize;
+  touch-action: pan-y;
+  background-color: #EDE8E3;
+}
+
+.ba-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Before Wrapper (Clip-pathed) */
+.ba-before-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  will-change: clip-path;
+}
+
+/* Before/After Badges */
+.ba-badge {
+  position: absolute;
+  bottom: 12px;
+  padding: 4px 10px;
+  background: rgba(28, 27, 26, 0.7);
+  backdrop-filter: blur(6px);
+  color: #FFFFFF;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  border-radius: 6px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.badge-before {
+  left: 12px;
+}
+
+.badge-after {
+  right: 12px;
+}
+
+/* Slider Vertical Dividing Line */
+.ba-slider-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #FFFFFF;
+  transform: translateX(-50%);
+  z-index: 10;
+  pointer-events: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Circular Handle Knob */
+.ba-handle-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1.5px solid rgba(232, 46, 106, 0.6);
+  color: var(--res-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.ba-slider-container:hover .ba-handle-circle {
+  transform: translate(-50%, -50%) scale(1.08);
+  background-color: var(--res-pink-light);
+}
+
+.ba-handle-circle svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* ============================================================
+   5. CARD BODY & METADATA
+============================================================ */
+.result-card-body {
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.result-title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.treatment-mini-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--res-pink-light);
+  border: 1px solid rgba(232, 46, 106, 0.2);
+  color: var(--res-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.treatment-mini-badge svg {
+  width: 18px;
+  height: 18px;
+}
+
+.result-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--res-charcoal);
+  margin-bottom: 4px;
+}
+
+.result-card-desc {
+  font-size: 0.8rem;
+  color: var(--res-muted);
+  line-height: 1.45;
+}
+
+/* Specialist & Date Row */
+.result-meta-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.74rem;
+  color: var(--res-dark-gray);
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(232, 226, 214, 0.6);
+}
+
+.meta-label {
+  color: var(--res-muted);
+  font-weight: 500;
+}
+
+.meta-separator {
+  color: var(--res-gold);
+}
+
+/* Action Link */
+.result-action-footer {
+  margin-top: auto;
+}
+
+.view-case-study-link {
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--res-pink);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.view-case-study-link:hover {
+  color: #D81B60;
+  transform: translateX(4px);
+}
+
+.arrow-icon {
+  font-size: 0.95rem;
+  transition: transform 0.25s ease;
+}
+
+.view-case-study-link:hover .arrow-icon {
+  transform: translateX(3px);
+}
+
+/* ============================================================
+   6. RESPONSIVE BREAKPOINTS
+============================================================ */
+@media (max-width: 1180px) {
+  .results-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .results-page-wrapper {
+    padding: 100px 3% 60px 3%;
+  }
+
+  .results-filter-tabs-wrapper {
+    justify-content: flex-start;
+  }
+
+  .results-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .result-card-body {
+    padding: 18px;
+  }
+}

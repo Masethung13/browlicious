@@ -15,6 +15,7 @@ import Pr from "./components/Pr";
 import Testimonials from "./components/Testimonials";
 import BookAppointment from "./components/BookAppointment";
 import AbtPg from "./components/AbtPg";
+import Results from "./components/Results"; 
 
 // Scroll to top on route change helper
 function ScrollToTop() {
@@ -76,7 +77,7 @@ function App() {
             }
           />
 
-          {/* Dedicated About Us Page Route */}
+          {/* Dedicated About Us Page Routes */}
           <Route
             path="/about"
             element={
@@ -103,6 +104,16 @@ function App() {
                 setIsDarkMode={setIsDarkMode}
               />
             }
+          />
+
+          {/* Dedicated Process Results / Before-After Route */}
+          <Route
+            path="/process-results"
+            element={<Results isDarkMode={isDarkMode} />}
+          />
+          <Route
+            path="/results"
+            element={<Results isDarkMode={isDarkMode} />}
           />
 
           {/* Dedicated Book Appointment Route */}
