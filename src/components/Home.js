@@ -1,11 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import bgImage1 from "../assets/microblading.png";
+import bgImage1 from "../assets/hm4.png";
 import bgImage2 from "../assets/treatment_banner.jpg";
+import bgImage3 from "../assets/microblading.png";
 import "../styles/Home.css";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const BG_IMAGES = [bgImage1, bgImage2, bgImage3];
 
 const Home = ({ isDarkMode: parentDarkMode, setIsDarkMode: parentSetIsDarkMode }) => {
   const containerRef = useRef(null);
@@ -20,14 +23,52 @@ const Home = ({ isDarkMode: parentDarkMode, setIsDarkMode: parentSetIsDarkMode }
   const isDarkMode = parentDarkMode !== undefined ? parentDarkMode : localDarkMode;
   const setIsDarkMode = parentSetIsDarkMode || setLocalDarkMode;
 
-  // Background Slider Auto-Slide State (Loop Mode between 2 images)
+  // Background Slider Auto-Slide State (Cycle through all 3 images)
   const [currentBg, setCurrentBg] = useState(0);
 
+  // Animated Hero Counter State
+  const [hubsCount, setHubsCount] = useState(0);
+  const [specCount, setSpecCount] = useState(0);
+  const counterTimerRef = useRef(null);
+
+  const runHeroCounter = () => {
+    if (counterTimerRef.current) clearInterval(counterTimerRef.current);
+    const duration = 1800; // 1.8 seconds
+    const steps = 60;
+    const intervalTime = duration / steps;
+    let currentStep = 0;
+
+    setHubsCount(0);
+    setSpecCount(0);
+
+    counterTimerRef.current = setInterval(() => {
+      currentStep++;
+      const progress = currentStep / steps;
+      const easeOutQuad = (t) => t * (2 - t);
+      const easedProgress = easeOutQuad(progress);
+
+      setHubsCount(Math.min(2, Math.round(easedProgress * 2)));
+      setSpecCount(Math.min(100, Math.floor(easedProgress * 100)));
+
+      if (currentStep >= steps) {
+        setHubsCount(2);
+        setSpecCount(100);
+        clearInterval(counterTimerRef.current);
+        counterTimerRef.current = null;
+      }
+    }, intervalTime);
+  };
+
   useEffect(() => {
+    runHeroCounter();
     const interval = setInterval(() => {
-      setCurrentBg((prev) => (prev === 0 ? 1 : 0));
+      setCurrentBg((prev) => (prev + 1) % BG_IMAGES.length);
     }, 4500);
-    return () => clearInterval(interval);
+
+    return () => {
+      clearInterval(interval);
+      if (counterTimerRef.current) clearInterval(counterTimerRef.current);
+    };
   }, []);
 
   useEffect(() => {
@@ -131,6 +172,14 @@ const Home = ({ isDarkMode: parentDarkMode, setIsDarkMode: parentSetIsDarkMode }
         0
       );
 
+      // Step E: Trigger fresh counter when entering Hero section
+      ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: "top 60%",
+        onEnter: runHeroCounter,
+        onEnterBack: runHeroCounter,
+      });
+
       ScrollTrigger.refresh();
     }, containerRef);
 
@@ -179,17 +228,16 @@ const Home = ({ isDarkMode: parentDarkMode, setIsDarkMode: parentSetIsDarkMode }
           PINNED HERO -> TARGET TRANSITION CONTAINER
       ==================================================== */}
       <div className="pinned-showcase-wrapper" ref={pinWrapperRef}>
-        {/* Morphing Image Box with 2-Image Auto Slider */}
+        {/* Morphing Image Box with 3-Image Auto Slider */}
         <div className="morph-image-box" ref={morphImageRef}>
           <div className="morph-image-bg">
-            <div
-              className={`hero-bg-slide ${currentBg === 0 ? "active" : ""}`}
-              style={{ backgroundImage: `url(${bgImage1})` }}
-            />
-            <div
-              className={`hero-bg-slide ${currentBg === 1 ? "active" : ""}`}
-              style={{ backgroundImage: `url(${bgImage2})` }}
-            />
+            {BG_IMAGES.map((imgSrc, index) => (
+              <div
+                key={index}
+                className={`hero-bg-slide ${currentBg === index ? "active" : ""}`}
+                style={{ backgroundImage: `url(${imgSrc})` }}
+              />
+            ))}
             <div className="image-dark-overlay" />
           </div>
         </div>
@@ -208,11 +256,11 @@ const Home = ({ isDarkMode: parentDarkMode, setIsDarkMode: parentSetIsDarkMode }
           </p>
           <div className="hero-stats">
             <div className="stat-item">
-              <span className="stat-number">2</span>
+              <span className="stat-number">{hubsCount}</span>
               <span className="stat-label">Chennai Hubs (Anna Nagar &amp; Kelambakkam)</span>
             </div>
             <div className="stat-item">
-              <span className="stat-number">100%</span>
+              <span className="stat-number">{specCount}%</span>
               <span className="stat-label">PMU Specialization</span>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/Footer.css";
-import footerCtaBanner from "../assets/footer_cta_banner.jpg";
+import footerCtaBanner from "../assets/footer_cta_banner.png";
 
 export default function Footer({ isDarkMode = false }) {
   const scrollToTop = () => {

@@ -1,16 +1,16 @@
 /* ============================================================
    BROWLICIOUS ABOUT SECTION DESIGN SYSTEM
    - Full Light Theme & Dark Theme Integration
-   - Universal 'melodrama' Serif Typography
+   - Josefin Sans Typography & Editorial Aesthetics
    - Layered Luxury Overlapping Image Cards with Pinch-in Zoom
-   - Fully Responsive for Desktop, Tablet & Mobile Devices
+   - Precision Responsiveness for Large Laptops, Small Laptops, Tablets & Mobile
 ============================================================ */
 
 /* 1. Base Variables & Shared Typography */
 .about-section-wrapper {
   position: relative;
   width: 100%;
-  padding: 120px 6% 130px 6%;
+  padding: 110px 5% 120px 5%;
   box-sizing: border-box;
   font-family: 'Josefin Sans', sans-serif;
   overflow: hidden;
@@ -82,6 +82,7 @@ body.dark-theme .about-section-wrapper {
   top: 5%;
   right: -5%;
   width: 420px;
+  max-width: 35vw;
   height: auto;
   pointer-events: none;
   opacity: var(--about-botanical-opacity);
@@ -111,6 +112,16 @@ body.dark-theme .about-section-wrapper {
 
 @media (min-width: 1024px) {
   .about-section-container {
+    grid-template-columns: 1.12fr 0.88fr;
+    gap: 3.5rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .about-section-wrapper {
+    padding: 125px 6% 135px 6%;
+  }
+  .about-section-container {
     grid-template-columns: 1.15fr 0.85fr;
     gap: 5rem;
   }
@@ -125,12 +136,12 @@ body.dark-theme .about-section-wrapper {
 
 .about-main-heading {
   font-family: 'Josefin Sans', sans-serif;
-  font-size: clamp(2.1rem, 4vw, 3.4rem);
+  font-size: clamp(2rem, 3.2vw, 3.3rem);
   font-weight: 400;
-  line-height: 1.18;
+  line-height: 1.2;
   letter-spacing: -0.01em;
   color: var(--about-text-main);
-  margin: 0 0 1.85rem 0;
+  margin: 0 0 1.6rem 0;
   text-transform: capitalize;
 }
 
@@ -141,16 +152,20 @@ body.dark-theme .about-section-wrapper {
 
 .about-description {
   font-family: 'Josefin Sans', sans-serif;
-  font-size: clamp(0.95rem, 1.25vw, 1.08rem);
-  line-height: 1.8;
+  font-size: clamp(0.92rem, 1.15vw, 1.05rem);
+  line-height: 1.75;
   color: var(--about-text-muted);
   font-weight: 300;
-  margin: 0 0 2.5rem 0;
+  margin: 0 0 2.25rem 0;
 }
 
 /* Pill CTA Button with Rolling Text Hover */
 .about-btn-wrap {
-  margin-bottom: 3.5rem;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 1440px) {
+  .about-btn-wrap { margin-bottom: 3.5rem; }
 }
 
 .about-story-btn {
@@ -158,11 +173,11 @@ body.dark-theme .about-section-wrapper {
   position: relative;
   overflow: hidden;
   text-decoration: none;
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  padding: 0.85rem 2rem;
+  padding: 0.8rem 1.85rem;
   border-radius: 999px;
   border: 1px solid var(--about-btn-border);
   color: var(--about-btn-text);
@@ -183,7 +198,7 @@ body.dark-theme .about-section-wrapper {
   left: 0;
   width: 100%;
   text-align: center;
-  padding: 0.85rem 2rem;
+  padding: 0.8rem 1.85rem;
   color: var(--about-btn-hover-text);
   background-color: var(--about-btn-hover-bg);
   border-radius: 999px;
@@ -202,8 +217,12 @@ body.dark-theme .about-section-wrapper {
 .about-stats-row {
   display: flex;
   align-items: center;
-  gap: 2.2rem;
+  gap: 2rem;
   flex-wrap: wrap;
+}
+
+@media (min-width: 1440px) {
+  .about-stats-row { gap: 2.5rem; }
 }
 
 .about-stat-item {
@@ -219,7 +238,7 @@ body.dark-theme .about-section-wrapper {
 
 .stat-count-value {
   font-family: 'Josefin Sans', sans-serif;
-  font-size: clamp(2.4rem, 3.6vw, 3.2rem);
+  font-size: clamp(2.2rem, 3.2vw, 3.1rem);
   font-weight: 500;
   color: var(--about-text-main);
   line-height: 1;
@@ -227,31 +246,31 @@ body.dark-theme .about-section-wrapper {
 
 .stat-count-suffix {
   font-family: 'Josefin Sans', sans-serif;
-  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
   font-weight: 400;
   color: var(--about-accent-pink);
   margin-left: 2px;
 }
 
 .stat-item-divider {
-  width: 32px;
+  width: 30px;
   height: 1.5px;
   background-color: var(--about-accent-pink);
-  margin: 0.6rem 0 0.5rem 0;
+  margin: 0.5rem 0 0.45rem 0;
   opacity: 0.8;
 }
 
 .stat-item-title {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.15em;
   color: var(--about-text-muted);
   font-weight: 500;
 }
 
 .stat-col-divider {
   width: 1px;
-  height: 48px;
+  height: 44px;
   background-color: var(--about-border);
   align-self: center;
 }
@@ -269,13 +288,17 @@ body.dark-theme .about-section-wrapper {
 .layered-images-stage {
   position: relative;
   width: 100%;
-  max-width: 500px;
+  max-width: 480px;
+}
+
+@media (min-width: 1440px) {
+  .layered-images-stage { max-width: 520px; }
 }
 
 /* Primary Portrait Image */
 .primary-image-card {
   position: relative;
-  width: 84%;
+  width: 85%;
   margin-left: auto;
   border-radius: 16px;
   overflow: hidden;
@@ -296,7 +319,7 @@ body.dark-theme .about-section-wrapper {
 }
 
 .primary-image-card:hover .about-img-primary {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
 .image-lens-glow {
@@ -315,16 +338,23 @@ body.dark-theme .about-section-wrapper {
 /* Secondary Overlapping Landscape Image */
 .secondary-image-card {
   position: absolute;
-  bottom: -45px;
-  left: -35px;
+  bottom: -35px;
+  left: -25px;
   width: 72%;
   border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.2);
   border: 4px solid var(--about-card-border);
   z-index: 2;
   transition: border-color 0.5s ease, box-shadow 0.5s ease, transform 0.4s ease;
   cursor: pointer;
+}
+
+@media (min-width: 1440px) {
+  .secondary-image-card {
+    bottom: -45px;
+    left: -35px;
+  }
 }
 
 .about-img-secondary {
@@ -338,7 +368,7 @@ body.dark-theme .about-section-wrapper {
 }
 
 .secondary-image-card:hover .about-img-secondary {
-  transform: scale(1.12);
+  transform: scale(1.1);
 }
 
 .image-glass-glare {
@@ -358,16 +388,39 @@ body.dark-theme .about-section-wrapper {
 }
 
 /* ============================================================
-   5. RESPONSIVE BREAKPOINTS (Desktop, Tablet & Mobile)
+   5. RESPONSIVE BREAKPOINTS (Large Laptop, Small Laptop, Tablet, Mobile)
 ============================================================ */
-@media (max-width: 1024px) {
+
+/* Small Laptops (1024px - 1366px) */
+@media (min-width: 1024px) and (max-width: 1366px) {
   .about-section-wrapper {
-    padding: 100px 5% 110px 5%;
+    padding: 95px 5% 105px 5%;
+  }
+
+  .about-section-container {
+    gap: 3rem;
+  }
+
+  .layered-images-stage {
+    max-width: 440px;
+  }
+
+  .secondary-image-card {
+    bottom: -30px;
+    left: -20px;
+    width: 70%;
+  }
+}
+
+/* Medium Tablets & Below (<= 1023px) */
+@media (max-width: 1023px) {
+  .about-section-wrapper {
+    padding: 85px 5% 95px 5%;
   }
 
   .about-section-container {
     grid-template-columns: 1fr;
-    gap: 4.5rem;
+    gap: 3.5rem;
   }
 
   .about-content-column {
@@ -380,30 +433,31 @@ body.dark-theme .about-section-wrapper {
   }
 
   .secondary-image-card {
-    left: -20px;
-    bottom: -35px;
+    left: -15px;
+    bottom: -28px;
     width: 70%;
   }
 }
 
+/* Tablets (<= 768px) */
 @media (max-width: 768px) {
   .about-section-wrapper {
-    padding: 80px 5% 90px 5%;
+    padding: 75px 5% 85px 5%;
   }
 
   .about-main-heading {
-    font-size: 2.2rem;
-    margin-bottom: 1.25rem;
+    font-size: 2.1rem;
+    margin-bottom: 1.15rem;
   }
 
   .about-description {
-    font-size: 0.96rem;
-    line-height: 1.7;
-    margin-bottom: 2rem;
+    font-size: 0.94rem;
+    line-height: 1.65;
+    margin-bottom: 1.75rem;
   }
 
   .about-btn-wrap {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2.25rem;
   }
 
   .about-stats-row {
@@ -417,11 +471,11 @@ body.dark-theme .about-section-wrapper {
   }
 
   .stat-count-value {
-    font-size: 2.2rem;
+    font-size: 2.1rem;
   }
 
   .stat-count-suffix {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   .layered-images-stage {
@@ -436,7 +490,7 @@ body.dark-theme .about-section-wrapper {
   }
 
   .secondary-image-card {
-    bottom: -25px;
+    bottom: -22px;
     left: -10px;
     width: 72%;
     border-radius: 10px;
@@ -444,18 +498,19 @@ body.dark-theme .about-section-wrapper {
   }
 }
 
+/* Mobile Devices (<= 480px) */
 @media (max-width: 480px) {
   .about-section-wrapper {
-    padding: 65px 4% 80px 4%;
+    padding: 60px 4% 75px 4%;
   }
 
   .about-main-heading {
-    font-size: 1.85rem;
+    font-size: 1.8rem;
   }
 
   .about-stats-row {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    /* grid-template-columns: 1fr; */
+    gap: 1.25rem;
   }
 
   .about-stat-item {
@@ -463,13 +518,13 @@ body.dark-theme .about-section-wrapper {
   }
 
   .layered-images-stage {
-    max-width: 300px;
-    margin: 0 auto 1.5rem auto;
+    max-width: 290px;
+    margin: 0 auto 1.25rem auto;
   }
 
   .secondary-image-card {
-    bottom: -20px;
-    left: -8px;
+    bottom: -16px;
+    left: -6px;
     width: 74%;
     border-width: 2.5px;
   }
