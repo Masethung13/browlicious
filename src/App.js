@@ -15,6 +15,7 @@ import Pr from "./components/Pr";
 import Testimonials from "./components/Testimonials";
 import BookAppointment from "./components/BookAppointment";
 import AbtPg from "./components/AbtPg";
+import Blogspg from "./components/Blogspg";
 
 // Scroll to top on route change helper
 function ScrollToTop() {
@@ -110,6 +111,35 @@ function App() {
             path="/book-appointment"
             element={
               <BookAppointment
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
+            }
+          />
+
+          {/* Dedicated Blogs Page Route */}
+          <Route
+            path="/blogs"
+            element={
+              <Blogspg
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
+            }
+          />
+          <Route
+            path="/blog"
+            element={
+              <Blogspg
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
+            }
+          />
+          <Route
+            path="/blogspg"
+            element={
+              <Blogspg
                 isDarkMode={isDarkMode}
                 setIsDarkMode={setIsDarkMode}
               />
