@@ -223,7 +223,7 @@ export default function ContactPage({ isDarkMode = false, setIsDarkMode }) {
       });
 
       // 2. Send email notification via FormSubmit.co
-      await fetch("https://formsubmit.co/ajax/bharathdws98424@gmail.com", {
+      await fetch("https://formsubmit.co/ajax/hello@vayonixinfotech.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
