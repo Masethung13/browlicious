@@ -16,29 +16,29 @@ import microbladingAfter from "../assets/Result/microblading_after.png";
 import comboBrowsBefore from "../assets/Result/combo_brows_before.png";
 import comboBrowsAfter from "../assets/Result/combo_brows_after.png";
 
-import ombreBrowsBefore from "../assets/Result/combo_brows_before.png";
-import ombreBrowsAfter from "../assets/Result/combo_brows_after.png";
+import ombreBrowsBefore from "../assets/Result/ombre_brows_before.png";
+import ombreBrowsAfter from "../assets/Result/ombre_brows_after.png";
 
 import lipBlushingBefore from "../assets/Result/lip_blushing_before.png";
 import lipBlushingAfter from "../assets/Result/lip_blushing_after.png";
 
-import eyelinerBefore from "../assets/Result/Eye_liner_Tattoo_before.png";
-import eyelinerAfter from "../assets/Result/Eye_liner_Tattoo_after.png";
+import eyelinerBefore from "../assets/Result/Eye_liner_tattoo_before.png";
+import eyelinerAfter from "../assets/Result/Eye_liner_tattoo_after.png";
 
-import browLaminationBefore from "../assets/Result/brow_lamination_before.png";
-import browLaminationAfter from "../assets/Result/brow_lamination_after.png";
+import browLaminationBefore from "../assets/Result/Brow_lamination_before.png";
+import browLaminationAfter from "../assets/Result/Brow_lamination_after.png";
 
 import scalpBefore from "../assets/Result/micropigmentation_before.png";
 import scalpAfter from "../assets/Result/micropigmentation_after.png";
 
-import skinRejuvBefore from "../assets/Result/microblading_before.png";
-import skinRejuvAfter from "../assets/Result/microblading_before.png";
+import skinRejuvBefore from "../assets/Result/skin_rejuventation_before.png";
+import skinRejuvAfter from "../assets/Result/skin_rejuventation_after.png";
 
-import hydraFacialBefore from "../assets/Result/microblading_before.png";
-import hydraFacialAfter from "../assets/Result/microblading_before.png";
+import hydraFacialBefore from "../assets/Result/hydra_facial_before.png";
+import hydraFacialAfter from "../assets/Result/hydra_facial_after.png";
 
-import acneScarBefore from "../assets/Result/microblading_before.png";
-import acneScarAfter from "../assets/Result/microblading_before.png";
+import acneScarBefore from "../assets/Result/Acne_scar_treatment_before.png";
+import acneScarAfter from "../assets/Result/Acne_scar_treatment_after.png";
 
 // Assets for Process Timeline Section
 import consultImg from "../assets/about-pmu-artist.jpg";

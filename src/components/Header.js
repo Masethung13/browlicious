@@ -12,7 +12,7 @@ const NAV_LINKS = [
   { name: "Blogs", href: "/blogs", subtitle: "05 / Beauty Insights", isRoute: true },
   { name: "Why Choose Us", href: "/#why-choose-us", subtitle: "06 / Master Standards" },
   { name: "Faq", href: "/#testimonials", subtitle: "07 / Reviews" },
-  { name: "Contact", href: "/book-appointment", subtitle: "08 / Book Session", isRoute: true },
+  { name: "Contact", href: "/contact", subtitle: "08 / Book Session", isRoute: true },
 ];
 
 export default function Header({ isDarkMode = false }) {
