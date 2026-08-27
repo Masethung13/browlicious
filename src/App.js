@@ -14,6 +14,7 @@ import WhyChooseUs from "./components/Whychooseus";
 import Pr from "./components/Pr";
 import Testimonials from "./components/Testimonials";
 import BookAppointment from "./components/BookAppointment";
+import AbtPg from "./components/AbtPg";
 
 // Scroll to top on route change helper
 function ScrollToTop() {
@@ -69,6 +70,35 @@ function App() {
             path="/"
             element={
               <LandingPage
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
+            }
+          />
+
+          {/* Dedicated About Us Page Route */}
+          <Route
+            path="/about"
+            element={
+              <AbtPg
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
+            }
+          />
+          <Route
+            path="/about-us"
+            element={
+              <AbtPg
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
+            }
+          />
+          <Route
+            path="/abt"
+            element={
+              <AbtPg
                 isDarkMode={isDarkMode}
                 setIsDarkMode={setIsDarkMode}
               />
