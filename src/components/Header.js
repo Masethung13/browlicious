@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../styles/Header.css";
 import browliciousLogo from "../assets/browlicious-dark-logo.png";
 import headerEditorialImg from "../assets/treatment_banner.jpg";
 
 const NAV_LINKS = [
-  { name: "Home", href: "#home", subtitle: "01 / Welcome" },
-  { name: "About Us", href: "#about", subtitle: "02 / Our Story" },
-  { name: "Treatments", href: "#services", subtitle: "03 / Signature PMU" },
-  { name: "Beauty Journey", href: "#beauty-journey", subtitle: "04 / The Experience" },
-  { name: "Why Choose Us", href: "#why-choose-us", subtitle: "05 / Master Standards" },
-  { name: "Client Stories", href: "#testimonials", subtitle: "06 / Reviews" },
-  { name: "Contact", href: "#booking", subtitle: "07 / Book Session" },
+  { name: "Home", href: "/", subtitle: "01 / Welcome", isRoute: true },
+  { name: "About Us", href: "/#about", subtitle: "02 / Our Story" },
+  { name: "Treatments", href: "/#services", subtitle: "03 / Signature PMU" },
+  { name: "Beauty Journey", href: "/#beauty-journey", subtitle: "04 / The Experience" },
+  { name: "Why Choose Us", href: "/#why-choose-us", subtitle: "05 / Master Standards" },
+  { name: "Client Stories", href: "/#testimonials", subtitle: "06 / Reviews" },
+  { name: "Book Appointment", href: "/book-appointment", subtitle: "07 / Book Session", isRoute: true },
 ];
 
 export default function Header({ isDarkMode = false }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // 1. Clean Scroll Tracking for Main Header
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // 1. Scroll Tracking for Sticky Header Glassmorphism
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -43,16 +47,21 @@ export default function Header({ isDarkMode = false }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [isMenuOpen]);
 
-  // 3. Smooth Scroll to Home on Logo Click
+  // 3. Smart Logo Click: Navigate home if on another page or scroll to top
   const handleLogoClick = (e) => {
     e.preventDefault();
     setIsMenuOpen(false);
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-    if (window.location.hash) {
-      window.history.pushState(null, "", window.location.pathname);
+
+    if (location.pathname !== "/") {
+      navigate("/");
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+      if (window.location.hash) {
+        window.history.pushState(null, "", window.location.pathname);
+      }
     }
   };
 
@@ -82,7 +91,7 @@ export default function Header({ isDarkMode = false }) {
           {/* Center Column: Browlicious Logo */}
           <div className="header-center">
             <a 
-              href="#home" 
+              href="/" 
               onClick={handleLogoClick} 
               className="brand-logo" 
               aria-label="Browlicious Home"
@@ -95,7 +104,7 @@ export default function Header({ isDarkMode = false }) {
             </a>
           </div>
 
-          {/* Right Column: Phone & CTA */}
+          {/* Right Column: Phone & Book Appointment Route CTA */}
           <div className="header-right">
             <div className="appointment-phone">
               <span className="phone-label">Call:</span>
@@ -104,10 +113,15 @@ export default function Header({ isDarkMode = false }) {
               </a>
             </div>
 
-            <a href="#booking" className="book-cta-btn">
+            {/* React Router Link to /book-appointment */}
+            <Link 
+              to="/book-appointment" 
+              className="book-cta-btn"
+              onClick={() => setIsMenuOpen(false)}
+            >
               <span className="btn-text-default">Book Appointment</span>
               <span className="btn-text-hover">Book Appointment</span>
-            </a>
+            </Link>
           </div>
 
         </div>
@@ -149,15 +163,29 @@ export default function Header({ isDarkMode = false }) {
                     style={{ "--item-delay": `${0.25 + index * 0.05}s` }}
                   >
                     <span className="nav-item-num">{item.subtitle}</span>
-                    <a
-                      href={item.href}
-                      className="nav-menu-single-link"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      <span className="link-text" data-text={item.name}>
-                        {item.name}
-                      </span>
-                    </a>
+
+                    {/* Check if route navigation or anchor link */}
+                    {item.isRoute ? (
+                      <Link
+                        to={item.href}
+                        className="nav-menu-single-link"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        <span className="link-text" data-text={item.name}>
+                          {item.name}
+                        </span>
+                      </Link>
+                    ) : (
+                      <a
+                        href={item.href}
+                        className="nav-menu-single-link"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        <span className="link-text" data-text={item.name}>
+                          {item.name}
+                        </span>
+                      </a>
+                    )}
                   </div>
                 ))}
               </nav>
