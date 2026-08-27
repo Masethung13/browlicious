@@ -1,0 +1,916 @@
+/* ============================================================
+   DESIGN SYSTEM & LUXURY SPA PALETTE
+============================================================ */
+:root {
+  --app-bg: #FAF9F6;
+  --app-card-bg: #FFFFFF;
+  --app-card-border: rgba(232, 226, 214, 0.85);
+  --app-charcoal: #1C1B1A;
+  --app-dark-gray: #4A443E;
+  --app-muted: #78716A;
+  --app-pink: #E82E6A;
+  --app-pink-light: #FDF2F5;
+  --app-pink-glow: rgba(232, 46, 106, 0.25);
+  --app-gold: #C5A47E;
+  
+  --font-serif: Georgia, 'Times New Roman', Times, serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  
+  --shadow-card: 0 10px 30px rgba(28, 27, 26, 0.04);
+  --shadow-elevated: 0 16px 40px rgba(232, 46, 106, 0.12);
+  --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ============================================================
+   1. PAGE WRAPPER & HEADER-SAFE SPACING
+============================================================ */
+.appointment-page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  /* Top padding ensures the sticky header NEVER covers the content */
+  padding: 120px 4% 100px 4%;
+  background-color: var(--app-bg);
+  font-family: var(--font-sans);
+  color: var(--app-charcoal);
+  box-sizing: border-box;
+}
+
+/* Master 2-Column Split: Left Scrollable | Right Sticky */
+.appointment-layout-grid {
+  max-width: 1420px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 36px;
+  align-items: start;
+}
+
+/* ============================================================
+   2. PAGE HEADER BANNER
+============================================================ */
+.appointment-page-header {
+  margin-bottom: 2rem;
+}
+
+.header-eyebrow {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  color: var(--app-pink);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.header-headline {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--app-charcoal);
+  margin-bottom: 0.8rem;
+}
+
+.header-headline em {
+  font-style: italic;
+  color: var(--app-pink);
+}
+
+.header-subtext {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--app-muted);
+  max-width: 620px;
+  font-weight: 300;
+}
+
+/* Common Card Architecture */
+.booking-card {
+  background: var(--app-card-bg);
+  border-radius: 20px;
+  border: 1px solid var(--app-card-border);
+  box-shadow: var(--shadow-card);
+  padding: 30px 32px;
+  margin-bottom: 28px;
+  transition: transform 0.3s var(--ease-smooth), box-shadow 0.3s ease;
+}
+
+.section-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(232, 226, 214, 0.5);
+}
+
+.step-tag {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--app-pink-light);
+  color: var(--app-pink);
+  font-weight: 700;
+}
+
+.section-step-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: var(--app-charcoal);
+  letter-spacing: -0.01em;
+}
+
+/* ============================================================
+   3. SECTION 01: SELECT TREATMENT (Grid of 8)
+============================================================ */
+.treatments-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.treatment-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1.5px solid var(--app-card-border);
+  border-radius: 16px;
+  padding: 24px 16px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.35s var(--ease-smooth);
+}
+
+.treatment-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--app-pink);
+  box-shadow: var(--shadow-elevated);
+}
+
+.treatment-card.selected {
+  border-color: var(--app-pink);
+  background-color: #FFF9FA;
+  box-shadow: 0 8px 24px var(--app-pink-glow);
+}
+
+.selected-check-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--app-pink);
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px var(--app-pink-glow);
+  animation: badgePop 0.3s var(--ease-smooth);
+}
+
+@keyframes badgePop {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+.treatment-icon-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #FAF7F6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--app-charcoal);
+  margin-bottom: 14px;
+  transition: all 0.3s ease;
+}
+
+.treatment-icon-circle svg {
+  width: 28px;
+  height: 28px;
+}
+
+.treatment-card.selected .treatment-icon-circle {
+  background: #FFFFFF;
+  color: var(--app-pink);
+  box-shadow: 0 4px 12px rgba(232, 46, 106, 0.15);
+}
+
+.treatment-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--app-charcoal);
+  margin-bottom: 6px;
+}
+
+.treatment-desc {
+  font-size: 0.76rem;
+  color: var(--app-muted);
+  line-height: 1.4;
+  margin-bottom: 14px;
+  min-height: 32px;
+}
+
+.treatment-meta-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(232, 226, 214, 0.6);
+  padding-top: 10px;
+  margin-top: auto;
+}
+
+.treatment-duration {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--app-muted);
+}
+
+.treatment-price {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--app-charcoal);
+}
+
+.treatment-card.selected .treatment-price {
+  color: var(--app-pink);
+}
+
+/* ============================================================
+   4. SECTION 02: CHOOSE YOUR SPECIALIST (Row of 3)
+============================================================ */
+.specialists-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.specialist-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1.5px solid var(--app-card-border);
+  border-radius: 18px;
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.35s var(--ease-smooth);
+}
+
+.specialist-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--app-pink);
+  box-shadow: var(--shadow-elevated);
+}
+
+.specialist-card.selected {
+  border-color: var(--app-pink);
+  background-color: #FFF9FA;
+  box-shadow: 0 8px 24px var(--app-pink-glow);
+}
+
+.specialist-avatar-wrap {
+  position: relative;
+  width: 95px;
+  height: 95px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 14px;
+  border: 3px solid #FAF7F6;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.specialist-card.selected .specialist-avatar-wrap {
+  border-color: var(--app-pink);
+}
+
+.specialist-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.specialist-check-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--app-pink);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.specialist-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--app-charcoal);
+  margin-bottom: 4px;
+}
+
+.specialist-role {
+  font-size: 0.78rem;
+  color: var(--app-muted);
+  margin-bottom: 8px;
+}
+
+.specialist-exp-badge {
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #F4EFE6;
+  color: var(--app-dark-gray);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.view-profile-btn {
+  background: none;
+  border: none;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--app-pink);
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: transform 0.2s ease;
+}
+
+.view-profile-btn:hover {
+  transform: scale(1.05);
+}
+
+/* ============================================================
+   5. SECTION 03: DATE & TIME (VALIDATED STYLING)
+============================================================ */
+.datetime-split-wrapper {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 36px;
+  align-items: start;
+}
+
+.calendar-widget {
+  background: #FAF7F6;
+  border-radius: 16px;
+  border: 1px solid var(--app-card-border);
+  padding: 18px 20px;
+}
+
+.calendar-nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.cal-nav-arrow {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: var(--app-charcoal);
+  cursor: pointer;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.cal-nav-arrow:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.cal-nav-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.cal-month-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--app-charcoal);
+}
+
+.calendar-days-head {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--app-muted);
+  margin-bottom: 12px;
+}
+
+.calendar-dates-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  text-align: center;
+}
+
+.cal-date {
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  font-weight: 500;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--app-charcoal);
+  background: transparent;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.cal-date:hover:not(:disabled):not(.empty) {
+  background-color: var(--app-pink-light);
+  color: var(--app-pink);
+}
+
+.cal-date.today-date:not(.selected) {
+  border: 1.5px solid var(--app-pink);
+  font-weight: 700;
+}
+
+.cal-date.selected {
+  background-color: var(--app-pink) !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  box-shadow: 0 4px 12px var(--app-pink-glow);
+}
+
+/* Past Dates Disabled */
+.cal-date.past-date,
+.cal-date:disabled {
+  color: #D1CBC5 !important;
+  cursor: not-allowed !important;
+  opacity: 0.45;
+  text-decoration: line-through;
+  text-decoration-color: #E8E2D8;
+}
+
+.calendar-footer-hint {
+  margin-top: 14px;
+  font-size: 0.68rem;
+  color: var(--app-muted);
+  text-align: center;
+  border-top: 1px dashed rgba(232, 226, 214, 0.8);
+  padding-top: 8px;
+}
+
+/* Time Slots Widget */
+.timeslots-widget {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeslots-header-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--app-charcoal);
+  margin-bottom: 16px;
+}
+
+.timeslots-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.time-slot-btn {
+  background: #FFFFFF;
+  border: 1.5px solid var(--app-card-border);
+  border-radius: 10px;
+  padding: 12px 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--app-charcoal);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.time-slot-btn:hover:not(:disabled) {
+  border-color: var(--app-pink);
+  color: var(--app-pink);
+}
+
+.time-slot-btn.selected {
+  border-color: var(--app-pink);
+  background-color: var(--app-pink-light);
+  color: var(--app-pink);
+  font-weight: 700;
+  box-shadow: 0 4px 12px var(--app-pink-glow);
+}
+
+/* Past or Unavailable Time Slots */
+.time-slot-btn.unavailable,
+.time-slot-btn:disabled {
+  background: #F4F1F0;
+  border-color: #E6E2E1;
+  color: #B5AFA9;
+  cursor: not-allowed;
+  opacity: 0.55;
+  text-decoration: line-through;
+  text-decoration-color: #D6D0CD;
+}
+
+.timeslots-note {
+  font-size: 0.72rem;
+  color: var(--app-muted);
+}
+
+/* ============================================================
+   6. RIGHT COLUMN: STICKY NON-SCROLLABLE FORM
+============================================================ */
+.appointment-sticky-column {
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+.appointment-sticky-column::-webkit-scrollbar {
+  width: 4px;
+}
+
+.appointment-sticky-column::-webkit-scrollbar-thumb {
+  background-color: var(--app-card-border);
+  border-radius: 999px;
+}
+
+.details-form-card {
+  padding: 28px 26px;
+  border: 1.5px solid rgba(232, 46, 106, 0.2);
+  box-shadow: 0 16px 45px rgba(28, 27, 26, 0.06);
+}
+
+.form-summary-header {
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.summary-badge {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--app-gold);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.details-header-title {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 400;
+  color: var(--app-charcoal);
+}
+
+/* Live Summary Pill Box */
+.booking-live-summary {
+  background: #FAF7F6;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  border: 1px solid var(--app-card-border);
+}
+
+.summary-pill-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.76rem;
+  margin-bottom: 6px;
+}
+
+.summary-pill-item:last-child {
+  margin-bottom: 0;
+}
+
+.summary-lbl {
+  color: var(--app-muted);
+}
+
+.summary-val {
+  font-weight: 600;
+  color: var(--app-charcoal);
+  text-align: right;
+}
+
+.form-input-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--app-charcoal);
+  margin-bottom: 6px;
+}
+
+.form-control-input,
+.form-control-textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--app-card-border);
+  background: #FAF7F6;
+  font-size: 0.84rem;
+  font-family: var(--font-sans);
+  color: var(--app-charcoal);
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.25s ease;
+}
+
+.form-control-input:focus,
+.form-control-textarea:focus {
+  border-color: var(--app-pink);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px var(--app-pink-glow);
+}
+
+.form-control-input.is-invalid {
+  border-color: #e53935;
+  background: #fff8f8;
+}
+
+.phone-prefix-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.country-code-pill {
+  padding: 11px 14px;
+  background: #EFE9EB;
+  border: 1px solid var(--app-card-border);
+  border-right: none;
+  border-radius: 10px 0 0 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--app-charcoal);
+}
+
+.phone-field {
+  border-radius: 0 10px 10px 0 !important;
+}
+
+.error-text {
+  font-size: 0.7rem;
+  color: #e53935;
+  margin-top: 4px;
+}
+
+.form-checkbox-group {
+  margin: 16px 0 22px 0;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.72rem;
+  color: var(--app-muted);
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.checkbox-container a {
+  color: var(--app-pink);
+  text-decoration: underline;
+}
+
+.form-actions-row {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 12px;
+}
+
+.btn-back {
+  background: #FFFFFF;
+  border: 1.5px solid var(--app-card-border);
+  color: var(--app-charcoal);
+  border-radius: 10px;
+  padding: 12px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-back:hover {
+  background-color: #FAF7F6;
+  border-color: var(--app-charcoal);
+}
+
+.btn-confirm-booking {
+  background: var(--app-pink);
+  border: none;
+  color: #FFFFFF;
+  border-radius: 10px;
+  padding: 13px 16px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-confirm-booking:hover:not(:disabled) {
+  background-color: var(--app-pink-hover);
+  box-shadow: 0 8px 25px var(--app-pink-glow);
+  transform: translateY(-1px);
+}
+
+.btn-confirm-booking:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   7. SUCCESS MODAL
+============================================================ */
+.booking-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(28, 27, 26, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.booking-modal-card {
+  background: #FFFFFF;
+  border-radius: 24px;
+  padding: 44px 34px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.25);
+  animation: modalPop 0.4s var(--ease-smooth);
+}
+
+@keyframes modalPop {
+  from { transform: scale(0.9) translateY(20px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.modal-success-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #E8F5E9;
+  color: #2E7D32;
+  font-size: 2.2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px auto;
+}
+
+.modal-eyebrow {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--app-pink);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.modal-title {
+  font-family: var(--font-serif);
+  font-size: 1.65rem;
+  color: var(--app-charcoal);
+  margin-bottom: 14px;
+}
+
+.modal-desc {
+  font-size: 0.94rem;
+  color: var(--app-dark-gray);
+  line-height: 1.65;
+  margin-bottom: 18px;
+}
+
+.modal-ticket-details {
+  background: #FAF7F6;
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--app-charcoal);
+  margin-bottom: 18px;
+  border: 1px dashed var(--app-card-border);
+}
+
+.modal-sub {
+  font-size: 0.8rem;
+  color: var(--app-muted);
+  margin-bottom: 24px;
+}
+
+.btn-modal-close {
+  background: var(--app-pink);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 36px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-modal-close:hover {
+  background: var(--app-pink-hover);
+}
+
+/* ============================================================
+   8. RESPONSIVE BREAKPOINTS (Mobile & Tablet)
+============================================================ */
+@media (max-width: 1200px) {
+  .appointment-layout-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .appointment-sticky-column {
+    position: static;
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  .treatments-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .appointment-page-wrapper {
+    padding: 100px 3% 60px 3%;
+  }
+
+  .booking-card {
+    padding: 22px 18px;
+  }
+
+  .treatments-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .specialists-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .datetime-split-wrapper {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .timeslots-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .treatments-grid {
+    grid-template-columns: 1fr;
+  }
+}

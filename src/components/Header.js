@@ -5,13 +5,13 @@ import browliciousLogo from "../assets/browlicious-dark-logo.png";
 import headerEditorialImg from "../assets/treatment_banner.jpg";
 
 const NAV_LINKS = [
-  { name: "Home", href: "/", isRoute: true, subtitle: "01 / Welcome" },
-  { name: "About Us", href: "/about", isRoute: true, subtitle: "02 / Our Story" },
-  { name: "Treatments", href: "#services", isRoute: false, subtitle: "03 / Signature PMU" },
-  { name: "Beauty Journey", href: "#beauty-journey", isRoute: false, subtitle: "04 / The Experience" },
-  { name: "Why Choose Us", href: "#why-choose-us", isRoute: false, subtitle: "05 / Master Standards" },
-  { name: "Client Stories", href: "#testimonials", isRoute: false, subtitle: "06 / Reviews" },
-  { name: "Contact", href: "#booking", isRoute: false, subtitle: "07 / Book Session" },
+  { name: "Home", href: "/", subtitle: "01 / Welcome", isRoute: true },
+  { name: "About Us", href: "/about", subtitle: "02 / Our Story", isRoute: true },
+  { name: "Treatments", href: "/#services", subtitle: "03 / Signature PMU" },
+  { name: "Beauty Journey", href: "/#beauty-journey", subtitle: "04 / The Experience" },
+  { name: "Why Choose Us", href: "/#why-choose-us", subtitle: "05 / Master Standards" },
+  { name: "Client Stories", href: "/#testimonials", subtitle: "06 / Reviews" },
+  { name: "Book Appointment", href: "/book-appointment", subtitle: "07 / Book Session", isRoute: true },
 ];
 
 export default function Header({ isDarkMode = false }) {
@@ -20,7 +20,7 @@ export default function Header({ isDarkMode = false }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 1. Clean Scroll Tracking for Main Header
+  // 1. Scroll Tracking for Sticky Header Glassmorphism
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -46,43 +46,22 @@ export default function Header({ isDarkMode = false }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [isMenuOpen]);
 
-  // 3. Smart Link Handler for Routes & Anchors
-  const handleNavClick = (e, item) => {
-    e.preventDefault();
-    setIsMenuOpen(false);
-
-    if (item.isRoute) {
-      navigate(item.href);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
-      if (location.pathname !== "/") {
-        navigate("/" + item.href);
-        setTimeout(() => {
-          const target = document.querySelector(item.href);
-          if (target) {
-            target.scrollIntoView({ behavior: "smooth" });
-          }
-        }, 150);
-      } else {
-        const target = document.querySelector(item.href);
-        if (target) {
-          target.scrollIntoView({ behavior: "smooth" });
-        }
-      }
-    }
-  };
-
-  // 4. Smooth Scroll to Home on Logo Click
+  // 3. Smooth Scroll to Home on Logo Click
   const handleLogoClick = (e) => {
     e.preventDefault();
     setIsMenuOpen(false);
+    
     if (location.pathname !== "/") {
       navigate("/");
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+      if (window.location.hash) {
+        window.history.pushState(null, "", window.location.pathname);
+      }
     }
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
   };
 
   return (
@@ -110,8 +89,8 @@ export default function Header({ isDarkMode = false }) {
 
           {/* Center Column: Browlicious Logo */}
           <div className="header-center">
-            <Link 
-              to="/" 
+            <a 
+              href="#home" 
               onClick={handleLogoClick} 
               className="brand-logo" 
               aria-label="Browlicious Home"
@@ -121,10 +100,10 @@ export default function Header({ isDarkMode = false }) {
                 alt="Browlicious PMU Clinic & Academy Logo" 
                 className="brand-logo-img" 
               />
-            </Link>
+            </a>
           </div>
 
-          {/* Right Column: Phone & CTA */}
+          {/* Right Column: Phone & Book Appointment Route CTA */}
           <div className="header-right">
             <div className="appointment-phone">
               <span className="phone-label">Call:</span>
@@ -133,14 +112,10 @@ export default function Header({ isDarkMode = false }) {
               </a>
             </div>
 
-            <a 
-              href="#booking" 
-              onClick={(e) => handleNavClick(e, { href: "#booking", isRoute: false })}
-              className="book-cta-btn"
-            >
+            <Link to="/book-appointment" className="book-cta-btn">
               <span className="btn-text-default">Book Appointment</span>
               <span className="btn-text-hover">Book Appointment</span>
-            </a>
+            </Link>
           </div>
 
         </div>
@@ -182,15 +157,27 @@ export default function Header({ isDarkMode = false }) {
                     style={{ "--item-delay": `${0.25 + index * 0.05}s` }}
                   >
                     <span className="nav-item-num">{item.subtitle}</span>
-                    <a
-                      href={item.href}
-                      className="nav-menu-single-link"
-                      onClick={(e) => handleNavClick(e, item)}
-                    >
-                      <span className="link-text" data-text={item.name}>
-                        {item.name}
-                      </span>
-                    </a>
+                    {item.isRoute ? (
+                      <Link
+                        to={item.href}
+                        className="nav-menu-single-link"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        <span className="link-text" data-text={item.name}>
+                          {item.name}
+                        </span>
+                      </Link>
+                    ) : (
+                      <a
+                        href={item.href}
+                        className="nav-menu-single-link"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        <span className="link-text" data-text={item.name}>
+                          {item.name}
+                        </span>
+                      </a>
+                    )}
                   </div>
                 ))}
               </nav>

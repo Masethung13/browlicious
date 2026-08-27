@@ -1,30 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import Header from './components/Header';
-import Home from './components/Home';
-import ServiceSection from './components/ServiceSection';
-import AboutSection from './components/AboutSection';
-import WhyChooseUs from './components/Whychooseus';
-import BeautyJourney from './components/BeautyJourney';
-import Footer from './components/Footer';
-import Pr from './components/Pr';
-import Testimonials from './components/Testimonials';
-import AbtPg from './components/AbtPg';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 
-// Scroll to top helper on route change
+// Layout Components
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
+// Page Components
+import Home from "./components/Home";
+import AboutSection from "./components/AboutSection";
+import ServiceSection from "./components/ServiceSection";
+import BeautyJourney from "./components/BeautyJourney";
+import WhyChooseUs from "./components/Whychooseus";
+import Pr from "./components/Pr";
+import Testimonials from "./components/Testimonials";
+import BookAppointment from "./components/BookAppointment";
+
+// Scroll to top on route change helper
 function ScrollToTop() {
-  const { pathname, hash } = useLocation();
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    if (!hash) {
-      window.scrollTo(0, 0);
-    }
-  }, [pathname, hash]);
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return null;
 }
 
-function HomePage({ isDarkMode, setIsDarkMode }) {
+// 1. Full Landing Page Component (Home route "/")
+function LandingPage({ isDarkMode, setIsDarkMode }) {
   return (
     <>
       <Home isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
@@ -38,17 +41,17 @@ function HomePage({ isDarkMode, setIsDarkMode }) {
   );
 }
 
+// 2. Master App with Routing
 function App() {
-  // Theme state: default to false (light theme) or true (dark theme)
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     if (isDarkMode) {
-      document.body.classList.add('dark-theme');
-      document.body.classList.remove('light-theme');
+      document.body.classList.add("dark-theme");
+      document.body.classList.remove("light-theme");
     } else {
-      document.body.classList.add('light-theme');
-      document.body.classList.remove('dark-theme');
+      document.body.classList.add("light-theme");
+      document.body.classList.remove("dark-theme");
     }
   }, [isDarkMode]);
 
@@ -56,14 +59,30 @@ function App() {
     <Router>
       <ScrollToTop />
       <div className={`App ${isDarkMode ? "dark-theme" : "light-theme"}`}>
-        {/* Premium responsive header with slide-out menu drawer */}
+        {/* Global Header */}
         <Header isDarkMode={isDarkMode} />
+
+        {/* Dynamic Route Switching */}
         <Routes>
-          <Route path="/" element={<HomePage isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />} />
-          <Route path="/about" element={<AbtPg isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />} />
-          <Route path="/about-us" element={<AbtPg isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />} />
-          <Route path="/abt" element={<AbtPg isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />} />
+          {/* Main Home / Landing Route */}
+          <Route
+            path="/"
+            element={
+              <LandingPage
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
+            }
+          />
+
+          {/* Dedicated Book Appointment Route */}
+          <Route
+            path="/book-appointment"
+            element={<BookAppointment isDarkMode={isDarkMode} />}
+          />
         </Routes>
+
+        {/* Global Footer */}
         <Footer isDarkMode={isDarkMode} />
       </div>
     </Router>

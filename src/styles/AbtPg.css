@@ -697,11 +697,17 @@ body.dark-theme .abt-page-wrapper {
 
   .abt-testimonial-grid {
     grid-template-columns: 1fr;
-    gap: 45px;
+    gap: 50px;
   }
 
-  .abt-quote-circle {
-    right: -20px;
+  .abt-quote-large-circle {
+    right: -30px;
+    width: 130px;
+    height: 130px;
+  }
+
+  .abt-testimonial-badges {
+    justify-content: flex-start;
   }
 }
 
@@ -741,14 +747,13 @@ body.dark-theme .abt-page-wrapper {
     max-width: 280px;
   }
 
-  .abt-quote-circle {
-    width: 60px;
-    height: 60px;
+  .abt-quote-large-circle {
+    width: 100px;
+    height: 100px;
     right: -15px;
   }
 
   .abt-quote-mark {
-    font-size: 2.8rem;
-    margin-top: 12px;
+    font-size: 2.2rem;
   }
 }
