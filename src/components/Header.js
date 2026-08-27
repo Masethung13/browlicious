@@ -2,16 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../styles/Header.css";
 import browliciousLogo from "../assets/browlicious-dark-logo.png";
-import headerEditorialImg from "../assets/treatment_banner.jpg";
+import headerEditorialImg from "../assets/clinic1.png";
 
 const NAV_LINKS = [
   { name: "Home", href: "/", subtitle: "01 / Welcome", isRoute: true },
   { name: "About Us", href: "/about", subtitle: "02 / Our Story", isRoute: true },
-  { name: "Treatments", href: "/#services", subtitle: "03 / Signature PMU" },
-  { name: "Beauty Journey", href: "/#beauty-journey", subtitle: "04 / The Experience" },
+  { name: "Services", href: "/#services", subtitle: "03 / Signature PMU" },
+  { name: "Result", href: "/#beauty-journey", subtitle: "04 / The Experience" },
+  { name: "Blogs", href: "/#beauty-journey", subtitle: "04 / The Experience" },
   { name: "Why Choose Us", href: "/#why-choose-us", subtitle: "05 / Master Standards" },
-  { name: "Client Stories", href: "/#testimonials", subtitle: "06 / Reviews" },
-  { name: "Book Appointment", href: "/book-appointment", subtitle: "07 / Book Session", isRoute: true },
+  { name: "Faq", href: "/#testimonials", subtitle: "06 / Reviews" },
+  { name: "Contact", href: "/book-appointment", subtitle: "07 / Book Session", isRoute: true },
 ];
 
 export default function Header({ isDarkMode = false }) {

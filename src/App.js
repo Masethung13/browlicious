@@ -108,7 +108,12 @@ function App() {
           {/* Dedicated Book Appointment Route */}
           <Route
             path="/book-appointment"
-            element={<BookAppointment isDarkMode={isDarkMode} />}
+            element={
+              <BookAppointment
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
+            }
           />
         </Routes>
 

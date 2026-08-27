@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
+import { Link } from "react-router-dom";
 // Firebase SDK imports
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -8,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import "../styles/BookAppointment.css";
+import heroBgImg from "../assets/abt_hero_banner.jpg";
 
 // 1. Firebase Configuration
 const firebaseConfig = {
@@ -172,23 +174,44 @@ const SPECIALISTS = [
   {
     id: "dr-ananya",
     name: "Dr. Ananya R.",
-    role: "Founder & Lead Specialist",
+    role: "Founder & Lead PMU Master",
     experience: "10+ Yrs Exp.",
     img: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?auto=format&fit=crop&w=400&q=80",
   },
   {
     id: "priya-sharma",
     name: "Priya Sharma",
-    role: "PMU Specialist",
+    role: "Microblading & Nanoblading Artist",
     experience: "6+ Yrs Exp.",
     img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
   },
   {
     id: "rahul-mehta",
     name: "Rahul Mehta",
-    role: "Scalp & Men's Specialist",
+    role: "Scalp & Men's Micropigmentation",
     experience: "8+ Yrs Exp.",
     img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+  },
+  {
+    id: "meera-vasu",
+    name: "Meera Vasudevan",
+    role: "Ombre & Feather Brow Specialist",
+    experience: "7+ Yrs Exp.",
+    img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
+  },
+  {
+    id: "kavya-raman",
+    name: "Kavya Ramanathan",
+    role: "Lip Blushing & Color Correction",
+    experience: "9+ Yrs Exp.",
+    img: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&w=400&q=80",
+  },
+  {
+    id: "siddharth-sen",
+    name: "Siddharth Sen",
+    role: "Advanced SMP & Hair Density Director",
+    experience: "11+ Yrs Exp.",
+    img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
   },
 ];
 
@@ -221,7 +244,7 @@ const parseSlotToDate = (targetDate, slotStr) => {
   return d;
 };
 
-export default function BookAppointment() {
+export default function BookAppointment({ isDarkMode = false, setIsDarkMode }) {
   const today = useMemo(() => {
     const d = new Date();
     d.setHours(0, 0, 0, 0);
@@ -257,6 +280,85 @@ export default function BookAppointment() {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
+  // Specialist Draggable Auto-Scroll Loop Slider
+  const specialistTrackRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeftPos, setScrollLeftPos] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Auto-scroll loop right to left
+  useEffect(() => {
+    const track = specialistTrackRef.current;
+    if (!track) return;
+
+    let animationFrameId;
+    const speed = 0.75; // Smooth scroll speed
+
+    const step = () => {
+      if (!isHovered && !isDragging && track) {
+        track.scrollLeft += speed;
+        // Seamless loop reset when halfway through duplicated list
+        if (track.scrollLeft >= track.scrollWidth / 2) {
+          track.scrollLeft = 0;
+        }
+      }
+      animationFrameId = requestAnimationFrame(step);
+    };
+
+    animationFrameId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isHovered, isDragging]);
+
+  const handleMouseDown = (e) => {
+    const track = specialistTrackRef.current;
+    if (!track) return;
+    setIsDragging(true);
+    setStartX(e.pageX - track.offsetLeft);
+    setScrollLeftPos(track.scrollLeft);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const track = specialistTrackRef.current;
+    if (!track) return;
+    const x = e.pageX - track.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    track.scrollLeft = scrollLeftPos - walk;
+  };
+
+  const handleMouseUpOrLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleTouchStart = (e) => {
+    const track = specialistTrackRef.current;
+    if (!track) return;
+    setIsDragging(true);
+    setStartX(e.touches[0].pageX - track.offsetLeft);
+    setScrollLeftPos(track.scrollLeft);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    const track = specialistTrackRef.current;
+    if (!track) return;
+    const x = e.touches[0].pageX - track.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    track.scrollLeft = scrollLeftPos - walk;
+  };
+
+  const handleManualScroll = (direction) => {
+    const track = specialistTrackRef.current;
+    if (!track) return;
+    const scrollAmount = 300;
+    track.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
 
   // Calendar navigation: Prev Month
   const handlePrevMonth = () => {
@@ -492,7 +594,7 @@ export default function BookAppointment() {
     : "Not Selected";
 
   return (
-    <div className="appointment-page-wrapper">
+    <div className={`appointment-page-wrapper ${isDarkMode ? "dark-theme" : "light-theme"}`}>
       <ToastContainer
         position="top-right"
         autoClose={3500}
@@ -503,28 +605,81 @@ export default function BookAppointment() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme={isDarkMode ? "dark" : "light"}
       />
 
-      <div className="appointment-layout-grid">
-        
-        {/* ============================================================
-            LEFT COLUMN: SCROLLABLE SECTIONS (01, 02, 03)
-        ============================================================ */}
-        <div className="appointment-steps-scrollable">
-          
-          <div className="appointment-page-header">
-            <span className="header-eyebrow">Bespoke Aesthetic Sanctuary</span>
-            <h1 className="header-headline">
-              Reserve Your <em>Signature</em> Ritual
-            </h1>
-            <p className="header-subtext">
-              Select your customized treatment, preferred artist, and a date &amp;
-              time that seamlessly aligns with your schedule.
-            </p>
+      {/* Floating Theme Toggle Button */}
+      {setIsDarkMode && (
+        <button 
+          onClick={() => setIsDarkMode(!isDarkMode)} 
+          className="theme-toggle-btn"
+          aria-label="Toggle Theme"
+        >
+          {isDarkMode ? (
+            /* Sun Icon */
+            <svg className="theme-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="4.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="4.22" x2="19.78" y2="5.64"></line>
+            </svg>
+          ) : (
+            /* Moon Icon */
+            <svg className="theme-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          )}
+        </button>
+      )}
+
+      {/* ============================================================
+          1. HERO HEADER WITH AMBIENT BANNER & SUB-HEADER DESCRIPTION
+      ============================================================ */}
+      <header className="abt-hero-section">
+        <div className="abt-hero-banner" style={{ backgroundImage: `url(${heroBgImg})` }}>
+          <div className="abt-hero-overlay"></div>
+          <div className="abt-hero-inner">
+            <h1 className="abt-hero-title">RESERVE APPOINTMENT</h1>
+          </div>
+        </div>
+
+        {/* Sub-Header Area on Cream Background */}
+        <div className="abt-hero-subbar">
+          <div className="abt-subbar-tick-wrap" aria-hidden="true">
+            <div className="abt-subbar-star-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+              </svg>
+            </div>
+            <div className="abt-subbar-line">
+              <span className="line-shimmer"></span>
+            </div>
+            <div className="abt-subbar-dot"></div>
           </div>
 
-          {/* --- SECTION 01: SELECT TREATMENT (10 Treatments) --- */}
+          <nav className="abt-breadcrumbs" aria-label="Breadcrumbs">
+            <Link to="/">Home</Link>
+            <span className="abt-separator">&gt;</span>
+            <span className="abt-current">Book Appointment</span>
+          </nav>
+          <p className="abt-hero-subtitle">
+            Select your customized PMU treatment, preferred master artist, and a date &amp;
+            time that seamlessly aligns with your schedule.
+          </p>
+        </div>
+      </header>
+
+      <div className="appointment-main-content">
+        <div className="appointment-linear-container">
+        
+          {/* ============================================================
+              STEP 01: SELECT TREATMENT (10 Treatments)
+          ============================================================ */}
           <div className="booking-card section-treatment">
             <div className="section-card-header">
               <span className="step-tag">Step 01</span>
@@ -543,6 +698,9 @@ export default function BookAppointment() {
                       toast.info(`Selected: ${item.title}`, { autoClose: 1200 });
                     }}
                   >
+                    {/* Shimmer Light Sweep Overlay */}
+                    <div className="card-shimmer-sweep" aria-hidden="true"></div>
+
                     {isSelected && (
                       <div className="selected-check-badge">
                         <span>✓</span>
@@ -561,25 +719,70 @@ export default function BookAppointment() {
             </div>
           </div>
 
-          {/* --- SECTION 02: CHOOSE YOUR SPECIALIST --- */}
-          <div className="booking-card section-specialist">
-            <div className="section-card-header">
-              <span className="step-tag">Step 02</span>
-              <h3 className="section-step-title">Choose Your Specialist</h3>
+          {/* ============================================================
+              STEP 02: CHOOSE YOUR SPECIALIST (DRAGGABLE AUTO SLIDER LOOP)
+          ============================================================ */}
+          <div 
+            className="booking-card section-specialist"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => {
+              setIsHovered(false);
+              setIsDragging(false);
+            }}
+          >
+            <div className="section-card-header specialist-header-row">
+              <div className="specialist-header-left">
+                <span className="step-tag">Step 02</span>
+                <h3 className="section-step-title">Choose Your Specialist</h3>
+              </div>
+              <div className="slider-nav-arrows">
+                <button
+                  type="button"
+                  className="slider-arrow-btn"
+                  onClick={() => handleManualScroll("left")}
+                  aria-label="Previous Specialist"
+                  title="Previous Specialist"
+                >
+                  &larr;
+                </button>
+                <button
+                  type="button"
+                  className="slider-arrow-btn"
+                  onClick={() => handleManualScroll("right")}
+                  aria-label="Next Specialist"
+                  title="Next Specialist"
+                >
+                  &rarr;
+                </button>
+              </div>
             </div>
 
-            <div className="specialists-grid">
-              {SPECIALISTS.map((spec) => {
+            <div 
+              className={`specialists-slider-track ${isDragging ? "is-dragging" : ""}`}
+              ref={specialistTrackRef}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUpOrLeave}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleMouseUpOrLeave}
+            >
+              {[...SPECIALISTS, ...SPECIALISTS].map((spec, idx) => {
                 const isSelected = selectedSpecialist === spec.name;
                 return (
                   <div
-                    key={spec.id}
-                    className={`specialist-card ${isSelected ? "selected" : ""}`}
+                    key={`${spec.id}-${idx}`}
+                    className={`specialist-card specialist-slide-card ${isSelected ? "selected" : ""}`}
                     onClick={() => {
-                      setSelectedSpecialist(spec.name);
-                      toast.info(`Specialist: ${spec.name}`, { autoClose: 1200 });
+                      if (!isDragging) {
+                        setSelectedSpecialist(spec.name);
+                        toast.info(`Specialist: ${spec.name}`, { autoClose: 1200 });
+                      }
                     }}
                   >
+                    {/* Shimmer Light Sweep Overlay */}
+                    <div className="card-shimmer-sweep" aria-hidden="true"></div>
+
                     <div className="specialist-avatar-wrap">
                       <img src={spec.img} alt={spec.name} className="specialist-img" />
                       {isSelected && (
@@ -592,15 +795,21 @@ export default function BookAppointment() {
                     <p className="specialist-role">{spec.role}</p>
                     <span className="specialist-exp-badge">{spec.experience}</span>
                     <button type="button" className="view-profile-btn">
-                      View Profile
+                      {isSelected ? "Selected Master" : "Select Artist"}
                     </button>
                   </div>
                 );
               })}
             </div>
+            
+            <div className="slider-drag-hint">
+              <span>✦ Drag or swipe left/right to browse all master artists • Auto-scrolls in loop</span>
+            </div>
           </div>
 
-          {/* --- SECTION 03: DATE & TIME --- */}
+          {/* ============================================================
+              STEP 03: DATE & TIME
+          ============================================================ */}
           <div className="booking-card section-datetime">
             <div className="section-card-header">
               <span className="step-tag">Step 03</span>
@@ -718,98 +927,98 @@ export default function BookAppointment() {
             </div>
           </div>
 
-        </div>
-
-        {/* ============================================================
-            RIGHT COLUMN: STICKY NON-SCROLLABLE FORM & SUMMARY
-        ============================================================ */}
-        <div className="appointment-sticky-column">
+          {/* ============================================================
+              STEP 04: SUMMARY & CHECKOUT / YOUR DETAILS (LAST POSITION)
+          ============================================================ */}
           <form
-            className="booking-card details-form-card"
+            className="booking-card section-checkout"
             onSubmit={handleConfirmBooking}
             noValidate
           >
-            <div className="form-summary-header">
-              <span className="summary-badge">Summary &amp; Checkout</span>
-              <h3 className="details-header-title">Your Details</h3>
+            <div className="section-card-header">
+              <span className="step-tag">Step 04</span>
+              <h3 className="section-step-title">Summary &amp; Your Details</h3>
             </div>
 
-            {/* Live Summary Pill Box */}
+            {/* Live Summary Strip */}
             <div className="booking-live-summary">
               <div className="summary-pill-item">
-                <span className="summary-lbl">Treatment:</span>
+                <span className="summary-lbl">Selected Treatment:</span>
                 <span className="summary-val">{selectedTreatment}</span>
               </div>
               <div className="summary-pill-item">
-                <span className="summary-lbl">Specialist:</span>
+                <span className="summary-lbl">Master Specialist:</span>
                 <span className="summary-val">{selectedSpecialist}</span>
               </div>
               <div className="summary-pill-item">
-                <span className="summary-lbl">Schedule:</span>
+                <span className="summary-lbl">Scheduled Date &amp; Time:</span>
                 <span className="summary-val">
                   {formattedSelectedDateText}{" "}
-                  {selectedTime ? `at ${selectedTime}` : "(Pick time)"}
+                  {selectedTime ? `at ${selectedTime}` : "(Please pick a time in Step 03)"}
                 </span>
               </div>
             </div>
 
-            {/* Full Name */}
-            <div className="form-input-group">
-              <label className="form-label">Full Name *</label>
-              <input
-                type="text"
-                name="fullName"
-                placeholder="e.g. Aditi Singhania"
-                value={formData.fullName}
-                onChange={handleChange}
-                className={`form-control-input ${errors.fullName ? "is-invalid" : ""}`}
-              />
-              {errors.fullName && <span className="error-text">{errors.fullName}</span>}
-            </div>
-
-            {/* Phone Number with +91 Prefix */}
-            <div className="form-input-group">
-              <label className="form-label">Phone Number *</label>
-              <div className="phone-prefix-wrap">
-                <span className="country-code-pill">+91</span>
+            {/* 2-Column Responsive Form Fields */}
+            <div className="checkout-form-grid">
+              {/* Full Name */}
+              <div className="form-input-group">
+                <label className="form-label">Full Name *</label>
                 <input
-                  type="tel"
-                  name="phone"
-                  placeholder="98765 43210"
-                  value={formData.phone}
+                  type="text"
+                  name="fullName"
+                  placeholder="e.g. Aditi Singhania"
+                  value={formData.fullName}
                   onChange={handleChange}
-                  className={`form-control-input phone-field ${errors.phone ? "is-invalid" : ""}`}
-                  maxLength={10}
+                  className={`form-control-input ${errors.fullName ? "is-invalid" : ""}`}
+                />
+                {errors.fullName && <span className="error-text">{errors.fullName}</span>}
+              </div>
+
+              {/* Phone Number with +91 Prefix */}
+              <div className="form-input-group">
+                <label className="form-label">Phone Number *</label>
+                <div className="phone-prefix-wrap">
+                  <span className="country-code-pill">+91</span>
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="98765 43210"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className={`form-control-input phone-field ${errors.phone ? "is-invalid" : ""}`}
+                    maxLength={10}
+                  />
+                </div>
+                {errors.phone && <span className="error-text">{errors.phone}</span>}
+              </div>
+
+              {/* Email Address */}
+              <div className="form-input-group form-field-full">
+                <label className="form-label">Email Address (For Confirmation &amp; Calendar Invite) *</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="aditi@example.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={`form-control-input ${errors.email ? "is-invalid" : ""}`}
+                />
+                {errors.email && <span className="error-text">{errors.email}</span>}
+              </div>
+
+              {/* Special Requests */}
+              <div className="form-input-group form-field-full">
+                <label className="form-label">Special Requests or Skin Concerns (Optional)</label>
+                <textarea
+                  name="notes"
+                  rows="3"
+                  placeholder="Tell us about sensitive skin, allergies, or questions for your master artist..."
+                  value={formData.notes}
+                  onChange={handleChange}
+                  className="form-control-textarea"
                 />
               </div>
-              {errors.phone && <span className="error-text">{errors.phone}</span>}
-            </div>
-
-            {/* Email Address */}
-            <div className="form-input-group">
-              <label className="form-label">Email Address *</label>
-              <input
-                type="email"
-                name="email"
-                placeholder="aditi@example.com"
-                value={formData.email}
-                onChange={handleChange}
-                className={`form-control-input ${errors.email ? "is-invalid" : ""}`}
-              />
-              {errors.email && <span className="error-text">{errors.email}</span>}
-            </div>
-
-            {/* Special Requests */}
-            <div className="form-input-group">
-              <label className="form-label">Special Requests (Optional)</label>
-              <textarea
-                name="notes"
-                rows="2"
-                placeholder="Tell us about sensitive skin, allergies..."
-                value={formData.notes}
-                onChange={handleChange}
-                className="form-control-textarea"
-              />
             </div>
 
             {/* Terms Checkbox */}
@@ -848,15 +1057,15 @@ export default function BookAppointment() {
                   <span>Securing Suite...</span>
                 ) : (
                   <>
-                    <span>Confirm Booking</span>
+                    <span>Confirm &amp; Reserve Appointment</span>
                     <span className="btn-arrow">→</span>
                   </>
                 )}
               </button>
             </div>
           </form>
-        </div>
 
+        </div>
       </div>
 
       {/* ============================================================

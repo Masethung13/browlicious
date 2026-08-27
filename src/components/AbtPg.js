@@ -17,6 +17,33 @@ const TulipIcon = () => (
   </svg>
 );
 
+// Philosophy Minimalist Line Icons matching reference
+const PhilosophyIcon1 = () => (
+  <svg width="34" height="34" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.1" className="abt-philo-icon">
+    <circle cx="16" cy="16" r="13" strokeDasharray="2 2" />
+    <path d="M16 6 C16 11 20 16 26 16 C20 16 16 21 16 26 C16 21 12 16 6 16 C12 16 16 11 16 6 Z" />
+    <circle cx="16" cy="16" r="2" fill="currentColor" />
+  </svg>
+);
+
+const PhilosophyIcon2 = () => (
+  <svg width="34" height="34" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.1" className="abt-philo-icon">
+    <path d="M16 4 C10 10 7 16 7 21 C7 25.5 10.5 28 16 28 C21.5 28 25 25.5 25 21 C25 16 22 10 16 4 Z" />
+    <path d="M16 4 V28" strokeWidth="1" />
+    <path d="M16 12 Q20 15 22 17" />
+    <path d="M16 18 Q12 21 10 23" />
+  </svg>
+);
+
+const PhilosophyIcon3 = () => (
+  <svg width="34" height="34" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.1" className="abt-philo-icon">
+    <path d="M14 6 L18 6 M15 6 L15 10 L17 10 L17 6" />
+    <path d="M12 10 L20 10 C21 10 22 11 22 12 L22 22 C22 25 19 28 16 28 C13 28 10 25 10 22 L10 12 C10 11 11 10 12 10 Z" />
+    <path d="M16 15 V21" strokeDasharray="1 1.5" />
+    <circle cx="16" cy="24" r="1.2" fill="currentColor" />
+  </svg>
+);
+
 // Authentic Luxury Circular Award Badges matching reference layout
 const AwardBadge1 = () => (
   <svg width="86" height="86" viewBox="0 0 100 100" className="abt-award-badge" fill="none">
@@ -176,7 +203,74 @@ export default function AbtPg({ isDarkMode = false, setIsDarkMode }) {
         }
       );
 
-      // 4. Section 4 (Testimonial): Left Portrait Fades Right, Right Quote Fades Left
+      // 4. Philosophy Section
+      gsap.fromTo(
+        ".abt-philo-title",
+        { opacity: 0, y: 35 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".abt-philosophy-section",
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".abt-philo-card",
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.85,
+          stagger: 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".abt-philo-grid",
+            start: "top 82%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // 5. CTA Journey Section
+      gsap.fromTo(
+        ".abt-cta-content",
+        { opacity: 0, x: -60 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 1.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".abt-cta-journey-section",
+            start: "top 78%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".abt-cta-circle-btn",
+        { opacity: 0, scale: 0.7 },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 1,
+          ease: "back.out(1.5)",
+          scrollTrigger: {
+            trigger: ".abt-cta-journey-section",
+            start: "top 78%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // 6. Section 6 (Testimonial): Left Portrait Fades Right, Right Quote Fades Left
       gsap.fromTo(
         ".abt-testimonial-image-panel",
         { opacity: 0, x: -70, scale: 0.93 },
@@ -345,6 +439,53 @@ export default function AbtPg({ isDarkMode = false, setIsDarkMode }) {
         </div>
       </section>
 
+
+
+{/* ============================================================
+          6. TESTIMONIAL & AWARDS SECTION (EXACT REFERENCE REPLICATION)
+      ============================================================ */}
+      <section className="abt-testimonial-section">
+        <div className="abt-testi-container">
+          <div className="abt-testimonial-grid">
+            
+            {/* Left Portrait & Large Overlapping Subtle Quote Circle */}
+            <div className="abt-testimonial-image-panel">
+              <div className="abt-testi-img-wrap">
+                <img 
+                  src={pmuClientImg} 
+                  alt="Ananya Krishnan - Browlicious PMU client" 
+                  className="abt-testi-image"
+                />
+                <div className="abt-quote-large-circle" aria-hidden="true">
+                  <span className="abt-quote-mark">”</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Badges & Testimonial Quote */}
+            <div className="abt-testimonial-content">
+              <div className="abt-testimonial-badges">
+                <AwardBadge1 />
+                <AwardBadge2 />
+              </div>
+              
+              <blockquote className="abt-testimonial-quote">
+                “Browlicious is South India's undisputed master of PMU. Having struggled with sparse, uneven brows and two-toned lips, their specialist meticulously mapped my facial symmetry before creating the softest feathered microblade strokes and a stunning, natural lip blush tint. Waking up every morning with effortless, waterproof perfection is truly life-changing artistry!”
+              </blockquote>
+              
+              <div className="abt-testimonial-author">
+                <span className="abt-author-name">Ananya Krishnan</span>
+                <span className="abt-author-dash">—</span>
+                <span className="abt-author-role">Eyebrows &amp; Lip Blush Specialist</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+
+
       {/* ============================================================
           3. WHAT WE OFFER SECTION (WITH RIGHT LUXURY TREATMENT SUITE IMAGE)
       ============================================================ */}
@@ -422,47 +563,50 @@ export default function AbtPg({ isDarkMode = false, setIsDarkMode }) {
       </section>
 
       {/* ============================================================
-          4. TESTIMONIAL & AWARDS SECTION (EXACT REFERENCE REPLICATION)
+          4. OUR PHILOSOPHY SECTION (3-COLUMN MINIMALIST GRID)
       ============================================================ */}
-      <section className="abt-testimonial-section">
-        <div className="abt-testi-container">
-          <div className="abt-testimonial-grid">
-            
-            {/* Left Portrait & Large Overlapping Subtle Quote Circle */}
-            <div className="abt-testimonial-image-panel">
-              <div className="abt-testi-img-wrap">
-                <img 
-                  src={pmuClientImg} 
-                  alt="Ananya Krishnan - Browlicious PMU client" 
-                  className="abt-testi-image"
-                />
-                <div className="abt-quote-large-circle" aria-hidden="true">
-                  <span className="abt-quote-mark">”</span>
-                </div>
+      <section className="abt-philosophy-section">
+        <div className="abt-philo-container">
+          <h2 className="abt-philo-title">OUR PHILOSOPHY</h2>
+          
+          <div className="abt-philo-grid">
+            {/* Col 1 */}
+            <div className="abt-philo-card">
+              <div className="abt-philo-icon-wrap">
+                <PhilosophyIcon1 />
               </div>
+              <h3 className="abt-philo-heading">Holistic Wellness For Body And Mind</h3>
+              <p className="abt-philo-desc">
+                We embrace a holistic approach that nurtures your physical, emotional, and spiritual well-being through deeply restorative.
+              </p>
             </div>
 
-            {/* Right Badges & Testimonial Quote */}
-            <div className="abt-testimonial-content">
-              <div className="abt-testimonial-badges">
-                <AwardBadge1 />
-                <AwardBadge2 />
+            {/* Col 2 */}
+            <div className="abt-philo-card">
+              <div className="abt-philo-icon-wrap">
+                <PhilosophyIcon2 />
               </div>
-              
-              <blockquote className="abt-testimonial-quote">
-                “Browlicious is South India's undisputed master of PMU. Having struggled with sparse, uneven brows and two-toned lips, their specialist meticulously mapped my facial symmetry before creating the softest feathered microblade strokes and a stunning, natural lip blush tint. Waking up every morning with effortless, waterproof perfection is truly life-changing artistry!”
-              </blockquote>
-              
-              <div className="abt-testimonial-author">
-                <span className="abt-author-name">Ananya Krishnan</span>
-                <span className="abt-author-dash">—</span>
-                <span className="abt-author-role">Eyebrows &amp; Lip Blush Specialist</span>
-              </div>
+              <h3 className="abt-philo-heading">Premium Natural Products</h3>
+              <p className="abt-philo-desc">
+                Every formula and essence used at our spa is carefully selected from nature's finest sources to ensure safety and purity.
+              </p>
             </div>
 
+            {/* Col 3 */}
+            <div className="abt-philo-card">
+              <div className="abt-philo-icon-wrap">
+                <PhilosophyIcon3 />
+              </div>
+              <h3 className="abt-philo-heading">Personalized Experience</h3>
+              <p className="abt-philo-desc">
+                Your wellness journey is uniquely yours, and every treatment is customized to match your personal goals, preferences and lifestyle.
+              </p>
+            </div>
           </div>
         </div>
       </section>
+
+      
 
     </div>
   );
