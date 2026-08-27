@@ -156,6 +156,16 @@ body.dark-theme .testimonials-section {
   margin: 0;
 }
 
+.testimonials-title-line {
+  display: block;
+  overflow: hidden;
+}
+
+.testimonials-line-text {
+  display: block;
+  will-change: transform, opacity;
+}
+
 .view-all-link {
   text-decoration: none;
   font-family: 'Josefin Sans', sans-serif;

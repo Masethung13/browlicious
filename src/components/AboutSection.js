@@ -49,22 +49,30 @@ export default function AboutSection({ isDarkMode = false }) {
   // GSAP ScrollTrigger animation for About elements & Counter
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Left Typography Content Staggered Fade Up
-      gsap.fromTo(
-        ".about-main-heading",
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.9,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".about-content-column",
-            start: "top 85%",
-            toggleActions: "play none none none"
+      // 1. Heading lines one-by-one smooth scroll trigger fade up
+      const headingLines = gsap.utils.toArray(".about-main-heading .scroll-text");
+
+      headingLines.forEach((line, index) => {
+        gsap.fromTo(
+          line,
+          {
+            y: 70,
+            opacity: 0,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1.2,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: line,
+              start: `top ${88 - index * 6}%`,
+              end: `top ${58 - index * 6}%`,
+              scrub: 1.2,
+            },
           }
-        }
-      );
+        );
+      });
 
       gsap.fromTo(
         ".about-description",
@@ -202,20 +210,25 @@ export default function AboutSection({ isDarkMode = false }) {
         ============================================================ */}
         <div className="about-content-column">
           
-          {/* Main Editorial Heading */}
+          {/* Main Editorial Heading - 3 Clean Animated Lines */}
           <h2 className="about-main-heading">
-            <span className="heading-line">Embrace Wellness, Inner</span>
-            <span className="heading-line">Peace, and the Beauty That</span>
-            <span className="heading-line">Lasts Forever</span>
+            <div className="heading-line">
+              <span className="scroll-text">Embrace Wellness, Inner</span>
+            </div>
+            <div className="heading-line">
+              <span className="scroll-text">Peace, and the Beauty That</span>
+            </div>
+            <div className="heading-line">
+              <span className="scroll-text">Lasts Forever</span>
+            </div>
           </h2>
 
           {/* Description Paragraph */}
           <p className="about-description">
-            At Serava Spa, we believe true beauty begins with balance — a harmony
-            of body, mind, and spirit. Nestled in the heart of New York, our
-            serene sanctuary offers bespoke treatments crafted to renew your skin,
-            calm your senses, and restore your natural glow. Each visit is an
-            invitation to unwind, reconnect, and rediscover your inner radiance.
+            At Browlicious PMU Clinic &amp; Academy, we believe true beauty begins with precision and natural harmony. 
+            Operating luxury flagship sanctuaries in Chennai (Anna Nagar &amp; Kelambakkam), our master specialists craft bespoke 
+            micro-pigmentation treatments tailored to enhance your innate facial features, elevate symmetry, and restore your effortless confidence. 
+            Every visit is an invitation to experience world-class artistry and wake up each morning with timeless elegance.
           </p>
 
           {/* Rolling CTA Button */}

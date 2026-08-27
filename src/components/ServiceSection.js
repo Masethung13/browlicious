@@ -328,18 +328,56 @@ export default function ServiceSection({ isDarkMode = false }) {
   // GSAP Master ScrollTrigger Animations for Section & Individual Cards
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Top Banner Left & Right Trigger
+      // 1. Top Banner Headings Sequential Line-by-Line Scroll Trigger
+      const titleLines = gsap.utils.toArray(".services-main-title .services-title-line .services-line-text");
+
       gsap.fromTo(
-        ".services-left-content",
-        { opacity: 0, y: 45 },
+        ".services-eyebrow",
+        { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
-          duration: 1,
+          duration: 0.8,
           ease: "power2.out",
           scrollTrigger: {
-            trigger: ".services-hero-banner",
-            start: "top 85%",
+            trigger: ".services-left-content",
+            start: "top 88%",
+            toggleActions: "play none none none"
+          }
+        }
+      );
+
+      titleLines.forEach((line, index) => {
+        gsap.fromTo(
+          line,
+          { opacity: 0, y: 60 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: line,
+              start: `top ${88 - index * 6}%`,
+              end: `top ${58 - index * 6}%`,
+              scrub: 1.2,
+            },
+          }
+        );
+      });
+
+      gsap.fromTo(
+        ".services-subtitle",
+        { opacity: 0, y: 35 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          delay: 0.25,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".services-subtitle",
+            start: "top 88%",
             toggleActions: "play none none none"
           }
         }
@@ -472,8 +510,12 @@ export default function ServiceSection({ isDarkMode = false }) {
           <div className="services-left-content">
             <span className="services-eyebrow">OUR SERVICES</span>
             <h2 className="services-main-title">
-              Our Signature <br />
-              <span className="services-title-accent">Treatments</span>
+              <div className="services-title-line">
+                <span className="services-line-text">Our Signature</span>
+              </div>
+              <div className="services-title-line">
+                <span className="services-line-text services-title-accent">Treatments</span>
+              </div>
             </h2>
             <p className="services-subtitle">
               Advanced cosmetic and permanent makeup solutions designed for your natural beauty.

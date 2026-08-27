@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Link } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 // Firebase SDK imports
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -10,6 +12,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 import "../styles/BookAppointment.css";
 import heroBgImg from "../assets/abt_cta_banner.jpg";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // 1. Firebase Configuration
 const firebaseConfig = {
@@ -280,6 +284,48 @@ export default function BookAppointment({ isDarkMode = false, setIsDarkMode }) {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
+  const pageContainerRef = useRef(null);
+
+  // GSAP Entrance & Scroll Animations
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".abt-hero-title",
+        { opacity: 0, y: 35, letterSpacing: "0.3em" },
+        { opacity: 1, y: 0, letterSpacing: "0.22em", duration: 1.2, ease: "power3.out" }
+      );
+
+      gsap.fromTo(
+        ".abt-hero-subtitle",
+        { opacity: 0, y: 25 },
+        { opacity: 1, y: 0, duration: 1, delay: 0.35, ease: "power2.out" }
+      );
+
+      gsap.fromTo(
+        ".booking-step-card",
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.85,
+          stagger: 0.15,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".booking-steps-column",
+            start: "top 85%",
+            toggleActions: "play none none none"
+          }
+        }
+      );
+
+      ScrollTrigger.refresh();
+    }, pageContainerRef);
+
+    return () => ctx.revert();
+  }, []);
 
   // Specialist Draggable Auto-Scroll Loop Slider
   const specialistTrackRef = useRef(null);
@@ -594,7 +640,7 @@ export default function BookAppointment({ isDarkMode = false, setIsDarkMode }) {
     : "Not Selected";
 
   return (
-    <div className={`appointment-page-wrapper ${isDarkMode ? "dark-theme" : "light-theme"}`}>
+    <div className={`appointment-page-wrapper ${isDarkMode ? "dark-theme" : "light-theme"}`} ref={pageContainerRef}>
       <ToastContainer
         position="top-right"
         autoClose={3500}

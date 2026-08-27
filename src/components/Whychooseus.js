@@ -132,17 +132,35 @@ export default function WhyChooseUs({ isDarkMode = false }) {
   // GSAP ScrollTrigger Entrance Animation
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Title & Subtitle sequential scrollTrigger
       gsap.fromTo(
-        ".why-header-row",
+        ".why-main-title .why-line-text",
+        { opacity: 0, y: 55 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".why-header-row",
+            start: "top 85%",
+            toggleActions: "play none none none"
+          }
+        }
+      );
+
+      gsap.fromTo(
+        ".why-narrative-text",
         { opacity: 0, y: 40 },
         {
           opacity: 1,
           y: 0,
           duration: 0.9,
+          delay: 0.2,
           ease: "power2.out",
           scrollTrigger: {
-            trigger: ".why-choose-us-section",
-            start: "top 82%",
+            trigger: ".why-header-row",
+            start: "top 85%",
             toggleActions: "play none none none"
           }
         }
@@ -189,7 +207,9 @@ export default function WhyChooseUs({ isDarkMode = false }) {
         <div className="why-header-row">
           <div className="header-left-title">
             <h2 className="why-main-title">
-              WHY CHOOSE <span className="title-accent-span">US</span>
+              <div className="why-title-line">
+                <span className="why-line-text">WHY CHOOSE <span className="title-accent-span">US</span></span>
+              </div>
             </h2>
           </div>
           <div className="header-right-narrative">

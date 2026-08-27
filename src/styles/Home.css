@@ -172,6 +172,16 @@ body {
   max-width: 650px;
 }
 
+.hero-title-line {
+  display: block;
+  overflow: hidden;
+}
+
+.hero-line-text {
+  display: block;
+  will-change: transform, opacity;
+}
+
 .hero-desc {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 1.15rem;

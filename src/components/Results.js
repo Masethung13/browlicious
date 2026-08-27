@@ -389,6 +389,45 @@ export default function Results({ isDarkMode = false, setIsDarkMode }) {
         { opacity: 1, y: 0, letterSpacing: "0.22em", duration: 1.1, ease: "power3.out" }
       );
 
+      gsap.fromTo(
+        ".abt-hero-subtitle",
+        { opacity: 0, y: 25 },
+        { opacity: 1, y: 0, duration: 1, delay: 0.35, ease: "power2.out" }
+      );
+
+      gsap.fromTo(
+        ".journey-section-eyebrow",
+        { opacity: 0, y: 25 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".journey-section-header",
+            start: "top 85%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".journey-section-title",
+        { opacity: 0, y: 45 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          delay: 0.15,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".journey-section-header",
+            start: "top 85%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
+
       // 2. Timeline Dynamic Line Fill & Step Rows Animation
       gsap.fromTo(
         ".journey-timeline-fill",

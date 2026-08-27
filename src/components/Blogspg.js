@@ -5,7 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../styles/Blogspg.css";
 import heroBgImg from "../assets/abt_hero_banner.jpg";
 import featuredPmuImg from "../assets/blog_featured_pmu.jpg";
-import doctorImg from "../assets/blog_doctor_portrait.jpg";
+import doctorImg from "../assets/sp2.png";
 import clinicImg from "../assets/clinic1.png";
 import treatmentSuiteImg from "../assets/pmu_treatment_suite.jpg";
 
@@ -253,11 +253,17 @@ export default function Blogspg({ isDarkMode = false, setIsDarkMode }) {
     window.scrollTo(0, 0);
 
     const ctx = gsap.context(() => {
-      // 1. Hero Header Animation
+      // 1. Hero Header Animation & Subtitle
       gsap.fromTo(
         ".blog-hero-title",
         { opacity: 0, y: 40, letterSpacing: "0.3em" },
         { opacity: 1, y: 0, letterSpacing: "0.22em", duration: 1.2, ease: "power3.out" }
+      );
+
+      gsap.fromTo(
+        ".abt-hero-subtitle",
+        { opacity: 0, y: 25 },
+        { opacity: 1, y: 0, duration: 1, delay: 0.35, ease: "power2.out" }
       );
 
       // 2. Zone 1: Featured Card Smooth Glide-Up
@@ -272,6 +278,39 @@ export default function Blogspg({ isDarkMode = false, setIsDarkMode }) {
           scrollTrigger: {
             trigger: ".blog-featured-section",
             start: "top 85%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".blog-featured-title",
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".blog-featured-title",
+            start: "top 88%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".blog-featured-excerpt",
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.85,
+          delay: 0.15,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".blog-featured-excerpt",
+            start: "top 88%",
             toggleActions: "play reverse play reverse",
           },
         }

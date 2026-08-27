@@ -1,11 +1,15 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // Swiper core styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "../styles/Testimonials.css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const TESTIMONIALS = [
   {
@@ -52,16 +56,78 @@ const TESTIMONIALS = [
 
 export default function Testimonials({ isDarkMode = false }) {
   const swiperRef = useRef(null);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".testimonials-eyebrow",
+        { opacity: 0, y: 25 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".testimonials-top-bar",
+            start: "top 88%",
+            toggleActions: "play none none none"
+          }
+        }
+      );
+
+      gsap.fromTo(
+        ".testimonials-title-line .testimonials-line-text",
+        { opacity: 0, y: 45 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".testimonials-top-bar",
+            start: "top 88%",
+            toggleActions: "play none none none"
+          }
+        }
+      );
+
+      gsap.fromTo(
+        ".view-all-link",
+        { opacity: 0, x: 30 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.9,
+          delay: 0.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".testimonials-top-bar",
+            start: "top 88%",
+            toggleActions: "play none none none"
+          }
+        }
+      );
+
+      ScrollTrigger.refresh();
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section className={`testimonials-section ${isDarkMode ? "dark-theme" : "light-theme"}`} id="testimonials">
+    <section className={`testimonials-section ${isDarkMode ? "dark-theme" : "light-theme"}`} id="testimonials" ref={sectionRef}>
       <div className="testimonials-glass-card">
         
         {/* Header: Eyebrow + Title + Link */}
         <div className="testimonials-top-bar">
           <div className="testimonials-title-group">
             <span className="testimonials-eyebrow">CLIENT STORIES &amp; EXPERIENCES</span>
-            <h2 className="testimonials-title">What Our Clients Say</h2>
+            <h2 className="testimonials-title">
+              <div className="testimonials-title-line">
+                <span className="testimonials-line-text">What Our Clients Say</span>
+              </div>
+            </h2>
           </div>
 
           <a href="#services" className="view-all-link">

@@ -109,6 +109,20 @@ const Home = ({ isDarkMode: parentDarkMode, setIsDarkMode: parentSetIsDarkMode }
       gsap.set(targetContent, { opacity: 0, y: 50 });
       gsap.set(heroContent, { opacity: 1, y: 0 });
 
+      // Entrance animation for hero title lines on load
+      gsap.fromTo(
+        ".hero-title-line .hero-line-text",
+        { y: 60, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1.1,
+          stagger: 0.18,
+          ease: "power3.out",
+          delay: 0.2,
+        }
+      );
+
       // 2. Master Pinned Timeline
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -133,7 +147,7 @@ const Home = ({ isDarkMode: parentDarkMode, setIsDarkMode: parentSetIsDarkMode }
         0
       );
 
-      // Step B: Fade in Target text
+      // Step B: Fade in Target text line-by-line
       tl.to(
         targetContent,
         {
@@ -143,6 +157,19 @@ const Home = ({ isDarkMode: parentDarkMode, setIsDarkMode: parentSetIsDarkMode }
           ease: "power1.inOut",
         },
         0.2
+      );
+
+      tl.fromTo(
+        ".headline-wrapper .heading-row",
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.1,
+          duration: 0.4,
+          ease: "power2.out",
+        },
+        0.25
       );
 
       // Step C: Morph background image directly into target slot position with -50px offset
@@ -246,9 +273,15 @@ const Home = ({ isDarkMode: parentDarkMode, setIsDarkMode: parentSetIsDarkMode }
         <div className="hero-content-layer" ref={heroContentRef}>
           <span className="hero-badge">Browlicious — PMU Clinic &amp; Academy</span>
           <h1 className="hero-title">
-            Excelling in Permanent <br />
-            Makeup ONLY is <br />
-            our MISSION.
+            <div className="hero-title-line">
+              <span className="hero-line-text">Excelling in Permanent</span>
+            </div>
+            <div className="hero-title-line">
+              <span className="hero-line-text">Makeup ONLY is</span>
+            </div>
+            <div className="hero-title-line">
+              <span className="hero-line-text">our MISSION.</span>
+            </div>
           </h1>
           <p className="hero-desc">
             Unlike most other providers who offer multiple beauty services, 

@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import '../styles/AbtPg.css';
 import pmuClinicImg from '../assets/clinic1.png';
-import pmuClientImg from '../assets/pmu_client_portrait.jpg';
+import pmuClientImg from '../assets/sp1.png';
 import pmuSuiteImg from '../assets/pmu_treatment_suite.jpg';
 import heroBgImg from '../assets/abt_hero_banner.jpg';
 
@@ -96,12 +96,12 @@ export default function AbtPg({ isDarkMode = false, setIsDarkMode }) {
       );
 
       gsap.fromTo(
-        ".abt-hero-subbar",
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 1, delay: 0.25, ease: "power2.out" }
+        ".abt-hero-subtitle",
+        { opacity: 0, y: 25 },
+        { opacity: 1, y: 0, duration: 1, delay: 0.35, ease: "power2.out" }
       );
 
-      // 2. Section 2 (Intro): Left Image Fades Right, Right Text Fades Left
+      // 2. Section 2 (Intro): Left Image Fades Right, Right Title Lines & Text Fade Up
       gsap.fromTo(
         ".abt-intro-image-pane",
         { opacity: 0, x: -70, scale: 0.95 },
@@ -119,29 +119,33 @@ export default function AbtPg({ isDarkMode = false, setIsDarkMode }) {
         }
       );
 
-      gsap.fromTo(
-        ".abt-intro-text-inner",
-        { opacity: 0, x: 70 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".abt-intro-section",
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
+      const introTitleLines = gsap.utils.toArray(".abt-section-title-large .abt-title-line .abt-line-text");
+      introTitleLines.forEach((line, index) => {
+        gsap.fromTo(
+          line,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: line,
+              start: `top ${88 - index * 5}%`,
+              end: `top ${60 - index * 5}%`,
+              scrub: 1.2,
+            },
+          }
+        );
+      });
 
       gsap.fromTo(
         ".abt-intro-paragraphs p",
-        { opacity: 0, y: 25 },
+        { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
+          duration: 0.85,
           stagger: 0.2,
           ease: "power2.out",
           scrollTrigger: {
@@ -416,7 +420,12 @@ export default function AbtPg({ isDarkMode = false, setIsDarkMode }) {
           <div className="abt-intro-text-pane">
             <div className="abt-intro-text-inner">
               <h2 className="abt-section-title-large">
-                EXCELLING IN PERMANENT MAKEUP ONLY IS OUR PASSION &amp; PURPOSE
+                <div className="abt-title-line">
+                  <span className="abt-line-text">EXCELLING IN PERMANENT MAKEUP ONLY</span>
+                </div>
+                <div className="abt-title-line">
+                  <span className="abt-line-text">IS OUR PASSION &amp; PURPOSE</span>
+                </div>
               </h2>
               <div className="abt-intro-paragraphs">
                 <p>
@@ -470,7 +479,7 @@ export default function AbtPg({ isDarkMode = false, setIsDarkMode }) {
               </div>
               
               <blockquote className="abt-testimonial-quote">
-                “Browlicious is South India's undisputed master of PMU. Having struggled with sparse, uneven brows and two-toned lips, their specialist meticulously mapped my facial symmetry before creating the softest feathered microblade strokes and a stunning, natural lip blush tint. Waking up every morning with effortless, waterproof perfection is truly life-changing artistry!”
+                “Your confidence is our greatest achievement. At Browlicious, every brow and lip treatment is thoughtfully customized to enhance your natural beauty. From precise brow mapping to soft microblading and beautifully balanced lip blush, our goal is to create results that look effortlessly natural and feel uniquely yours. ✨”
               </blockquote>
               
               <div className="abt-testimonial-author">

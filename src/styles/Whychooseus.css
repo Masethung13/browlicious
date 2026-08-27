@@ -107,6 +107,16 @@ body.dark-theme .why-choose-us-section {
   line-height: 1.15;
 }
 
+.why-title-line {
+  display: block;
+  overflow: hidden;
+}
+
+.why-line-text {
+  display: block;
+  will-change: transform, opacity;
+}
+
 .title-accent-span {
   color: var(--why-accent-pink);
   font-weight: 600;

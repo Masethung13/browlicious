@@ -10,7 +10,7 @@ const NAV_LINKS = [
   { name: "Services", href: "/services", subtitle: "03 / Signature PMU", isRoute: true },
   { name: "Result", href: "/results", subtitle: "04 / The Experience", isRoute: true },
   { name: "Blogs", href: "/blogs", subtitle: "05 / Beauty Insights", isRoute: true },
-  { name: "Faq", href: "/#testimonials", subtitle: "07 / Reviews" },
+  { name: "Faq", href: "/faq", subtitle: "07 / Reviews" },
   { name: "Contact", href: "/contact", subtitle: "08 / Book Session", isRoute: true },
 ];
 
@@ -105,12 +105,7 @@ export default function Header({ isDarkMode = false }) {
 
           {/* Right Column: Phone & Book Appointment Route CTA */}
           <div className="header-right">
-            <div className="appointment-phone">
-              <span className="phone-label">Call:</span>
-              <a href="tel:+918111643210" className="phone-link">
-                +91 81116 43210
-              </a>
-            </div>
+            
 
             <Link to="/book-appointment" className="book-cta-btn">
               <span className="btn-text-default">Book Appointment</span>

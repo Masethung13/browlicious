@@ -44,67 +44,6 @@ const firebaseConfig = {
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// ============================================================
-// Animated Number Counter (Recounts on every scroll into view)
-// ============================================================
-function AnimatedCounter({ end, duration = 1.8, suffix = "", decimals = 0 }) {
-  const [count, setCount] = useState(0);
-  const countRef = useRef(null);
-  const intervalRef = useRef(null);
-
-  useEffect(() => {
-    const el = countRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          if (intervalRef.current) clearInterval(intervalRef.current);
-          let start = 0;
-          setCount(0);
-          const totalFrames = Math.round(duration * 60);
-          let frame = 0;
-
-          intervalRef.current = setInterval(() => {
-            frame++;
-            const progress = frame / totalFrames;
-            const easeProgress = 1 - Math.pow(1 - progress, 3);
-            const current = start + (end - start) * easeProgress;
-
-            if (frame >= totalFrames) {
-              setCount(end);
-              clearInterval(intervalRef.current);
-            } else {
-              setCount(
-                decimals > 0
-                  ? parseFloat(current.toFixed(decimals))
-                  : Math.floor(current)
-              );
-            }
-          }, 1000 / 60);
-        } else {
-          if (intervalRef.current) clearInterval(intervalRef.current);
-          setCount(0);
-        }
-      },
-      { threshold: 0.15 }
-    );
-
-    observer.observe(el);
-    return () => {
-      observer.disconnect();
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [end, duration, decimals]);
-
-  return (
-    <span ref={countRef}>
-      {count}
-      {suffix}
-    </span>
-  );
-}
-
 export default function ContactPage({ isDarkMode = false, setIsDarkMode }) {
   const containerRef = useRef(null);
   const [form, setForm] = useState({
@@ -124,59 +63,66 @@ export default function ContactPage({ isDarkMode = false, setIsDarkMode }) {
     window.scrollTo(0, 0);
 
     const ctx = gsap.context(() => {
-      // 1. Hero Title Letter-spacing Fade-in
+      // 1. Hero Title & Subtitle Letter-spacing Fade-in
       gsap.fromTo(
         ".contact-hero-title",
         { opacity: 0, y: 35, letterSpacing: "0.3em" },
         { opacity: 1, y: 0, letterSpacing: "0.22em", duration: 1.2, ease: "power3.out" }
       );
 
-      // 2. Stats Strip Stagger
       gsap.fromTo(
-        ".contact-stat-card",
+        ".abt-hero-subtitle",
         { opacity: 0, y: 25 },
+        { opacity: 1, y: 0, duration: 1, delay: 0.35, ease: "power2.out" }
+      );
+
+      // 2. Left Info Concierge Card Glide from Left
+      gsap.fromTo(
+        ".contact-info-card",
+        { opacity: 0, y: 40, scale: 0.98 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
-          stagger: 0.08,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".contact-stats-strip",
-            start: "top 88%",
-            toggleActions: "play reverse play reverse",
-          },
-        }
-      );
-
-      // 3. Left Info Concierge Card Glide from Left
-      gsap.fromTo(
-        ".contact-info-card",
-        { opacity: 0, x: -50 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.95,
+          scale: 1,
+          duration: 0.9,
           ease: "power3.out",
           scrollTrigger: {
             trigger: ".contact-layout-grid",
-            start: "top 82%",
+            start: "top 85%",
             toggleActions: "play reverse play reverse",
           },
         }
       );
 
-      // 4. Right Form Card Glide from Right
+      // 3. Right Form Card Glide from Right
       gsap.fromTo(
         ".contact-form-card",
-        { opacity: 0, x: 50 },
+        { opacity: 0, y: 40, scale: 0.98 },
         {
           opacity: 1,
-          x: 0,
-          duration: 0.95,
+          y: 0,
+          scale: 1,
+          duration: 0.9,
           ease: "power3.out",
           scrollTrigger: {
             trigger: ".contact-layout-grid",
+            start: "top 85%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
+
+      // 4. Downside Dedicated Map Section Fade-Up
+      gsap.fromTo(
+        ".contact-map-showcase-card",
+        { opacity: 0, y: 45 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.95,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".contact-map-showcase-section",
             start: "top 82%",
             toggleActions: "play reverse play reverse",
           },
@@ -403,38 +349,6 @@ export default function ContactPage({ isDarkMode = false, setIsDarkMode }) {
             Let’s begin your journey toward effortlessly defined beauty. Reach out directly to our
             master specialists for personal consultations, studio visits, or treatment queries.
           </p>
-
-          {/* 4 Counting Metrics Strip */}
-          <div className="contact-stats-strip">
-            <div className="contact-stat-card">
-              <span className="cstat-icon">👥</span>
-              <span className="cstat-num">
-                <AnimatedCounter end={5000} duration={2.2} suffix="+" />
-              </span>
-              <span className="cstat-lbl">Happy Clients</span>
-            </div>
-            <div className="contact-stat-card">
-              <span className="cstat-icon">🏆</span>
-              <span className="cstat-num">
-                <AnimatedCounter end={10} duration={1.8} suffix="+" />
-              </span>
-              <span className="cstat-lbl">Years Experience</span>
-            </div>
-            <div className="contact-stat-card">
-              <span className="cstat-icon">⚡</span>
-              <span className="cstat-num">
-                <AnimatedCounter end={24} duration={1.6} suffix="h" />
-              </span>
-              <span className="cstat-lbl">Response Time</span>
-            </div>
-            <div className="contact-stat-card">
-              <span className="cstat-icon">⭐</span>
-              <span className="cstat-num">
-                <AnimatedCounter end={4.9} duration={1.8} suffix="/5" decimals={1} />
-              </span>
-              <span className="cstat-lbl">Client Rating</span>
-            </div>
-          </div>
         </div>
       </header>
 
@@ -446,137 +360,116 @@ export default function ContactPage({ isDarkMode = false, setIsDarkMode }) {
           <div className="contact-layout-grid">
             
             {/* ============================================================
-                LEFT COLUMN: STUDIO CONCIERGE & MAP CARD
+                LEFT COLUMN: STUDIO CONCIERGE CARD
             ============================================================ */}
             <div className="contact-info-card">
               
-              {/* Clinic Lounge Banner Image */}
-              <div className="clinic-banner-frame">
-                <img
-                  src={clinicImg}
-                  alt="Browlicious PMU Studio Reception & Lounge"
-                  className="clinic-banner-img"
-                />
-                <div className="banner-overlay-tint"></div>
-                <span className="banner-studio-badge">★ ANNA NAGAR CLINIC</span>
-              </div>
-
-              {/* Need Help Header */}
-              <div className="info-card-header">
-                <span className="help-eyebrow">DIRECT CONCIERGE</span>
-                <h3 className="help-title">Need Personal Advice?</h3>
-                <p className="help-subtitle">
-                  Our master artists are available to guide you through customized brow mapping,
-                  pigment shade matching, and aftercare expectations.
-                </p>
-              </div>
-
-              {/* Contact Items List */}
-              <div className="contact-meta-list">
-                
-                {/* Call Us */}
-                <div className="contact-meta-row">
-                  <div className="meta-icon-circle">
-                    <FaPhoneAlt />
-                  </div>
-                  <div className="meta-row-content">
-                    <span className="meta-row-label">Call Our Clinic</span>
-                    <a href="tel:+918111643210" className="meta-row-value">
-                      +91 81116 43210
-                    </a>
-                    <a href="tel:09710331111" className="meta-row-subvalue">
-                      Alt: 097103 31111
-                    </a>
-                  </div>
+              <div className="info-card-top">
+                {/* Clinic Lounge Banner Image */}
+                <div className="clinic-banner-frame">
+                  <img
+                    src={clinicImg}
+                    alt="Browlicious PMU Studio Reception & Lounge"
+                    className="clinic-banner-img"
+                  />
+                  <div className="banner-overlay-tint"></div>
+                  <span className="banner-studio-badge">★ ANNA NAGAR CLINIC</span>
                 </div>
 
-                {/* WhatsApp Us */}
-                <div className="contact-meta-row">
-                  <div className="meta-icon-circle whatsapp-icon-circle">
-                    <FaWhatsapp />
-                  </div>
-                  <div className="meta-row-content">
-                    <span className="meta-row-label">WhatsApp Concierge</span>
-                    <a
-                      href="https://api.whatsapp.com/send/?phone=919710331111&text=Hello%20Browlicious%20Team,%20I%20would%20like%20to%20inquire%20about%20your%20treatments&type=phone_number&app_absent=0"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="meta-row-value whatsapp-link"
-                    >
-                      Chat with our specialists &rarr;
-                    </a>
-                  </div>
+                {/* Need Help Header */}
+                <div className="info-card-header">
+                  <span className="help-eyebrow">DIRECT CONCIERGE</span>
+                  <h3 className="help-title">Need Personal Advice?</h3>
+                  <p className="help-subtitle">
+                    Our master artists are available to guide you through customized brow mapping,
+                    pigment shade matching, and aftercare expectations.
+                  </p>
                 </div>
 
-                {/* Email */}
-                <div className="contact-meta-row">
-                  <div className="meta-icon-circle">
-                    <FaEnvelope />
+                {/* Contact Items List */}
+                <div className="contact-meta-list">
+                  
+                  {/* Call Us */}
+                  <div className="contact-meta-row">
+                    <div className="meta-icon-circle">
+                      <FaPhoneAlt />
+                    </div>
+                    <div className="meta-row-content">
+                      <span className="meta-row-label">Call Our Clinic</span>
+                      <a href="tel:+918111643210" className="meta-row-value">
+                        +91 81116 43210
+                      </a>
+                      <a href="tel:09710331111" className="meta-row-subvalue">
+                        Alt: 097103 31111
+                      </a>
+                    </div>
                   </div>
-                  <div className="meta-row-content">
-                    <span className="meta-row-label">Email Enquiries</span>
-                    <a href="mailto:info@browlicious.com" className="meta-row-value">
-                      info@browlicious.com
-                    </a>
+
+                  {/* WhatsApp Us */}
+                  <div className="contact-meta-row">
+                    <div className="meta-icon-circle whatsapp-icon-circle">
+                      <FaWhatsapp />
+                    </div>
+                    <div className="meta-row-content">
+                      <span className="meta-row-label">WhatsApp Concierge</span>
+                      <a
+                        href="https://api.whatsapp.com/send/?phone=919710331111&text=Hello%20Browlicious%20Team,%20I%20would%20like%20to%20inquire%20about%20your%20treatments&type=phone_number&app_absent=0"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="meta-row-value whatsapp-link"
+                      >
+                        Chat with our specialists &rarr;
+                      </a>
+                    </div>
                   </div>
+
+                  {/* Email */}
+                  <div className="contact-meta-row">
+                    <div className="meta-icon-circle">
+                      <FaEnvelope />
+                    </div>
+                    <div className="meta-row-content">
+                      <span className="meta-row-label">Email Enquiries</span>
+                      <a href="mailto:info@browlicious.com" className="meta-row-value">
+                        info@browlicious.com
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Clinic Hours */}
+                  <div className="contact-meta-row">
+                    <div className="meta-icon-circle">
+                      <FaClock />
+                    </div>
+                    <div className="meta-row-content">
+                      <span className="meta-row-label">Clinic Hours</span>
+                      <span className="meta-row-value">
+                        Mon – Sat: 10:00 AM – 7:00 PM
+                      </span>
+                      <span className="meta-row-subvalue">
+                        Sunday: By Prior Appointment
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Location Address */}
+                  <div className="contact-meta-row">
+                    <div className="meta-icon-circle">
+                      <FaMapMarkerAlt />
+                    </div>
+                    <div className="meta-row-content">
+                      <span className="meta-row-label">Studio Address</span>
+                      <span className="meta-row-value">
+                        Browlicious PMU Clinic &amp; Academy
+                      </span>
+                      <p className="meta-full-address">
+                        First Floor, AA-117, 4th Ave, opp. Naturals Signature Salon,
+                        AA Block, Shanthi Colony, Anna Nagar, Chennai, Tamil Nadu 600040
+                      </p>
+                    </div>
+                  </div>
+
                 </div>
-
-                {/* Clinic Hours */}
-                <div className="contact-meta-row">
-                  <div className="meta-icon-circle">
-                    <FaClock />
-                  </div>
-                  <div className="meta-row-content">
-                    <span className="meta-row-label">Clinic Hours</span>
-                    <span className="meta-row-value">
-                      Mon – Sat: 10:00 AM – 7:00 PM
-                    </span>
-                    <span className="meta-row-subvalue">
-                      Sunday: By Prior Appointment
-                    </span>
-                  </div>
-                </div>
-
-                {/* Location Address */}
-                <div className="contact-meta-row">
-                  <div className="meta-icon-circle">
-                    <FaMapMarkerAlt />
-                  </div>
-                  <div className="meta-row-content">
-                    <span className="meta-row-label">Studio Address</span>
-                    <span className="meta-row-value">
-                      Browlicious PMU Clinic &amp; Academy
-                    </span>
-                    <p className="meta-full-address">
-                      First Floor, AA-117, 4th Ave, opp. Naturals Signature Salon,
-                      AA Block, Shanthi Colony, Anna Nagar, Chennai, Tamil Nadu 600040
-                    </p>
-                  </div>
-                </div>
-
-              </div>
-
-              {/* Interactive Google Map Embed */}
-              <div className="clinic-map-container">
-                <iframe
-                  title="Browlicious Clinic Location Map"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.1965902097034!2d80.2155005!3d13.0831788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265d656f0ae01%3A0x424da239c794397d!2sBrowlicious%20-%20Permanent%20Makeup%20Clinic%20%26%20Academy!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
-                  width="100%"
-                  height="170"
-                  style={{ border: 0 }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
-
-                <a
-                  href="https://maps.app.goo.gl/yJbv3pysWBLGZmUP6"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="map-directions-btn"
-                >
-                  <FaDirections /> Get Directions on Google Maps
-                </a>
               </div>
 
               {/* Social Media Links */}
@@ -629,7 +522,7 @@ export default function ContactPage({ isDarkMode = false, setIsDarkMode }) {
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} noValidate>
+              <form onSubmit={handleSubmit} noValidate className="contact-actual-form">
                 
                 {/* Full Name */}
                 <div className="form-group-item">
@@ -702,7 +595,7 @@ export default function ContactPage({ isDarkMode = false, setIsDarkMode }) {
                 </div>
 
                 {/* Message Details */}
-                <div className="form-group-item">
+                <div className="form-group-item flex-grow-message">
                   <div className="label-with-counter">
                     <label className="field-label">Your Message / Questions *</label>
                     <span className="char-count-pill">{charCount}/300</span>
@@ -742,6 +635,56 @@ export default function ContactPage({ isDarkMode = false, setIsDarkMode }) {
           </div>
         </div>
       </main>
+
+      {/* ============================================================
+          3. DEDICATED SEPARATE LOCATION & MAP SHOWCASE SECTION
+      ============================================================ */}
+      <section className="contact-map-showcase-section">
+        <div className="contact-page-container">
+          <div className="contact-map-showcase-card">
+            
+            {/* Header with clinic address & quick actions */}
+            <div className="map-showcase-header">
+              <div className="map-header-text">
+                <span className="map-showcase-eyebrow">STUDIO LOCATION &amp; NAVIGATION</span>
+                <h2 className="map-showcase-title">Visit Our Anna Nagar Studio</h2>
+                <p className="map-showcase-address">
+                  📍 First Floor, AA-117, 4th Ave, opp. Naturals Signature Salon, AA Block, Shanthi Colony, Anna Nagar, Chennai, Tamil Nadu 600040
+                </p>
+              </div>
+
+              <div className="map-header-actions">
+                <a
+                  href="https://maps.app.goo.gl/yJbv3pysWBLGZmUP6"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-map-get-directions"
+                >
+                  <FaDirections /> Get Directions on Google Maps
+                </a>
+                <a href="tel:+918111643210" className="btn-map-call">
+                  <FaPhoneAlt /> Call Reception
+                </a>
+              </div>
+            </div>
+
+            {/* Interactive Wide Google Maps Frame */}
+            <div className="map-iframe-wrapper">
+              <iframe
+                title="Browlicious Anna Nagar Clinic Google Map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.1965902097034!2d80.2155005!3d13.0831788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265d656f0ae01%3A0x424da239c794397d!2sBrowlicious%20-%20Permanent%20Makeup%20Clinic%20%26%20Academy!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                width="100%"
+                height="380"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+
+          </div>
+        </div>
+      </section>
 
     </div>
   );

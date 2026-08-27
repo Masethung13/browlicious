@@ -138,11 +138,23 @@ body.dark-theme .about-section-wrapper {
   font-family: 'Josefin Sans', sans-serif;
   font-size: clamp(2rem, 3.2vw, 3.3rem);
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.25;
   letter-spacing: -0.01em;
   color: var(--about-text-main);
   margin: 0 0 1.6rem 0;
   text-transform: capitalize;
+}
+
+.heading-line {
+  display: block;
+  overflow: hidden;
+  line-height: 1.25;
+  padding-bottom: 2px;
+}
+
+.scroll-text {
+  display: block;
+  will-change: transform, opacity;
 }
 
 .about-heading-accent {
@@ -155,7 +167,7 @@ body.dark-theme .about-section-wrapper {
   font-size: clamp(0.92rem, 1.15vw, 1.05rem);
   line-height: 1.75;
   color: var(--about-text-muted);
-  font-weight: 300;
+  font-weight: 500;
   margin: 0 0 2.25rem 0;
 }
 

@@ -140,6 +140,16 @@ body.dark-theme .pr-section-wrapper {
     text-transform: uppercase;
 }
 
+.pr-title-line {
+    display: block;
+    overflow: hidden;
+}
+
+.pr-line-text {
+    display: block;
+    will-change: transform, opacity;
+}
+
 .pr-title-accent {
     color: var(--pr-accent-pink);
     font-weight: 600;

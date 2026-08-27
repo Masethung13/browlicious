@@ -1,0 +1,96 @@
+/* ============================================================
+   GLOBAL ELASTIC MAGNETIC CURSOR SYSTEM
+   Browlicious Luxury Interactive Experience
+============================================================ */
+
+.global-elastic-cursor {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.global-cursor__dot,
+.global-cursor__ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  will-change: transform, width, height, border-radius;
+}
+
+/* Inner Core Dot */
+.global-cursor__dot {
+  z-index: 100001;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #EC3373;
+  box-shadow: 0 0 10px rgba(236, 51, 115, 0.8), 0 0 4px #FFFFFF;
+  transition: transform 0.1s ease, background 0.3s ease;
+}
+
+.global-elastic-cursor.light-theme .global-cursor__dot {
+  background: #D81B60;
+  box-shadow: 0 0 8px rgba(216, 27, 96, 0.7);
+}
+
+/* Trailing Elastic & Magnetic Ring */
+.global-cursor__ring {
+  z-index: 100000;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(236, 51, 115, 0.65);
+  border-radius: 50%;
+  background: rgba(236, 51, 115, 0.04);
+  backdrop-filter: blur(1px);
+  box-shadow: 0 0 20px rgba(236, 51, 115, 0.18);
+  transition:
+    width 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    border-radius 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.global-elastic-cursor.light-theme .global-cursor__ring {
+  border-color: rgba(216, 27, 96, 0.55);
+  background: rgba(216, 27, 96, 0.035);
+  box-shadow: 0 0 15px rgba(216, 27, 96, 0.12);
+}
+
+/* Magnetic Lock State */
+.global-elastic-cursor.is-magnetic .global-cursor__ring {
+  border-color: #EC3373;
+  background: rgba(236, 51, 115, 0.08);
+  box-shadow: 0 0 28px rgba(236, 51, 115, 0.35);
+}
+
+.global-elastic-cursor.light-theme.is-magnetic .global-cursor__ring {
+  border-color: #D81B60;
+  background: rgba(216, 27, 96, 0.07);
+  box-shadow: 0 0 22px rgba(216, 27, 96, 0.25);
+}
+
+/* Click Active State */
+.global-elastic-cursor.is-clicking .global-cursor__ring {
+  transform: translate(-50%, -50%) scale(0.88) !important;
+  border-color: #C5A059;
+  background: rgba(197, 160, 89, 0.12);
+}
+
+.global-elastic-cursor.is-clicking .global-cursor__dot {
+  transform: translate(-50%, -50%) scale(1.4) !important;
+  background: #FFFFFF;
+}
+
+/* Touch & Reduced Motion Disablement */
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .global-elastic-cursor {
+    display: none !important;
+  }
+}

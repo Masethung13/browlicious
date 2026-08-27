@@ -110,27 +110,25 @@ body.dark-theme .abt-page-wrapper {
 .abt-hero-section {
   position: relative;
   width: 100%;
-  padding-top: 80px; /* Space below fixed navbar */
 }
 
 .abt-hero-banner {
   position: relative;
   width: 100%;
-  height: clamp(320px, 38vh, 420px);
+  height: 440px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-image: url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=1920');
   background-size: cover;
-  background-position: center 35%;
+  background-position: center;
   overflow: hidden;
 }
 
 .abt-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(14, 8, 16, 0.72) 0%, rgba(14, 8, 16, 0.58) 100%);
+  background: linear-gradient(180deg, rgba(14, 8, 16, 0.78) 0%, rgba(14, 8, 16, 0.62) 100%);
   z-index: 1;
 }
 
@@ -138,23 +136,24 @@ body.dark-theme .abt-page-wrapper {
   position: relative;
   z-index: 2;
   padding: 0 20px;
+  text-align: center;
 }
 
 .abt-hero-title {
   font-family: var(--font-serif);
-  font-size: clamp(2.8rem, 5.5vw, 4.4rem);
+  font-size: clamp(2.2rem, 4.8vw, 3.8rem);
   font-weight: 500;
   letter-spacing: 0.22em;
   color: #FFFFFF;
   text-transform: uppercase;
   margin: 0;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 /* Sub-Header Description Bar (Below Dark Banner) */
 .abt-hero-subbar {
   background-color: var(--theme-bg);
-  padding: 35px 24px 60px 24px;
+  padding: 35px 24px 45px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -355,6 +354,16 @@ body.dark-theme .abt-page-wrapper {
   text-transform: uppercase;
   margin: 0 0 26px 0;
   transition: color 0.4s ease;
+}
+
+.abt-title-line {
+  display: block;
+  overflow: hidden;
+}
+
+.abt-line-text {
+  display: block;
+  will-change: transform, opacity;
 }
 
 .abt-intro-paragraphs p {
@@ -756,7 +765,7 @@ body.dark-theme .abt-page-wrapper {
   width: 100%;
   height: auto;
   aspect-ratio: 4/5;
-  object-fit: cover;
+  object-fit: scale-down;
   border-radius: 3px;
   display: block;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
@@ -773,8 +782,8 @@ body.dark-theme .abt-page-wrapper {
   position: absolute;
   top: 10%;
   right: -85px;
-  width: 170px;
-  height: 170px;
+  width: 108px;
+  height: 107px;
   border-radius: 50%;
   border: 1px solid var(--theme-border);
   display: flex;

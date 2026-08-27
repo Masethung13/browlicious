@@ -15,10 +15,13 @@ import Pr from "./components/Pr";
 import Testimonials from "./components/Testimonials";
 import BookAppointment from "./components/BookAppointment";
 import AbtPg from "./components/AbtPg";
-import Results from "./components/Results"; 
+import Results from "./components/Results";
 import Blogspg from "./components/Blogspg";
 import Servicespg from "./components/Servicespg";
 import ContactPage from "./components/ContactPage";
+import FAQPage from "./components/FAQPage";
+import ElasticCursorLab from "./components/ElasticCursorLab";
+import GlobalElasticCursor from "./components/GlobalElasticCursor";
 
 // Scroll to top on route change helper
 function ScrollToTop() {
@@ -64,6 +67,9 @@ function App() {
     <Router>
       <ScrollToTop />
       <div className={`App ${isDarkMode ? "dark-theme" : "light-theme"}`}>
+        {/* Global Luxury Elastic Magnetic Cursor */}
+        <GlobalElasticCursor isDarkMode={isDarkMode} />
+
         {/* Global Header */}
         <Header isDarkMode={isDarkMode} />
 
@@ -217,6 +223,27 @@ function App() {
               />
             }
           />
+          <Route
+            path="/faq"
+            element={
+              <FAQPage
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
+            }
+          />
+          <Route
+            path="/faqs"
+            element={
+              <FAQPage
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
+            }
+          />
+          <Route path="/elastic-cursor-lab" element={<ElasticCursorLab />} />
+          <Route path="/cursor-lab" element={<ElasticCursorLab />} />
+          <Route path="/lab" element={<ElasticCursorLab />} />
         </Routes>
 
         {/* Global Footer */}

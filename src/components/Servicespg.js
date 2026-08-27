@@ -277,65 +277,6 @@ function AutoImageSlider({ images, alt, category, interval = 3400, isSpotlight =
   );
 }
 
-// Reusable Count-Up Component
-function AnimatedCounter({ end, duration = 1.8, suffix = "", decimals = 0 }) {
-  const [count, setCount] = useState(0);
-  const countRef = useRef(null);
-  const intervalRef = useRef(null);
-
-  useEffect(() => {
-    const el = countRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          if (intervalRef.current) clearInterval(intervalRef.current);
-          let start = 0;
-          setCount(0);
-          const totalFrames = Math.round(duration * 60);
-          let frame = 0;
-
-          intervalRef.current = setInterval(() => {
-            frame++;
-            const progress = frame / totalFrames;
-            const easeProgress = 1 - Math.pow(1 - progress, 3);
-            const current = start + (end - start) * easeProgress;
-
-            if (frame >= totalFrames) {
-              setCount(end);
-              clearInterval(intervalRef.current);
-            } else {
-              setCount(
-                decimals > 0
-                  ? parseFloat(current.toFixed(decimals))
-                  : Math.floor(current)
-              );
-            }
-          }, 1000 / 60);
-        } else {
-          if (intervalRef.current) clearInterval(intervalRef.current);
-          setCount(0);
-        }
-      },
-      { threshold: 0.15 }
-    );
-
-    observer.observe(el);
-    return () => {
-      observer.disconnect();
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [end, duration, decimals]);
-
-  return (
-    <span ref={countRef}>
-      {count}
-      {suffix}
-    </span>
-  );
-}
-
 export default function Servicespg({ isDarkMode = false, setIsDarkMode }) {
   const containerRef = useRef(null);
   const [activeCategory, setActiveCategory] = useState("ALL");
@@ -358,11 +299,17 @@ export default function Servicespg({ isDarkMode = false, setIsDarkMode }) {
     window.scrollTo(0, 0);
 
     const ctx = gsap.context(() => {
-      // 1. Hero Header Letter Spacing
+      // 1. Hero Header Letter Spacing & Subtitle
       gsap.fromTo(
         ".services-hero-title",
         { opacity: 0, y: 35, letterSpacing: "0.3em" },
         { opacity: 1, y: 0, letterSpacing: "0.22em", duration: 1.2, ease: "power3.out" }
+      );
+
+      gsap.fromTo(
+        ".abt-hero-subtitle",
+        { opacity: 0, y: 25 },
+        { opacity: 1, y: 0, duration: 1, delay: 0.35, ease: "power2.out" }
       );
 
       // 2. Spotlight Banner Glide
@@ -374,6 +321,39 @@ export default function Servicespg({ isDarkMode = false, setIsDarkMode }) {
           y: 0,
           duration: 0.95,
           ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".services-spotlight-section",
+            start: "top 82%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".services-spotlight-title",
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".services-spotlight-section",
+            start: "top 82%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".services-spotlight-desc",
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.85,
+          delay: 0.15,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: ".services-spotlight-section",
             start: "top 82%",
@@ -509,38 +489,6 @@ export default function Servicespg({ isDarkMode = false, setIsDarkMode }) {
             Elevating natural beauty through bespoke PMU architecture, certified medical-grade sterilization,
             and organic hypoallergenic mineral pigments.
           </p>
-
-          {/* 4 Counting Metrics Strip */}
-          <div className="services-hero-stats-strip">
-            <div className="hero-stat-card">
-              <span className="hero-stat-icon">👥</span>
-              <span className="hero-stat-num">
-                <AnimatedCounter end={5000} duration={2.2} suffix="+" />
-              </span>
-              <span className="hero-stat-lbl">Happy Clients</span>
-            </div>
-            <div className="hero-stat-card">
-              <span className="hero-stat-icon">🏆</span>
-              <span className="hero-stat-num">
-                <AnimatedCounter end={10} duration={1.8} suffix="+" />
-              </span>
-              <span className="hero-stat-lbl">Years Experience</span>
-            </div>
-            <div className="hero-stat-card">
-              <span className="hero-stat-icon">✨</span>
-              <span className="hero-stat-num">
-                <AnimatedCounter end={10} duration={1.5} />
-              </span>
-              <span className="hero-stat-lbl">Signature Services</span>
-            </div>
-            <div className="hero-stat-card">
-              <span className="hero-stat-icon">⭐</span>
-              <span className="hero-stat-num">
-                <AnimatedCounter end={99.8} duration={2} suffix="%" decimals={1} />
-              </span>
-              <span className="hero-stat-lbl">Satisfaction Rate</span>
-            </div>
-          </div>
         </div>
       </header>
 
