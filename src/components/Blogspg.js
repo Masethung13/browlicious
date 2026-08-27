@@ -9,6 +9,14 @@ import doctorImg from "../assets/blog_doctor_portrait.jpg";
 import clinicImg from "../assets/clinic1.png";
 import treatmentSuiteImg from "../assets/pmu_treatment_suite.jpg";
 
+// Authentic Clinic Service Image Assets
+import blogMbImg from "../assets/Services/microblading/microblading 1.png";
+import blogOmbreImg from "../assets/Services/ombere brows/ombere brows 2.png";
+import blogLipImg from "../assets/Services/lip blushing/lip blushing 1.png";
+import blogScalpImg from "../assets/Services/scalp pig/pigmentation 1.png";
+import blogComboImg from "../assets/Services/Combobrows/Combobrows 1.png";
+import blogSkinImg from "../assets/Services/skin rejuvenation/skin rejuvenation 1.png";
+
 gsap.registerPlugin(ScrollTrigger);
 
 // Blog Categories
@@ -31,7 +39,7 @@ const BLOG_ARTICLES = [
     desc: "Simple expert-approved habits to keep your brows looking beautifully defined.",
     date: "May 12, 2026",
     readTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1596704017254-9b121068fb31?auto=format&fit=crop&w=600&q=80",
+    image: blogMbImg,
     tagColor: "var(--theme-accent-pink)",
   },
   {
@@ -41,7 +49,7 @@ const BLOG_ARTICLES = [
     desc: "Understand the difference between two of our most popular brow techniques and discover which may suit you best.",
     date: "May 08, 2026",
     readTime: "6 min read",
-    image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80",
+    image: blogOmbreImg,
     tagColor: "#8E24AA",
   },
   {
@@ -51,7 +59,7 @@ const BLOG_ARTICLES = [
     desc: "Everything you need to know to support a smooth healing process and beautiful results.",
     date: "May 04, 2026",
     readTime: "4 min read",
-    image: "https://images.unsplash.com/photo-1588515724527-074a7a56616c?auto=format&fit=crop&w=600&q=80",
+    image: blogLipImg,
     tagColor: "#E91E63",
   },
   {
@@ -61,7 +69,7 @@ const BLOG_ARTICLES = [
     desc: "Discover how SMP can create the appearance of fuller, natural-looking hair.",
     date: "Apr 29, 2026",
     readTime: "6 min read",
-    image: "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=600&q=80",
+    image: blogScalpImg,
     tagColor: "#4A148C",
   },
   {
@@ -71,7 +79,7 @@ const BLOG_ARTICLES = [
     desc: "A practical guide to preparing for your appointment with confidence.",
     date: "Apr 24, 2026",
     readTime: "7 min read",
-    image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=600&q=80",
+    image: blogComboImg,
     tagColor: "var(--theme-accent-pink)",
   },
   {
@@ -81,7 +89,7 @@ const BLOG_ARTICLES = [
     desc: "Expert skincare habits that support healthy-looking skin before and after aesthetic treatments.",
     date: "Apr 19, 2026",
     readTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80",
+    image: blogSkinImg,
     tagColor: "#7B1FA2",
   },
 ];
@@ -160,6 +168,69 @@ const BEAUTY_TOPICS = [
   },
 ];
 
+// ============================================================
+// Animated Number Counter Component (Recounts on every scroll trigger)
+// ============================================================
+function AnimatedCounter({ end, duration = 1.8, suffix = "", decimals = 0 }) {
+  const [count, setCount] = useState(0);
+  const countRef = useRef(null);
+  const intervalRef = useRef(null);
+
+  useEffect(() => {
+    const el = countRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (intervalRef.current) clearInterval(intervalRef.current);
+          let start = 0;
+          setCount(0);
+          const totalFrames = Math.round(duration * 60);
+          let frame = 0;
+
+          intervalRef.current = setInterval(() => {
+            frame++;
+            const progress = frame / totalFrames;
+            // Ease out cubic
+            const easeProgress = 1 - Math.pow(1 - progress, 3);
+            const current = start + (end - start) * easeProgress;
+
+            if (frame >= totalFrames) {
+              setCount(end);
+              clearInterval(intervalRef.current);
+            } else {
+              setCount(
+                decimals > 0
+                  ? parseFloat(current.toFixed(decimals))
+                  : Math.floor(current)
+              );
+            }
+          }, 1000 / 60);
+        } else {
+          // Reset count to 0 when scrolled out of view so it recounts on next scroll trigger
+          if (intervalRef.current) clearInterval(intervalRef.current);
+          setCount(0);
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [end, duration, decimals]);
+
+  return (
+    <span ref={countRef}>
+      {count}
+      {suffix}
+    </span>
+  );
+}
+
 export default function Blogspg({ isDarkMode = false, setIsDarkMode }) {
   const containerRef = useRef(null);
   const [activeCategory, setActiveCategory] = useState("ALL");
@@ -171,6 +242,7 @@ export default function Blogspg({ isDarkMode = false, setIsDarkMode }) {
       activeCategory === "ALL" ||
       article.category.toUpperCase() === activeCategory.toUpperCase();
     const matchesSearch =
+      searchQuery.trim() === "" ||
       article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       article.desc.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
@@ -184,46 +256,30 @@ export default function Blogspg({ isDarkMode = false, setIsDarkMode }) {
       // 1. Hero Header Animation
       gsap.fromTo(
         ".blog-hero-title",
-        { opacity: 0, y: 40, letterSpacing: "0.35em" },
+        { opacity: 0, y: 40, letterSpacing: "0.3em" },
         { opacity: 1, y: 0, letterSpacing: "0.22em", duration: 1.2, ease: "power3.out" }
       );
 
-      // 2. Featured Article Animation
+      // 2. Zone 1: Featured Card Smooth Glide-Up
       gsap.fromTo(
-        ".blog-featured-img-pane",
-        { opacity: 0, x: -70 },
+        ".blog-featured-card",
+        { opacity: 0, y: 60 },
         {
           opacity: 1,
-          x: 0,
-          duration: 1.1,
+          y: 0,
+          duration: 1,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: ".blog-featured-card",
-            start: "top 80%",
-            toggleActions: "play none none reverse",
+            trigger: ".blog-featured-section",
+            start: "top 85%",
+            toggleActions: "play reverse play reverse",
           },
         }
       );
 
+      // 3. Filter Bar & Search Controls Fade-Up
       gsap.fromTo(
-        ".blog-featured-content",
-        { opacity: 0, x: 70 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".blog-featured-card",
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-
-      // 3. Category Filter Tabs Fade-Up
-      gsap.fromTo(
-        ".blog-filters-row",
+        ".blog-controls-bar",
         { opacity: 0, y: 30 },
         {
           opacity: 1,
@@ -231,9 +287,9 @@ export default function Blogspg({ isDarkMode = false, setIsDarkMode }) {
           duration: 0.8,
           ease: "power2.out",
           scrollTrigger: {
-            trigger: ".blog-filters-row",
-            start: "top 85%",
-            toggleActions: "play none none reverse",
+            trigger: ".blog-controls-bar",
+            start: "top 88%",
+            toggleActions: "play reverse play reverse",
           },
         }
       );
@@ -250,8 +306,8 @@ export default function Blogspg({ isDarkMode = false, setIsDarkMode }) {
           ease: "power3.out",
           scrollTrigger: {
             trigger: ".blog-articles-grid",
-            start: "top 80%",
-            toggleActions: "play none none reverse",
+            start: "top 85%",
+            toggleActions: "play reverse play reverse",
           },
         }
       );
@@ -267,8 +323,8 @@ export default function Blogspg({ isDarkMode = false, setIsDarkMode }) {
           ease: "power3.out",
           scrollTrigger: {
             trigger: ".blog-expertise-card",
-            start: "top 80%",
-            toggleActions: "play none none reverse",
+            start: "top 85%",
+            toggleActions: "play reverse play reverse",
           },
         }
       );
@@ -283,8 +339,8 @@ export default function Blogspg({ isDarkMode = false, setIsDarkMode }) {
           ease: "power3.out",
           scrollTrigger: {
             trigger: ".blog-expertise-card",
-            start: "top 80%",
-            toggleActions: "play none none reverse",
+            start: "top 85%",
+            toggleActions: "play reverse play reverse",
           },
         }
       );
@@ -299,8 +355,8 @@ export default function Blogspg({ isDarkMode = false, setIsDarkMode }) {
           ease: "power3.out",
           scrollTrigger: {
             trigger: ".blog-expertise-card",
-            start: "top 80%",
-            toggleActions: "play none none reverse",
+            start: "top 85%",
+            toggleActions: "play reverse play reverse",
           },
         }
       );
@@ -318,8 +374,8 @@ export default function Blogspg({ isDarkMode = false, setIsDarkMode }) {
           ease: "back.out(1.4)",
           scrollTrigger: {
             trigger: ".blog-topics-grid",
-            start: "top 85%",
-            toggleActions: "play none none reverse",
+            start: "top 88%",
+            toggleActions: "play reverse play reverse",
           },
         }
       );
@@ -611,17 +667,23 @@ export default function Blogspg({ isDarkMode = false, setIsDarkMode }) {
                   <div className="blog-expert-stats-row">
                     <div className="expert-stat-item">
                       <span className="stat-icon">🏆</span>
-                      <span className="stat-num">10+</span>
+                      <span className="stat-num">
+                        <AnimatedCounter end={10} duration={1.8} suffix="+" />
+                      </span>
                       <span className="stat-lbl">Years Experience</span>
                     </div>
                     <div className="expert-stat-item">
                       <span className="stat-icon">👥</span>
-                      <span className="stat-num">5000+</span>
+                      <span className="stat-num">
+                        <AnimatedCounter end={5000} duration={2.2} suffix="+" />
+                      </span>
                       <span className="stat-lbl">Happy Clients</span>
                     </div>
                     <div className="expert-stat-item">
                       <span className="stat-icon">🩺</span>
-                      <span className="stat-num">15+</span>
+                      <span className="stat-num">
+                        <AnimatedCounter end={15} duration={1.8} suffix="+" />
+                      </span>
                       <span className="stat-lbl">Expert Doctors</span>
                     </div>
                   </div>

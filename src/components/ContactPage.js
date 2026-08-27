@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 // Firebase SDK imports
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -20,6 +24,10 @@ import {
 } from "react-icons/fa";
 
 import "../styles/ContactPage.css";
+import heroBgImg from "../assets/abt_hero_banner.jpg";
+import clinicImg from "../assets/clinic1.png";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // 1. Firebase Configuration
 const firebaseConfig = {
@@ -32,11 +40,73 @@ const firebaseConfig = {
   measurementId: "G-Y0J5SNE50W",
 };
 
-// Initialize Firebase (safely avoid duplicate initialization)
+// Initialize Firebase safely
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export default function ContactPage() {
+// ============================================================
+// Animated Number Counter (Recounts on every scroll into view)
+// ============================================================
+function AnimatedCounter({ end, duration = 1.8, suffix = "", decimals = 0 }) {
+  const [count, setCount] = useState(0);
+  const countRef = useRef(null);
+  const intervalRef = useRef(null);
+
+  useEffect(() => {
+    const el = countRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (intervalRef.current) clearInterval(intervalRef.current);
+          let start = 0;
+          setCount(0);
+          const totalFrames = Math.round(duration * 60);
+          let frame = 0;
+
+          intervalRef.current = setInterval(() => {
+            frame++;
+            const progress = frame / totalFrames;
+            const easeProgress = 1 - Math.pow(1 - progress, 3);
+            const current = start + (end - start) * easeProgress;
+
+            if (frame >= totalFrames) {
+              setCount(end);
+              clearInterval(intervalRef.current);
+            } else {
+              setCount(
+                decimals > 0
+                  ? parseFloat(current.toFixed(decimals))
+                  : Math.floor(current)
+              );
+            }
+          }, 1000 / 60);
+        } else {
+          if (intervalRef.current) clearInterval(intervalRef.current);
+          setCount(0);
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [end, duration, decimals]);
+
+  return (
+    <span ref={countRef}>
+      {count}
+      {suffix}
+    </span>
+  );
+}
+
+export default function ContactPage({ isDarkMode = false, setIsDarkMode }) {
+  const containerRef = useRef(null);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -48,6 +118,76 @@ export default function ContactPage() {
   const [errors, setErrors] = useState({});
   const [charCount, setCharCount] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // GSAP Smooth Animations
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    const ctx = gsap.context(() => {
+      // 1. Hero Title Letter-spacing Fade-in
+      gsap.fromTo(
+        ".contact-hero-title",
+        { opacity: 0, y: 35, letterSpacing: "0.3em" },
+        { opacity: 1, y: 0, letterSpacing: "0.22em", duration: 1.2, ease: "power3.out" }
+      );
+
+      // 2. Stats Strip Stagger
+      gsap.fromTo(
+        ".contact-stat-card",
+        { opacity: 0, y: 25 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.08,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".contact-stats-strip",
+            start: "top 88%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
+
+      // 3. Left Info Concierge Card Glide from Left
+      gsap.fromTo(
+        ".contact-info-card",
+        { opacity: 0, x: -50 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.95,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".contact-layout-grid",
+            start: "top 82%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
+
+      // 4. Right Form Card Glide from Right
+      gsap.fromTo(
+        ".contact-form-card",
+        { opacity: 0, x: 50 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.95,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".contact-layout-grid",
+            start: "top 82%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
+
+      ScrollTrigger.refresh();
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
 
   // Form Input Change Handler
   const handleChange = (e) => {
@@ -180,7 +320,10 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="contact-page-wrapper">
+    <div
+      className={`contact-page-wrapper ${isDarkMode ? "dark-theme" : "light-theme"}`}
+      ref={containerRef}
+    >
       <ToastContainer
         position="top-right"
         autoClose={4000}
@@ -191,320 +334,415 @@ export default function ContactPage() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme={isDarkMode ? "dark" : "light"}
       />
 
-      <div className="contact-page-container">
-        
-        {/* Page Top Banner Header */}
-        <div className="contact-hero-header">
-          <span className="contact-eyebrow">Connect With Our Studio</span>
-          <h1 className="contact-main-title">
-            Let’s Begin Your <em>Radiance</em> Journey
-          </h1>
-          <p className="contact-subtitle">
-            Have questions about microblading, PMU treatments, or academy certifications?
-            Our certified specialists are here to guide you with bespoke consultations.
-          </p>
+      {/* Floating Theme Toggle Button */}
+      {setIsDarkMode && (
+        <button
+          onClick={() => setIsDarkMode(!isDarkMode)}
+          className="theme-toggle-btn"
+          aria-label="Toggle Theme"
+        >
+          {isDarkMode ? (
+            <svg className="theme-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="4.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="4.22" x2="19.78" y2="5.64"></line>
+            </svg>
+          ) : (
+            <svg className="theme-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          )}
+        </button>
+      )}
+
+      {/* ============================================================
+          1. HERO HEADER & SUB-BAR (MATCHING ABTPG AESTHETIC)
+      ============================================================ */}
+      <header className="abt-hero-section">
+        <div
+          className="abt-hero-banner"
+          style={{ backgroundImage: `url(${heroBgImg})` }}
+        >
+          <div className="abt-hero-overlay"></div>
+          <div className="abt-hero-inner">
+            <h1 className="abt-hero-title contact-hero-title">
+              CONNECT WITH BROWLICIOUS
+            </h1>
+          </div>
         </div>
 
-        {/* Master 2-Column Grid */}
-        <div className="contact-layout-grid">
-          
-          {/* ============================================================
-              LEFT COLUMN: "NEED HELP?" CLINIC CARD WITH MAP
-          ============================================================ */}
-          <div className="contact-info-card">
+        {/* Sub-Header Area on Clean Theme BG */}
+        <div className="abt-hero-subbar">
+          <div className="abt-subbar-tick-wrap" aria-hidden="true">
+            <div className="abt-subbar-star-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+              </svg>
+            </div>
+            <div className="abt-subbar-line">
+              <span className="line-shimmer"></span>
+            </div>
+            <div className="abt-subbar-dot"></div>
+          </div>
+
+          <nav className="abt-breadcrumbs" aria-label="Breadcrumbs">
+            <Link to="/">Home</Link>
+            <span className="abt-separator">&gt;</span>
+            <span className="abt-current">Contact</span>
+          </nav>
+          <p className="abt-hero-subtitle">
+            Let’s begin your journey toward effortlessly defined beauty. Reach out directly to our
+            master specialists for personal consultations, studio visits, or treatment queries.
+          </p>
+
+          {/* 4 Counting Metrics Strip */}
+          <div className="contact-stats-strip">
+            <div className="contact-stat-card">
+              <span className="cstat-icon">👥</span>
+              <span className="cstat-num">
+                <AnimatedCounter end={5000} duration={2.2} suffix="+" />
+              </span>
+              <span className="cstat-lbl">Happy Clients</span>
+            </div>
+            <div className="contact-stat-card">
+              <span className="cstat-icon">🏆</span>
+              <span className="cstat-num">
+                <AnimatedCounter end={10} duration={1.8} suffix="+" />
+              </span>
+              <span className="cstat-lbl">Years Experience</span>
+            </div>
+            <div className="contact-stat-card">
+              <span className="cstat-icon">⚡</span>
+              <span className="cstat-num">
+                <AnimatedCounter end={24} duration={1.6} suffix="h" />
+              </span>
+              <span className="cstat-lbl">Response Time</span>
+            </div>
+            <div className="contact-stat-card">
+              <span className="cstat-icon">⭐</span>
+              <span className="cstat-num">
+                <AnimatedCounter end={4.9} duration={1.8} suffix="/5" decimals={1} />
+              </span>
+              <span className="cstat-lbl">Client Rating</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* ============================================================
+          2. MASTER 2-COLUMN CONTACT STAGE
+      ============================================================ */}
+      <main className="contact-main-stage">
+        <div className="contact-page-container">
+          <div className="contact-layout-grid">
             
-            {/* Clinic Reception Banner Image */}
-            <div className="clinic-banner-frame">
-              <img
-                src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80"
-                alt="Browlicious PMU Studio Interior"
-                className="clinic-banner-img"
-              />
-              <div className="banner-gold-shimmer" />
-            </div>
-
-            {/* Need Help Heading */}
-            <div className="info-card-header">
-              <h3 className="help-title">NEED HELP?</h3>
-              <p className="help-subtitle">
-                Our experts are here to help you choose the right treatment.
-              </p>
-            </div>
-
-            {/* Contact Items List */}
-            <div className="contact-meta-list">
+            {/* ============================================================
+                LEFT COLUMN: STUDIO CONCIERGE & MAP CARD
+            ============================================================ */}
+            <div className="contact-info-card">
               
-              {/* Call Us */}
-              <div className="contact-meta-row">
-                <div className="meta-icon-circle">
-                  <FaPhoneAlt />
-                </div>
-                <div className="meta-row-content">
-                  <span className="meta-row-label">Call Us</span>
-                  <a href="tel:+918111643210" className="meta-row-value">
-                    +91 81116 43210
-                  </a>
-                  <a href="tel:09710331111" className="meta-row-subvalue">
-                    Alt: 097103 31111
-                  </a>
-                </div>
+              {/* Clinic Lounge Banner Image */}
+              <div className="clinic-banner-frame">
+                <img
+                  src={clinicImg}
+                  alt="Browlicious PMU Studio Reception & Lounge"
+                  className="clinic-banner-img"
+                />
+                <div className="banner-overlay-tint"></div>
+                <span className="banner-studio-badge">★ ANNA NAGAR CLINIC</span>
               </div>
 
-              {/* WhatsApp Us */}
-              <div className="contact-meta-row">
-                <div className="meta-icon-circle whatsapp-icon-circle">
-                  <FaWhatsapp />
+              {/* Need Help Header */}
+              <div className="info-card-header">
+                <span className="help-eyebrow">DIRECT CONCIERGE</span>
+                <h3 className="help-title">Need Personal Advice?</h3>
+                <p className="help-subtitle">
+                  Our master artists are available to guide you through customized brow mapping,
+                  pigment shade matching, and aftercare expectations.
+                </p>
+              </div>
+
+              {/* Contact Items List */}
+              <div className="contact-meta-list">
+                
+                {/* Call Us */}
+                <div className="contact-meta-row">
+                  <div className="meta-icon-circle">
+                    <FaPhoneAlt />
+                  </div>
+                  <div className="meta-row-content">
+                    <span className="meta-row-label">Call Our Clinic</span>
+                    <a href="tel:+918111643210" className="meta-row-value">
+                      +91 81116 43210
+                    </a>
+                    <a href="tel:09710331111" className="meta-row-subvalue">
+                      Alt: 097103 31111
+                    </a>
+                  </div>
                 </div>
-                <div className="meta-row-content">
-                  <span className="meta-row-label">WhatsApp Us</span>
+
+                {/* WhatsApp Us */}
+                <div className="contact-meta-row">
+                  <div className="meta-icon-circle whatsapp-icon-circle">
+                    <FaWhatsapp />
+                  </div>
+                  <div className="meta-row-content">
+                    <span className="meta-row-label">WhatsApp Concierge</span>
+                    <a
+                      href="https://api.whatsapp.com/send/?phone=919710331111&text=Hello%20Browlicious%20Team,%20I%20would%20like%20to%20inquire%20about%20your%20treatments&type=phone_number&app_absent=0"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="meta-row-value whatsapp-link"
+                    >
+                      Chat with our specialists &rarr;
+                    </a>
+                  </div>
+                </div>
+
+                {/* Email */}
+                <div className="contact-meta-row">
+                  <div className="meta-icon-circle">
+                    <FaEnvelope />
+                  </div>
+                  <div className="meta-row-content">
+                    <span className="meta-row-label">Email Enquiries</span>
+                    <a href="mailto:info@browlicious.com" className="meta-row-value">
+                      info@browlicious.com
+                    </a>
+                  </div>
+                </div>
+
+                {/* Clinic Hours */}
+                <div className="contact-meta-row">
+                  <div className="meta-icon-circle">
+                    <FaClock />
+                  </div>
+                  <div className="meta-row-content">
+                    <span className="meta-row-label">Clinic Hours</span>
+                    <span className="meta-row-value">
+                      Mon – Sat: 10:00 AM – 7:00 PM
+                    </span>
+                    <span className="meta-row-subvalue">
+                      Sunday: By Prior Appointment
+                    </span>
+                  </div>
+                </div>
+
+                {/* Location Address */}
+                <div className="contact-meta-row">
+                  <div className="meta-icon-circle">
+                    <FaMapMarkerAlt />
+                  </div>
+                  <div className="meta-row-content">
+                    <span className="meta-row-label">Studio Address</span>
+                    <span className="meta-row-value">
+                      Browlicious PMU Clinic &amp; Academy
+                    </span>
+                    <p className="meta-full-address">
+                      First Floor, AA-117, 4th Ave, opp. Naturals Signature Salon,
+                      AA Block, Shanthi Colony, Anna Nagar, Chennai, Tamil Nadu 600040
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Interactive Google Map Embed */}
+              <div className="clinic-map-container">
+                <iframe
+                  title="Browlicious Clinic Location Map"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.1965902097034!2d80.2155005!3d13.0831788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265d656f0ae01%3A0x424da239c794397d!2sBrowlicious%20-%20Permanent%20Makeup%20Clinic%20%26%20Academy!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                  width="100%"
+                  height="170"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
+
+                <a
+                  href="https://maps.app.goo.gl/yJbv3pysWBLGZmUP6"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="map-directions-btn"
+                >
+                  <FaDirections /> Get Directions on Google Maps
+                </a>
+              </div>
+
+              {/* Social Media Links */}
+              <div className="contact-social-footer">
+                <span className="social-footer-label">Follow Our Work:</span>
+                <div className="social-icon-links">
                   <a
-                    href="https://api.whatsapp.com/send/?phone=919710331111&text=Hello%20Browlicious%20Team,%20I%20would%20like%20to%20inquire%20about%20your%20treatments&type=phone_number&app_absent=0"
+                    href="https://www.instagram.com/browlicious_permanent_makeup/"
                     target="_blank"
                     rel="noreferrer"
-                    className="meta-row-value whatsapp-link"
+                    className="social-btn"
+                    aria-label="Instagram"
                   >
-                    Chat with our team →
+                    <FaInstagram />
+                  </a>
+                  <a
+                    href="https://www.facebook.com/browliciouspermanentmakeup/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="social-btn"
+                    aria-label="Facebook"
+                  >
+                    <FaFacebookF />
+                  </a>
+                  <a
+                    href="https://api.whatsapp.com/send/?phone=919710331111&text&type=phone_number&app_absent=0"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="social-btn"
+                    aria-label="WhatsApp"
+                  >
+                    <FaWhatsapp />
                   </a>
                 </div>
               </div>
 
-              {/* Email */}
-              <div className="contact-meta-row">
-                <div className="meta-icon-circle">
-                  <FaEnvelope />
-                </div>
-                <div className="meta-row-content">
-                  <span className="meta-row-label">Email</span>
-                  <a href="mailto:info@browlicious.com" className="meta-row-value">
-                    info@browlicious.com
-                  </a>
-                </div>
-              </div>
-
-              {/* Clinic Hours */}
-              <div className="contact-meta-row">
-                <div className="meta-icon-circle">
-                  <FaClock />
-                </div>
-                <div className="meta-row-content">
-                  <span className="meta-row-label">Clinic Hours</span>
-                  <span className="meta-row-value">
-                    Mon – Sat: 10:00 AM – 7:00 PM
-                  </span>
-                  <span className="meta-row-subvalue">
-                    Sunday: By Prior Appointment
-                  </span>
-                </div>
-              </div>
-
-              {/* Location Address */}
-              <div className="contact-meta-row">
-                <div className="meta-icon-circle">
-                  <FaMapMarkerAlt />
-                </div>
-                <div className="meta-row-content">
-                  <span className="meta-row-label">Location</span>
-                  <span className="meta-row-value">
-                    Browlicious PMU Clinic &amp; Academy, Chennai
-                  </span>
-                  <p className="meta-full-address">
-                    First Floor, AA-117, 4th Ave, opp. Naturals Signature Salon,
-                    AA Block, Shanthi Colony, Anna Nagar, Chennai, Tamil Nadu 600040
-                  </p>
-                </div>
-              </div>
-
             </div>
 
-            {/* Interactive Map Embed */}
-            <div className="clinic-map-container">
-              <iframe
-                title="Browlicious Clinic Location Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.1965902097034!2d80.2155005!3d13.0831788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265d656f0ae01%3A0x424da239c794397d!2sBrowlicious%20-%20Permanent%20Makeup%20Clinic%20%26%20Academy!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
-                width="100%"
-                height="160"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
-
-              <a
-                href="https://maps.app.goo.gl/yJbv3pysWBLGZmUP6"
-                target="_blank"
-                rel="noreferrer"
-                className="map-directions-btn"
-              >
-                <FaDirections /> Get Directions on Google Maps
-              </a>
-            </div>
-
-            {/* Social Media Links */}
-            <div className="contact-social-footer">
-              <span className="social-footer-label">Follow Our Transformations:</span>
-              <div className="social-icon-links">
-                <a
-                  href="https://www.instagram.com/browlicious_permanent_makeup/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="social-btn"
-                  aria-label="Instagram"
-                >
-                  <FaInstagram />
-                </a>
-                <a
-                  href="https://www.facebook.com/browliciouspermanentmakeup/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="social-btn"
-                  aria-label="Facebook"
-                >
-                  <FaFacebookF />
-                </a>
-                <a
-                  href="https://api.whatsapp.com/send/?phone=919710331111&text&type=phone_number&app_absent=0"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="social-btn"
-                  aria-label="WhatsApp"
-                >
-                  <FaWhatsapp />
-                </a>
-              </div>
-            </div>
-
-          </div>
-
-          {/* ============================================================
-              RIGHT COLUMN: LUXURY GET IN TOUCH FORM
-          ============================================================ */}
-          <div className="contact-form-card">
-            
-            <div className="form-card-header">
-              <span className="form-eyebrow">Message Our Concierge</span>
-              <h2 className="form-title">Get In Touch</h2>
-              <p className="form-subtitle">
-                Fill in the details below and our lead aesthetician will personally
-                respond within 24 hours.
-              </p>
-            </div>
-
-            <form onSubmit={handleSubmit} noValidate>
+            {/* ============================================================
+                RIGHT COLUMN: LUXURY GLASSMORPHISM INQUIRY FORM
+            ============================================================ */}
+            <div className="contact-form-card">
               
-              {/* Full Name */}
-              <div className="form-group-item">
-                <label className="field-label">Full Name *</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  placeholder="e.g. Deepika Sundaram"
-                  className={`field-input ${errors.name ? "has-error" : ""}`}
-                />
-                {errors.name && <span className="field-error-msg">{errors.name}</span>}
+              <div className="form-card-header">
+                <span className="form-eyebrow">MESSAGE OUR CONCIERGE</span>
+                <h2 className="form-title">Get In Touch</h2>
+                <p className="form-subtitle">
+                  Fill in your details below and our lead PMU aesthetician will personally
+                  review your request and get back to you within 24 hours.
+                </p>
               </div>
 
-              {/* Email Address */}
-              <div className="form-group-item">
-                <label className="field-label">Email Address *</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  placeholder="deepika@example.com"
-                  className={`field-input ${errors.email ? "has-error" : ""}`}
-                />
-                {errors.email && <span className="field-error-msg">{errors.email}</span>}
-              </div>
-
-              {/* Phone Number with +91 */}
-              <div className="form-group-item">
-                <label className="field-label">Phone Number *</label>
-                <div className="phone-input-combo">
-                  <span className="country-tag">+91</span>
+              <form onSubmit={handleSubmit} noValidate>
+                
+                {/* Full Name */}
+                <div className="form-group-item">
+                  <label className="field-label">Full Name *</label>
                   <input
-                    type="tel"
-                    name="phone"
-                    value={form.phone}
+                    type="text"
+                    name="name"
+                    value={form.name}
                     onChange={handleChange}
-                    placeholder="98765 43210"
-                    maxLength={10}
-                    className={`field-input phone-box ${errors.phone ? "has-error" : ""}`}
+                    placeholder="e.g. Deepika Sundaram"
+                    className={`field-input ${errors.name ? "has-error" : ""}`}
                   />
+                  {errors.name && <span className="field-error-msg">{errors.name}</span>}
                 </div>
-                {errors.phone && <span className="field-error-msg">{errors.phone}</span>}
-              </div>
 
-              {/* Service Interest */}
-              <div className="form-group-item">
-                <label className="field-label">Treatment of Interest</label>
-                <select
-                  name="subject"
-                  value={form.subject}
-                  onChange={handleChange}
-                  className="field-select"
+                {/* Email Address */}
+                <div className="form-group-item">
+                  <label className="field-label">Email Address *</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="deepika@example.com"
+                    className={`field-input ${errors.email ? "has-error" : ""}`}
+                  />
+                  {errors.email && <span className="field-error-msg">{errors.email}</span>}
+                </div>
+
+                {/* Phone Number with +91 */}
+                <div className="form-group-item">
+                  <label className="field-label">Phone Number *</label>
+                  <div className="phone-input-combo">
+                    <span className="country-tag">+91</span>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={form.phone}
+                      onChange={handleChange}
+                      placeholder="98765 43210"
+                      maxLength={10}
+                      className={`field-input phone-box ${errors.phone ? "has-error" : ""}`}
+                    />
+                  </div>
+                  {errors.phone && <span className="field-error-msg">{errors.phone}</span>}
+                </div>
+
+                {/* Service Interest */}
+                <div className="form-group-item">
+                  <label className="field-label">Treatment of Interest</label>
+                  <select
+                    name="subject"
+                    value={form.subject}
+                    onChange={handleChange}
+                    className="field-select"
+                  >
+                    <option value="Microblading">Microblading Master Artistry</option>
+                    <option value="Combo Brows">Combo Nano Brows</option>
+                    <option value="Ombre Brows">Ombre Powder Brows</option>
+                    <option value="Lip Blushing">Aesthetic Lip Blushing</option>
+                    <option value="Eyeliner Tattoo">Permanent Eyeliner &amp; Lash Line</option>
+                    <option value="Brow Lamination">Keratin Brow Lamination &amp; Tint</option>
+                    <option value="Scalp Micropigmentation">Scalp Micropigmentation (SMP)</option>
+                    <option value="Hydra Facial">Medical Hydra Facial MD</option>
+                    <option value="Skin Rejuvenation">Collagen Induction &amp; BB Glow</option>
+                    <option value="Acne Scar Treatment">Acne Scar Resurfacing &amp; RF</option>
+                    <option value="Academy Training Course">PMU Academy Master Certification</option>
+                    <option value="General Inquiry">General Consultation &amp; Assessment</option>
+                  </select>
+                </div>
+
+                {/* Message Details */}
+                <div className="form-group-item">
+                  <div className="label-with-counter">
+                    <label className="field-label">Your Message / Questions *</label>
+                    <span className="char-count-pill">{charCount}/300</span>
+                  </div>
+                  <textarea
+                    name="message"
+                    rows="4"
+                    value={form.message}
+                    onChange={handleChange}
+                    placeholder="Tell us about your expectations, preferred consultation dates, or questions..."
+                    maxLength={300}
+                    className={`field-textarea ${errors.message ? "has-error" : ""}`}
+                  />
+                  {errors.message && <span className="field-error-msg">{errors.message}</span>}
+                </div>
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  className="contact-submit-btn"
+                  disabled={isSubmitting}
                 >
-                  <option value="Microblading">Microblading</option>
-                  <option value="Combo Brows">Combo Brows</option>
-                  <option value="Ombre Brows">Ombre Brows</option>
-                  <option value="Lip Blushing">Lip Blushing</option>
-                  <option value="Eyeliner Tattoo">Eyeliner Tattoo</option>
-                  <option value="Brow Lamination">Brow Lamination</option>
-                  <option value="Scalp Micropigmentation">Scalp Micropigmentation</option>
-                  <option value="Skin Rejuvenation">Skin Rejuvenation</option>
-                  <option value="Hydra Facial">Hydra Facial</option>
-                  <option value="Acne Scar Treatment">Acne Scar Treatment</option>
-                  <option value="Academy Training Course">PMU Academy Training Course</option>
-                  <option value="General Inquiry">General Inquiry / Consultation</option>
-                </select>
-              </div>
+                  {isSubmitting ? (
+                    <span>Dispatching Message...</span>
+                  ) : (
+                    <>
+                      <span>Send Inquiry Message</span>
+                      <span className="btn-arrow-icon">&rarr;</span>
+                    </>
+                  )}
+                </button>
 
-              {/* Message Details */}
-              <div className="form-group-item">
-                <div className="label-with-counter">
-                  <label className="field-label">Your Message / Questions *</label>
-                  <span className="char-count-pill">{charCount}/300</span>
-                </div>
-                <textarea
-                  name="message"
-                  rows="4"
-                  value={form.message}
-                  onChange={handleChange}
-                  placeholder="Tell us about your expectations, preferred consultation dates, or skin goals..."
-                  maxLength={300}
-                  className={`field-textarea ${errors.message ? "has-error" : ""}`}
-                />
-                {errors.message && <span className="field-error-msg">{errors.message}</span>}
-              </div>
+              </form>
 
-              {/* Submit Button */}
-              <button
-                type="submit"
-                className="contact-submit-btn"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? (
-                  <span>Dispatching Message...</span>
-                ) : (
-                  <>
-                    <span>Send Message</span>
-                    <span className="btn-arrow-icon">→</span>
-                  </>
-                )}
-              </button>
-
-            </form>
+            </div>
 
           </div>
-
         </div>
+      </main>
 
-      </div>
     </div>
   );
 }

@@ -17,6 +17,7 @@ import BookAppointment from "./components/BookAppointment";
 import AbtPg from "./components/AbtPg";
 import Results from "./components/Results"; 
 import Blogspg from "./components/Blogspg";
+import Servicespg from "./components/Servicespg";
 import ContactPage from "./components/ContactPage";
 
 // Scroll to top on route change helper
@@ -168,14 +169,53 @@ function App() {
             }
           />
 
+          {/* Dedicated Services Page Route */}
+          <Route
+            path="/services"
+            element={
+              <Servicespg
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
+            }
+          />
+          <Route
+            path="/service"
+            element={
+              <Servicespg
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
+            }
+          />
+          <Route
+            path="/servicespg"
+            element={
+              <Servicespg
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
+            }
+          />
+
           {/* Dedicated Contact Page Route */}
           <Route
             path="/contact"
-            element={<ContactPage isDarkMode={isDarkMode} />}
+            element={
+              <ContactPage
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
+            }
           />
           <Route
             path="/contact-us"
-            element={<ContactPage isDarkMode={isDarkMode} />}
+            element={
+              <ContactPage
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
+            }
           />
         </Routes>
 

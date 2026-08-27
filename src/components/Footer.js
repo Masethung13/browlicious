@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "../styles/Footer.css";
 import footerCtaBanner from "../assets/footer_cta_banner.png";
 
@@ -161,12 +161,12 @@ export default function Footer({ isDarkMode = false }) {
           <div className="directory-column">
             <h4 className="directory-title">QUICK LINKS</h4>
             <ul className="directory-list">
-              <li><a href="#home">Home</a></li>
-              <li><a href="#about">About Us</a></li>
-              <li><a href="#services">Services</a></li>
-              <li><a href="#results">Results</a></li>
-              <li><a href="#blog">Blog</a></li>
-              <li><a href="#faq">FAQ</a></li>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/about">About Us</Link></li>
+              <li><Link to="/services">Services</Link></li>
+              <li><Link to="/results">Results</Link></li>
+              <li><Link to="/blogs">Blog</Link></li>
+              <li><Link to="/contact">Contact</Link></li>
             </ul>
           </div>
 
@@ -174,12 +174,12 @@ export default function Footer({ isDarkMode = false }) {
           <div className="directory-column">
             <h4 className="directory-title">TREATMENTS</h4>
             <ul className="directory-list text-flat">
-              <li><a href="#services">Microblading</a></li>
-              <li><a href="#services">Combo Brows</a></li>
-              <li><a href="#services">Lip Blushing</a></li>
-              <li><a href="#services">Winged Eyeliner</a></li>
-              <li><a href="#services">Scalp Micropigmentation</a></li>
-              <li><a href="#services">BB Glow Facial</a></li>
+              <li><Link to="/services">Microblading</Link></li>
+              <li><Link to="/services">Combo Brows</Link></li>
+              <li><Link to="/services">Lip Blushing</Link></li>
+              <li><Link to="/services">Permanent Eyeliner</Link></li>
+              <li><Link to="/services">Scalp Micropigmentation</Link></li>
+              <li><Link to="/services">Hydra Facial &amp; BB Glow</Link></li>
             </ul>
           </div>
 

@@ -22,11 +22,11 @@ import ombreBrowsAfter from "../assets/Result/ombre_brows_after.png";
 import lipBlushingBefore from "../assets/Result/lip_blushing_before.png";
 import lipBlushingAfter from "../assets/Result/lip_blushing_after.png";
 
-import eyelinerBefore from "../assets/Result/Eye_liner_tattoo_before.png";
-import eyelinerAfter from "../assets/Result/Eye_liner_tattoo_after.png";
+import eyelinerBefore from "../assets/Result/Eye_liner_Tattoo_before.png";
+import eyelinerAfter from "../assets/Result/Eye_liner_Tattoo_after.png";
 
-import browLaminationBefore from "../assets/Result/Brow_lamination_before.png";
-import browLaminationAfter from "../assets/Result/Brow_lamination_after.png";
+import browLaminationBefore from "../assets/Result/brow_lamination_before.png";
+import browLaminationAfter from "../assets/Result/brow_lamination_after.png";
 
 import scalpBefore from "../assets/Result/micropigmentation_before.png";
 import scalpAfter from "../assets/Result/micropigmentation_after.png";
@@ -580,9 +580,8 @@ export default function Results({ isDarkMode = false, setIsDarkMode }) {
 
   return (
     <div
-      className={`results-template-wrapper ${
-        isDarkMode ? "dark-theme" : "light-theme"
-      }`}
+      className={`results-template-wrapper ${isDarkMode ? "dark-theme" : "light-theme"
+        }`}
       ref={containerRef}
     >
       {/* Floating Theme Toggle Button */}
@@ -671,7 +670,7 @@ export default function Results({ isDarkMode = false, setIsDarkMode }) {
       ============================================================ */}
       <section className="journey-process-section">
         <div className="journey-process-container">
-          
+
           {/* Section Header */}
           <div className="journey-section-header">
             <span className="journey-section-eyebrow">OUR PROVEN PROCESS</span>
@@ -925,7 +924,7 @@ export default function Results({ isDarkMode = false, setIsDarkMode }) {
       <section className="results-hero-banner-section">
         <div className="results-hero-container">
           <div className="results-hero-grid">
-            
+
             {/* Left Column: Heading, Subtitle & Animated Stat Counters */}
             <div className="results-hero-left">
               <span className="results-hero-eyebrow">REAL RESULTS</span>
@@ -1025,16 +1024,15 @@ export default function Results({ isDarkMode = false, setIsDarkMode }) {
       <section className="results-filter-bar-section">
         <div className="results-filter-container">
           <div className="results-filter-bar">
-            
+
             {/* Left Category Filter Pills */}
             <div className="results-filter-pills">
               {FILTER_CATEGORIES.map((cat) => (
                 <button
                   key={cat}
                   type="button"
-                  className={`category-pill-btn ${
-                    activeCategory === cat ? "active" : ""
-                  }`}
+                  className={`category-pill-btn ${activeCategory === cat ? "active" : ""
+                    }`}
                   onClick={() => setActiveCategory(cat)}
                 >
                   {cat}
@@ -1094,7 +1092,7 @@ export default function Results({ isDarkMode = false, setIsDarkMode }) {
       <main className="results-main-body-section">
         <div className="results-layout-container">
           <div className="results-main-grid-layout">
-            
+
             {/* Left: 3-Column Treatment Cards Grid */}
             <div className="results-cards-column">
               {filteredData.length === 0 ? (
@@ -1173,7 +1171,7 @@ export default function Results({ isDarkMode = false, setIsDarkMode }) {
 
             {/* Right: Sidebar with Summary Card & Video Transformations */}
             <aside className="results-sidebar">
-              
+
               {/* Widget 1: Transformation Gallery Summary Card */}
               <div className="results-sidebar-widget widget-summary-card">
                 <h3 className="widget-title">Transformation Gallery</h3>
@@ -1250,7 +1248,7 @@ export default function Results({ isDarkMode = false, setIsDarkMode }) {
                     className="video-thumb-img"
                   />
                   <div className="video-thumb-overlay"></div>
-                  
+
                   <div className="play-button-circle">
                     <svg viewBox="0 0 24 24" fill="currentColor">
                       <polygon points="5 3 19 12 5 21 5 3"></polygon>
