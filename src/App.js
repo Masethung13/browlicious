@@ -16,6 +16,7 @@ import Testimonials from "./components/Testimonials";
 import BookAppointment from "./components/BookAppointment";
 import AbtPg from "./components/AbtPg";
 import Results from "./components/Results"; 
+import ContactPage from "./components/ContactPage";
 
 // Scroll to top on route change helper
 function ScrollToTop() {
@@ -125,6 +126,16 @@ function App() {
                 setIsDarkMode={setIsDarkMode}
               />
             }
+          />
+
+          {/* Dedicated Contact Page Route */}
+          <Route
+            path="/contact"
+            element={<ContactPage isDarkMode={isDarkMode} />}
+          />
+          <Route
+            path="/contact-us"
+            element={<ContactPage isDarkMode={isDarkMode} />}
           />
         </Routes>
 
