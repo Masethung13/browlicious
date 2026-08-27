@@ -1,0 +1,1103 @@
+/* ============================================================
+   DESIGN SYSTEM & VARIABLES
+============================================================ */
+:root {
+  --faq-bg: #FAF9F6;
+  --faq-card-bg: #FFFFFF;
+  --faq-border: rgba(232, 226, 214, 0.85);
+  --faq-charcoal: #1C1B1A;
+  --faq-dark-gray: #4A443E;
+  --faq-muted: #78716A;
+  --faq-pink: #E82E6A;
+  --faq-pink-light: #FDF2F5;
+  --faq-pink-glow: rgba(232, 46, 106, 0.25);
+  --faq-gold: #C5A47E;
+
+  --font-serif: Georgia, 'Times New Roman', Times, serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+
+  --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.03);
+  --shadow-card: 0 10px 35px rgba(28, 27, 26, 0.04);
+  --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ============================================================
+   1. PAGE CONTAINER
+============================================================ */
+.faq-page-master-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  padding: 120px 4% 100px 4%;
+  background-color: var(--faq-bg);
+  font-family: var(--font-sans);
+  color: var(--faq-charcoal);
+  box-sizing: border-box;
+}
+
+.faq-page-inner-container {
+  max-width: 1380px;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   2. HERO BANNER
+============================================================ */
+.faq-hero-banner-section {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 48px;
+  align-items: center;
+  margin-bottom: 3.5rem;
+}
+
+.faq-eyebrow-tag {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: var(--faq-pink);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.8rem;
+}
+
+.faq-main-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 4.2vw, 3.8rem);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--faq-charcoal);
+  margin-bottom: 1.2rem;
+}
+
+.title-pink-word {
+  color: var(--faq-pink);
+  font-style: italic;
+}
+
+.faq-hero-description {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--faq-muted);
+  max-width: 540px;
+  margin-bottom: 2.2rem;
+}
+
+.faq-hero-stats-row {
+  display: flex;
+  gap: 20px;
+}
+
+.stat-pill-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--faq-card-bg);
+  border: 1px solid var(--faq-border);
+  padding: 8px 18px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-subtle);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-pill-badge:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.pill-icon-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--faq-pink-light);
+  color: var(--faq-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+.pill-text-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.pill-num {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--faq-charcoal);
+  line-height: 1;
+}
+
+.pill-lbl {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--faq-muted);
+  font-weight: 600;
+}
+
+/* Hero Right Image Collage */
+.faq-hero-media-col {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.hero-main-photo-frame {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 16/11;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+}
+
+.hero-consultation-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.hero-inset-circle-photo {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 5px solid var(--faq-bg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: transform 0.4s ease;
+}
+
+.hero-main-photo-frame:hover .hero-inset-circle-photo {
+  transform: scale(1.06) rotate(3deg);
+}
+
+.inset-round-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ============================================================
+   3. "HOW CAN WE HELP?" SEARCH & LINKED POPULAR PILLS
+============================================================ */
+.faq-search-box-card {
+  background: var(--faq-card-bg);
+  border-radius: 24px;
+  border: 1px solid var(--faq-border);
+  box-shadow: var(--shadow-card);
+  padding: 38px 40px;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.search-section-heading {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  color: var(--faq-charcoal);
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.search-input-wrapper {
+  max-width: 720px;
+  margin: 0 auto 24px auto;
+}
+
+.search-field-container {
+  display: flex;
+  align-items: center;
+  background: #FAF7F6;
+  border: 1.5px solid var(--faq-border);
+  border-radius: 999px;
+  padding: 6px 8px 6px 20px;
+  transition: all 0.35s var(--ease-smooth);
+}
+
+.search-field-container:focus-within {
+  border-color: var(--faq-pink);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 4px var(--faq-pink-glow),
+              0 8px 25px rgba(232, 46, 106, 0.1);
+}
+
+.search-input-icon {
+  color: var(--faq-muted);
+  font-size: 1.1rem;
+  margin-right: 12px;
+  transition: color 0.3s ease;
+}
+
+.search-field-container:focus-within .search-input-icon {
+  color: var(--faq-pink);
+}
+
+.faq-search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.95rem;
+  color: var(--faq-charcoal);
+  font-family: var(--font-sans);
+}
+
+.search-submit-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: var(--faq-pink);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.search-submit-btn:hover {
+  background-color: #d81b60;
+  transform: scale(1.08) rotate(5deg);
+}
+
+/* --- POPULAR LINKED QUESTIONS PILLS --- */
+.popular-questions-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.popular-title {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--faq-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.popular-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Fantastic Liquid Hover for Popular Pills */
+.popular-pill-btn {
+  position: relative;
+  background: #FAF7F6;
+  border: 1px solid var(--faq-border);
+  border-radius: 999px;
+  padding: 8px 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: all 0.35s var(--ease-smooth);
+}
+
+.popular-pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--faq-pink);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.popular-pill-text {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--faq-dark-gray);
+  transition: color 0.3s ease;
+}
+
+.popular-category-tag {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(232, 46, 106, 0.08);
+  color: var(--faq-pink);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+/* Hover State */
+.popular-pill-btn:hover {
+  background: #FFFFFF;
+  border-color: var(--faq-pink);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 24px var(--faq-pink-glow);
+}
+
+.popular-pill-btn:hover .popular-pill-dot {
+  transform: scale(1.5);
+  box-shadow: 0 0 8px var(--faq-pink);
+}
+
+.popular-pill-btn:hover .popular-pill-text {
+  color: var(--faq-charcoal);
+  font-weight: 600;
+}
+
+.popular-pill-btn:hover .popular-category-tag {
+  background: var(--faq-pink);
+  color: #FFFFFF;
+}
+
+/* ============================================================
+   4. TOP HORIZONTAL ICON TABS BAR
+============================================================ */
+.faq-horizontal-tabs-container {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 8px 0 20px 0;
+  margin-bottom: 2.5rem;
+}
+
+.faq-horiz-tab-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--faq-card-bg);
+  border: 1px solid var(--faq-border);
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--faq-charcoal);
+  transition: all 0.25s ease;
+}
+
+.faq-horiz-tab-pill:hover {
+  border-color: var(--faq-pink);
+  color: var(--faq-pink);
+  transform: translateY(-2px);
+}
+
+.faq-horiz-tab-pill.active-tab {
+  background: var(--faq-pink);
+  color: #FFFFFF;
+  border-color: var(--faq-pink);
+  box-shadow: 0 4px 16px var(--faq-pink-glow);
+}
+
+.tab-icon {
+  font-size: 0.85rem;
+}
+
+/* ============================================================
+   5. 2-COLUMN MAIN Q&A (Sidebar + Accordion)
+============================================================ */
+.faq-main-content-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 40px;
+  align-items: start;
+  margin-bottom: 4.5rem;
+  scroll-margin-top: 110px; /* Precise scroll anchor position */
+}
+
+/* Sidebar */
+.faq-categories-sidebar {
+  position: sticky;
+  top: 100px;
+}
+
+.sidebar-card-box {
+  background: var(--faq-card-bg);
+  border-radius: 20px;
+  border: 1px solid var(--faq-border);
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+}
+
+.sidebar-header-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--faq-muted);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--faq-border);
+}
+
+.sidebar-categories-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cat-nav-item-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: var(--font-sans);
+}
+
+.cat-num {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--faq-muted);
+  transition: color 0.2s ease;
+}
+
+.cat-title {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--faq-charcoal);
+  transition: color 0.2s ease;
+}
+
+.cat-nav-item-btn:hover {
+  background: var(--faq-pink-light);
+  transform: translateX(4px);
+}
+
+.cat-nav-item-btn.cat-active {
+  background: var(--faq-pink-light);
+  border-left: 3px solid var(--faq-pink);
+}
+
+.cat-nav-item-btn.cat-active .cat-num,
+.cat-nav-item-btn.cat-active .cat-title {
+  color: var(--faq-pink);
+  font-weight: 700;
+}
+
+/* Sidebar Personal Advice Banner */
+.sidebar-advice-banner {
+  margin-top: 24px;
+  padding: 16px;
+  background: #FAF7F6;
+  border-radius: 14px;
+  border: 1px dashed var(--faq-border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.advice-icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--faq-pink-light);
+  color: var(--faq-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.advice-text-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.advice-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--faq-charcoal);
+  margin-bottom: 2px;
+}
+
+.advice-contact-link {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--faq-pink);
+  text-decoration: none;
+}
+
+.advice-contact-link:hover {
+  text-decoration: underline;
+}
+
+/* Accordion Area */
+.accordion-pane-header {
+  margin-bottom: 20px;
+}
+
+.current-category-title {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  font-weight: 400;
+  color: var(--faq-charcoal);
+}
+
+.faq-accordion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-accordion-card {
+  background: var(--faq-card-bg);
+  border-radius: 16px;
+  border: 1px solid var(--faq-border);
+  box-shadow: var(--shadow-subtle);
+  overflow: hidden;
+  transition: all 0.35s var(--ease-smooth);
+}
+
+.faq-accordion-card:hover {
+  border-color: rgba(232, 46, 106, 0.45);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.faq-accordion-card.accordion-open {
+  border-color: var(--faq-pink);
+  box-shadow: 0 8px 30px var(--faq-pink-glow);
+}
+
+/* Target Pulse Glow when clicked from popular question */
+.faq-accordion-card.question-highlighted {
+  border-color: var(--faq-pink) !important;
+  box-shadow: 0 0 0 4px var(--faq-pink-glow),
+              0 10px 35px rgba(232, 46, 106, 0.25) !important;
+  animation: pulseTargetGlow 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes pulseTargetGlow {
+  0% { box-shadow: 0 0 0 2px var(--faq-pink-glow); }
+  100% { box-shadow: 0 0 0 6px rgba(232, 46, 106, 0.4), 0 10px 35px var(--faq-pink-glow); }
+}
+
+.accordion-header-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: transparent;
+  border: none;
+  padding: 18px 22px;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Animated + / - Rotating Circular Icon */
+.accordion-toggle-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid var(--faq-pink);
+  background: transparent;
+  color: var(--faq-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: transform 0.4s var(--ease-smooth),
+              background-color 0.3s ease,
+              color 0.3s ease;
+}
+
+.accordion-open .accordion-toggle-circle {
+  background: var(--faq-pink);
+  color: #FFFFFF;
+  transform: rotate(180deg);
+}
+
+.accordion-question-text {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--faq-charcoal);
+  line-height: 1.4;
+}
+
+.accordion-body-collapse {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s var(--ease-smooth);
+}
+
+.accordion-open .accordion-body-collapse {
+  max-height: 400px;
+}
+
+.accordion-body-inner {
+  padding: 0 22px 22px 66px;
+}
+
+.accordion-answer-text {
+  font-size: 0.94rem;
+  line-height: 1.75;
+  color: var(--faq-dark-gray);
+  font-weight: 300;
+}
+
+.answer-category-badge {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--faq-pink);
+  background: var(--faq-pink-light);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.no-faq-results {
+  background: var(--faq-card-bg);
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  border: 1px solid var(--faq-border);
+}
+
+.reset-search-btn {
+  margin-top: 12px;
+  background: var(--faq-pink);
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+/* ============================================================
+   6. "QUESTIONS ABOUT TREATMENTS?" 4-CARDS
+============================================================ */
+.faq-treatment-cards-section {
+  margin-bottom: 4.5rem;
+}
+
+.treatment-cards-heading {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  text-align: center;
+  color: var(--faq-charcoal);
+  margin-bottom: 2rem;
+}
+
+.treatment-cards-heading em {
+  font-style: italic;
+  color: var(--faq-pink);
+}
+
+.treatment-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.faq-treatment-feature-card {
+  background: var(--faq-card-bg);
+  border-radius: 18px;
+  border: 1px solid var(--faq-border);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s var(--ease-smooth), box-shadow 0.35s ease;
+}
+
+.faq-treatment-feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
+}
+
+.card-image-box {
+  width: 100%;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+}
+
+.treatment-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-smooth);
+}
+
+.faq-treatment-feature-card:hover .treatment-card-img {
+  transform: scale(1.08);
+}
+
+.card-info-box {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-treatment-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--faq-charcoal);
+  margin-bottom: 6px;
+}
+
+.card-treatment-desc {
+  font-size: 0.78rem;
+  color: var(--faq-muted);
+  line-height: 1.45;
+  margin-bottom: 16px;
+}
+
+.card-faq-action-link {
+  margin-top: auto;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--faq-pink);
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.card-faq-action-link:hover {
+  color: #d81b60;
+  transform: translateX(3px);
+}
+
+/* ============================================================
+   7. MEN'S SPOTLIGHT BANNER
+============================================================ */
+.faq-spotlight-banner-section {
+  background: var(--faq-card-bg);
+  border-radius: 24px;
+  border: 1px solid var(--faq-border);
+  box-shadow: var(--shadow-card);
+  display: grid;
+  grid-template-columns: 280px 1.2fr 1fr;
+  align-items: center;
+  gap: 32px;
+  padding: 24px 32px 24px 24px;
+  margin-bottom: 3.5rem;
+  background-image: radial-gradient(circle at 100% 100%, var(--faq-pink-light), transparent 50%);
+}
+
+.spotlight-photo-col {
+  width: 100%;
+  aspect-ratio: 16/12;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.spotlight-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.spotlight-title {
+  font-family: var(--font-serif);
+  font-size: 1.95rem;
+  line-height: 1.2;
+  color: var(--faq-charcoal);
+  margin-bottom: 12px;
+}
+
+.spotlight-desc {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--faq-muted);
+}
+
+.spotlight-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.spotlight-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.84rem;
+  color: var(--faq-dark-gray);
+  font-weight: 500;
+}
+
+.list-icon-badge {
+  color: var(--faq-pink);
+  font-size: 0.9rem;
+}
+
+.spotlight-cta-btn {
+  background: var(--faq-pink);
+  color: #FFFFFF;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.spotlight-cta-btn:hover {
+  background-color: #d81b60;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--faq-pink-glow);
+}
+
+/* ============================================================
+   8. "TALK TO OUR EXPERTS" CTA BANNER
+============================================================ */
+.faq-expert-cta-banner {
+  background: #FAF7F6;
+  border-radius: 24px;
+  border: 1px solid var(--faq-border);
+  padding: 32px 36px;
+  display: grid;
+  grid-template-columns: 180px 1.4fr 1fr;
+  align-items: center;
+  gap: 36px;
+  margin-bottom: 3.5rem;
+}
+
+.expert-photo-wrap {
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.expert-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.expert-tagline {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--faq-pink);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.expert-headline {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  color: var(--faq-charcoal);
+  margin-bottom: 8px;
+}
+
+.expert-subtext {
+  font-size: 0.88rem;
+  color: var(--faq-muted);
+  line-height: 1.55;
+  margin-bottom: 20px;
+}
+
+.expert-actions-row {
+  display: flex;
+  gap: 14px;
+}
+
+.expert-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.btn-solid-pink {
+  background: var(--faq-pink);
+  color: #FFFFFF;
+}
+
+.btn-solid-pink:hover {
+  background-color: #d81b60;
+  box-shadow: 0 6px 20px var(--faq-pink-glow);
+}
+
+.btn-outline-pink {
+  background: #FFFFFF;
+  border: 1.5px solid var(--faq-pink);
+  color: var(--faq-pink);
+}
+
+.btn-outline-pink:hover {
+  background-color: var(--faq-pink-light);
+}
+
+.expert-pillars-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pillar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pillar-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1px solid var(--faq-border);
+  color: var(--faq-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.pillar-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.pillar-text strong {
+  font-size: 0.82rem;
+  color: var(--faq-charcoal);
+}
+
+.pillar-text span {
+  font-size: 0.72rem;
+  color: var(--faq-muted);
+}
+
+/* ============================================================
+   9. BOTTOM STATS BAR
+============================================================ */
+.faq-bottom-stats-bar {
+  background: var(--faq-card-bg);
+  border-radius: 20px;
+  border: 1px solid var(--faq-border);
+  box-shadow: var(--shadow-subtle);
+  padding: 24px 32px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.bottom-stat-unit {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stat-unit-icon {
+  font-size: 1.6rem;
+  color: var(--faq-pink);
+}
+
+.stat-unit-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-val {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--faq-charcoal);
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  color: var(--faq-muted);
+}
+
+/* ============================================================
+   10. RESPONSIVE BREAKPOINTS
+============================================================ */
+@media (max-width: 1200px) {
+  .treatment-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .faq-spotlight-banner-section,
+  .faq-expert-cta-banner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 992px) {
+  .faq-hero-banner-section {
+    grid-template-columns: 1fr;
+  }
+
+  .faq-main-content-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .faq-categories-sidebar {
+    position: static;
+  }
+
+  .sidebar-categories-nav {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .faq-page-master-wrapper {
+    padding: 100px 3% 60px 3%;
+  }
+
+  .treatment-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar-categories-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .faq-bottom-stats-bar {
+    justify-content: flex-start;
+    gap: 24px;
+  }
+
+  .accordion-body-inner {
+    padding: 0 16px 16px 16px;
+  }
+
+  .expert-actions-row {
+    flex-direction: column;
+  }
+}

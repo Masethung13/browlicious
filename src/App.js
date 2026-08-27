@@ -18,6 +18,7 @@ import AbtPg from "./components/AbtPg";
 import Results from "./components/Results"; 
 import Blogspg from "./components/Blogspg";
 import ContactPage from "./components/ContactPage";
+import FAQPage from "./components/FAQPage";
 
 // Scroll to top on route change helper
 function ScrollToTop() {
@@ -176,6 +177,10 @@ function App() {
           <Route
             path="/contact-us"
             element={<ContactPage isDarkMode={isDarkMode} />}
+          />
+          <Route
+            path="/faq"
+            element={<FAQPage isDarkMode={isDarkMode} />}
           />
         </Routes>
 
