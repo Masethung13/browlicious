@@ -602,7 +602,7 @@ export default function BookAppointment({ isDarkMode = false, setIsDarkMode }) {
       });
 
       // 2. Send email via FormSubmit.co
-      await fetch("https://formsubmit.co/ajax/bharathdws98424@gmail.com", {
+      await fetch("https://formsubmit.co/ajax/hello@vayonixinfotech.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
