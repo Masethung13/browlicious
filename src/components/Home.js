@@ -81,13 +81,14 @@ const Home = ({ isDarkMode: parentDarkMode, setIsDarkMode: parentSetIsDarkMode }
 
       if (!pinWrapper || !morphImage || !targetSlot || !heroContent || !targetContent) return;
 
-      // Calculate relative position for the target slot with -35px top offset
+      // Calculate relative position for the target slot (desktop: -10px, mobile: +13px)
       const getTargetCoords = () => {
         const wrapperRect = pinWrapper.getBoundingClientRect();
         const slotRect = targetSlot.getBoundingClientRect();
+        const isMobile = window.innerWidth <= 768;
         return {
           x: slotRect.left - wrapperRect.left,
-          y: slotRect.top - wrapperRect.top - 10,
+          y: slotRect.top - wrapperRect.top + (isMobile ? 13 : -10),
           width: targetSlot.offsetWidth,
           height: targetSlot.offsetHeight,
         };

@@ -360,7 +360,8 @@ export default function FAQPage({ isDarkMode = false, setIsDarkMode }) {
           scrollTrigger: {
             trigger: ".faq-search-box-card",
             start: "top 88%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
+            once: true,
           },
         }
       );
@@ -377,7 +378,8 @@ export default function FAQPage({ isDarkMode = false, setIsDarkMode }) {
           scrollTrigger: {
             trigger: ".faq-horizontal-tabs-container",
             start: "top 90%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
+            once: true,
           },
         }
       );
@@ -394,7 +396,8 @@ export default function FAQPage({ isDarkMode = false, setIsDarkMode }) {
           scrollTrigger: {
             trigger: ".faq-main-content-layout",
             start: "top 85%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
+            once: true,
           },
         }
       );
@@ -411,7 +414,8 @@ export default function FAQPage({ isDarkMode = false, setIsDarkMode }) {
           scrollTrigger: {
             trigger: ".faq-main-content-layout",
             start: "top 85%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
+            once: true,
           },
         }
       );
@@ -429,7 +433,8 @@ export default function FAQPage({ isDarkMode = false, setIsDarkMode }) {
           scrollTrigger: {
             trigger: ".faq-treatment-cards-section",
             start: "top 85%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
+            once: true,
           },
         }
       );
@@ -446,7 +451,8 @@ export default function FAQPage({ isDarkMode = false, setIsDarkMode }) {
           scrollTrigger: {
             trigger: ".faq-spotlight-banner-section",
             start: "top 85%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
+            once: true,
           },
         }
       );
@@ -463,7 +469,8 @@ export default function FAQPage({ isDarkMode = false, setIsDarkMode }) {
           scrollTrigger: {
             trigger: ".faq-expert-cta-banner",
             start: "top 85%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
+            once: true,
           },
         }
       );
@@ -481,12 +488,17 @@ export default function FAQPage({ isDarkMode = false, setIsDarkMode }) {
           scrollTrigger: {
             trigger: ".faq-bottom-stats-bar",
             start: "top 90%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
+            once: true,
           },
         }
       );
 
-      ScrollTrigger.refresh();
+      const refreshTimer = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
+
+      return () => clearTimeout(refreshTimer);
     }, containerRef);
 
     return () => ctx.revert();

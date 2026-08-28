@@ -10,8 +10,8 @@ const NAV_LINKS = [
   { name: "Services", href: "/services", subtitle: "03 / Signature PMU", isRoute: true },
   { name: "Result", href: "/results", subtitle: "04 / The Experience", isRoute: true },
   { name: "Blogs", href: "/blogs", subtitle: "05 / Beauty Insights", isRoute: true },
-  { name: "Faq", href: "/faq", subtitle: "07 / Reviews" },
-  { name: "Contact", href: "/contact", subtitle: "08 / Book Session", isRoute: true },
+  { name: "Faq", href: "/faq", subtitle: "06 / FAQs", isRoute: true },
+  { name: "Contact", href: "/contact", subtitle: "07 / Book Session", isRoute: true },
 ];
 
 export default function Header({ isDarkMode = false }) {
